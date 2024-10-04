@@ -5,11 +5,10 @@ const orderSchema = new mongoose.Schema({
   providerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Provider', required: true },
   menuItemIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'MenuItem' }],
   totalAmount: { type: Number, required: true },
-  status: { type: String, enum: ['active', 'cancelled', 'completed'], default: 'active' },
+  status: { type: String, enum: ['active', 'completed', 'canceled'], default: 'active' },
   orderDate: { type: Date, default: Date.now },
-  subscriptionType: { type: String, enum: ['weekly', 'monthly'] },
-  orderStatusHistory: [{ status: String, timestamp: Date }],
-  paymentStatus: { type: String, enum: ['paid', 'unpaid'], default: 'unpaid' }
-}, { timestamps: true });
+  subscriptionType: { type: String },
+  paymentStatus: { type: String, enum: ['paid', 'pending', 'failed'], default: 'paid' }
+});
 
 module.exports = mongoose.model('Order', orderSchema);
