@@ -1,0 +1,42 @@
+.admin-dashboard {
+    padding: 20px;
+  }
+  
+  .admin-dashboard h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .admin-dashboard table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+  }
+  
+  .admin-dashboard table, th, td {
+    border: 1px solid #ddd;
+  }
+  
+  .admin-dashboard th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .admin-dashboard th {
+    background-color: #f4f4f4;
+  }
+  
+  .admin-dashboard button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .admin-dashboard button:hover {
+    background-color: #0056b3;
+  }
+  
