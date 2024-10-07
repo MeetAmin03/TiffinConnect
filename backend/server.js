@@ -296,3 +296,73 @@ app.get('/api/admin/orders', authMiddleware, isAdmin, async (req, res) => {
     res.status(500).json({ message: 'Error fetching orders' });
   }
 });
+
+
+
+// Get user by ID (Admin only)
+app.get('/api/admin/users/:id', authMiddleware, isAdmin, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching user' });
+  }
+});
+
+// Get provider by ID (Admin only)
+app.get('/api/admin/providers/:id', authMiddleware, isAdmin, async (req, res) => {
+  try {
+    const provider = await Provider.findById(req.params.id);
+    if (!provider) return res.status(404).json({ message: 'Provider not found' });
+    res.json(provider);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching provider' });
+  }
+});
+
+
+// Update user by ID (Admin only)
+app.put('/api/admin/users/:id', authMiddleware, isAdmin, async (req, res) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedUser) return res.status(404).json({ message: 'User not found' });
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating user' });
+  }
+});
+
+// Update provider by ID (Admin only)
+app.put('/api/admin/providers/:id', authMiddleware, isAdmin, async (req, res) => {
+  try {
+    const updatedProvider = await Provider.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedProvider) return res.status(404).json({ message: 'Provider not found' });
+    res.json(updatedProvider);
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating provider' });
+  }
+});
+
+
+// Delete user by ID (Admin only)
+app.delete('/api/admin/users/:id', authMiddleware, isAdmin, async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    if (!deletedUser) return res.status(404).json({ message: 'User not found' });
+    res.json({ message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting user' });
+  }
+});
+
+// Delete provider by ID (Admin only)
+app.delete('/api/admin/providers/:id', authMiddleware, isAdmin, async (req, res) => {
+  try {
+    const deletedProvider = await Provider.findByIdAndDelete(req.params.id);
+    if (!deletedProvider) return res.status(404).json({ message: 'Provider not found' });
+    res.json({ message: 'Provider deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting provider' });
+  }
+});
