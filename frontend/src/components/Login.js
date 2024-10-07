@@ -40,6 +40,8 @@ const Login = () => {
         navigate('/provider-dashboard');
       } else if (data.role === 'driver') {
         navigate('/driver-dashboard');
+      }else if (data.role === 'admin') {
+        navigate('/admin-dashboard');
       }
     } catch (error) {
       setError(error.message);

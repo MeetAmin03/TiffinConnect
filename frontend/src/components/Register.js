@@ -67,6 +67,7 @@ const Register = () => {
           <option value="customer">Customer</option>
           <option value="provider">Provider</option>
           <option value="driver">Driver</option>
+          <option value="admin">Admin</option>
         </select>
 
         {error && <p className="error">{error}</p>}
