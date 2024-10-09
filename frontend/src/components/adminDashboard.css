@@ -1,42 +1,133 @@
 .admin-dashboard {
-    padding: 20px;
-  }
-  
-  .admin-dashboard h1 {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  .admin-dashboard table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 30px;
-  }
-  
-  .admin-dashboard table, th, td {
-    border: 1px solid #ddd;
-  }
-  
-  .admin-dashboard th, td {
-    padding: 10px;
-    text-align: left;
-  }
-  
-  .admin-dashboard th {
-    background-color: #f4f4f4;
-  }
-  
-  .admin-dashboard button {
-    margin-right: 10px;
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  .admin-dashboard button:hover {
-    background-color: #0056b3;
-  }
-  
+  padding: 20px;
+}
+
+.admin-dashboard h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.admin-dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+.admin-dashboard table, th, td {
+  border: 1px solid #ddd;
+}
+
+.admin-dashboard th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+.admin-dashboard th {
+  background-color: #f4f4f4;
+}
+
+.admin-dashboard button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.admin-dashboard button:hover {
+  background-color: #0056b3;
+}
+
+/* Container for form to provide centered alignment */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Card component to give a professional look */
+.form-card {
+  position: relative;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 500px;
+  width: 100%;
+  margin: 20px 0;
+}
+
+/* Close button styling */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+.close-btn:hover {
+  color: #dc3545;
+}
+
+/* Form group for better alignment of label and input */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+/* Styling for the input fields */
+.form-input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+/* Action buttons styling */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Button styles */
+.btn {
+  padding: 10px 20px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-save {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.btn-save:hover {
+  background-color: #218838;
+}
+
+.btn-cancel {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-cancel:hover {
+  background-color: #c82333;
+}
+
+/* Ensure the form-card has smooth spacing */
+h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
