@@ -87,8 +87,8 @@ async function insertSampleData() {
     });
 
     const userAdmin = await User.create({
-      name: 'Olivia Brown',
-      email: 'olivia.brown@example.com',
+      name: 'Admin',
+      email: 'a@gmail.com',
       password: hashedPasswordAdmin,
       role: 'admin',
       contactNumber: '4567890123',
