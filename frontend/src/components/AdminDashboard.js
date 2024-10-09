@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './adminDashboard.css'; 
+import './adminDashboard.css';
 import './Auth.css';
 import axios from 'axios';
 
@@ -352,7 +352,9 @@ const AdminDashboard = () => {
                 <td>{order.customerId?.name || 'Unknown Customer'}</td>
                 <td>{order.providerId?.restaurantName || 'Unknown Provider'}</td>
                 <td>${order.totalAmount}</td>
-                <td>{order.status}</td>
+                <td style={{ color: order.status === 'Active' ? 'red' : 'green' }}>
+                  {order.status}
+                </td>
               </tr>
             ))}
           </tbody>
