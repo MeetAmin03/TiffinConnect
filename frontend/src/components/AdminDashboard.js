@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './adminDashboard.css'; // Custom styles for the dashboard
+import './adminDashboard.css'; 
+import './Auth.css';
 import axios from 'axios';
 
 const AdminDashboard = () => {
@@ -215,35 +216,51 @@ const AdminDashboard = () => {
 
         {/* View or Edit User Form */}
         {selectedUser && (
-          <div>
-            <h3>{editMode ? 'Edit User' : 'View User'}</h3>
-            <label>Name:</label>
-            <input
-              name="name"
-              value={selectedUser.name}
-              onChange={(e) => handleInputChange(e, 'user')}
-              readOnly={!editMode} // Disable input if not in edit mode
-            />
-            <label>Email:</label>
-            <input
-              name="email"
-              value={selectedUser.email}
-              onChange={(e) => handleInputChange(e, 'user')}
-              readOnly={!editMode} // Disable input if not in edit mode
-            />
-            <label>Role:</label>
-            <input
-              name="role"
-              value={selectedUser.role}
-              onChange={(e) => handleInputChange(e, 'user')}
-              readOnly={!editMode} // Disable input if not in edit mode
-            />
-            {editMode ? (
-              <div>
-                <button onClick={handleSaveUser}>Save</button>
-                <button onClick={() => setEditMode(false)}>Cancel</button>
+          <div className="form-container">
+            <div className="form-card">
+              {/* Cross button to close the form */}
+              <button className="close-btn" onClick={() => setSelectedUser(null)}>×</button>
+
+              <h3>{editMode ? 'Edit User' : 'View User'}</h3>
+              <div className="form-group">
+                <label>Name:</label>
+                <input
+                  className="form-input"
+                  name="name"
+                  value={selectedUser.name}
+                  onChange={(e) => handleInputChange(e, 'user')}
+                  readOnly={!editMode}
+                />
               </div>
-            ) : null}
+              <div className="form-group">
+                <label>Email:</label>
+                <input
+                  className="form-input"
+                  name="email"
+                  value={selectedUser.email}
+                  onChange={(e) => handleInputChange(e, 'user')}
+                  readOnly={!editMode}
+                />
+              </div>
+              <div className="form-group">
+                <label>Role:</label>
+                <input
+                  className="form-input"
+                  name="role"
+                  value={selectedUser.role}
+                  onChange={(e) => handleInputChange(e, 'user')}
+                  readOnly={!editMode}
+                />
+              </div>
+              <div className="form-actions">
+                {editMode ? (
+                  <div>
+                    <button className="btn btn-save" onClick={handleSaveUser}>Save</button>
+                    <button className="btn btn-cancel" onClick={() => setEditMode(false)}>Cancel</button>
+                  </div>
+                ) : null}
+              </div>
+            </div>
           </div>
         )}
       </section>
@@ -276,28 +293,41 @@ const AdminDashboard = () => {
 
         {/* View or Edit Provider Form */}
         {selectedProvider && (
-          <div>
-            <h3>{editMode ? 'Edit Provider' : 'View Provider'}</h3>
-            <label>Restaurant Name:</label>
-            <input
-              name="restaurantName"
-              value={selectedProvider.restaurantName}
-              onChange={(e) => handleInputChange(e, 'provider')}
-              readOnly={!editMode} // Disable input if not in edit mode
-            />
-            <label>Rating:</label>
-            <input
-              name="rating"
-              value={selectedProvider.rating}
-              onChange={(e) => handleInputChange(e, 'provider')}
-              readOnly={!editMode} // Disable input if not in edit mode
-            />
-            {editMode ? (
-              <div>
-                <button onClick={handleSaveProvider}>Save</button>
-                <button onClick={() => setEditMode(false)}>Cancel</button>
+          <div className="form-container">
+            <div className="form-card">
+              {/* Cross button to close the form */}
+              <button className="close-btn" onClick={() => setSelectedProvider(null)}>×</button>
+
+              <h3>{editMode ? 'Edit Provider' : 'View Provider'}</h3>
+              <div className="form-group">
+                <label>Restaurant Name:</label>
+                <input
+                  className="form-input"
+                  name="restaurantName"
+                  value={selectedProvider.restaurantName}
+                  onChange={(e) => handleInputChange(e, 'provider')}
+                  readOnly={!editMode}
+                />
               </div>
-            ) : null}
+              <div className="form-group">
+                <label>Rating:</label>
+                <input
+                  className="form-input"
+                  name="rating"
+                  value={selectedProvider.rating}
+                  onChange={(e) => handleInputChange(e, 'provider')}
+                  readOnly={!editMode}
+                />
+              </div>
+              <div className="form-actions">
+                {editMode ? (
+                  <div>
+                    <button className="btn btn-save" onClick={handleSaveProvider}>Save</button>
+                    <button className="btn btn-cancel" onClick={() => setEditMode(false)}>Cancel</button>
+                  </div>
+                ) : null}
+              </div>
+            </div>
           </div>
         )}
       </section>
