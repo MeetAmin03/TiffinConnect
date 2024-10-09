@@ -1,46 +1,90 @@
+/* Base Styles for Admin Dashboard */
 .admin-dashboard {
   padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  min-height: 100vh;
 }
 
 .admin-dashboard h1 {
   text-align: center;
   margin-bottom: 30px;
+  font-size: 2rem;
+  color: #333;
 }
 
+.admin-dashboard h2 {
+  font-size: 1.5rem;
+  margin: 20px 0;
+  color: #555;
+}
+
+/* Table Styles */
 .admin-dashboard table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.admin-dashboard table, th, td {
+.admin-dashboard table,
+th,
+td {
   border: 1px solid #ddd;
 }
 
-.admin-dashboard th, td {
-  padding: 10px;
+.admin-dashboard th,
+td {
+  padding: 15px;
   text-align: left;
+  color: #333;
 }
 
 .admin-dashboard th {
+  background-color: #007bff;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+}
+
+.admin-dashboard tr:nth-child(even) {
   background-color: #f4f4f4;
 }
 
+/* Button Styles */
 .admin-dashboard button {
-  margin-right: 10px;
-  padding: 5px 10px;
+  padding: 7px 15px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 3px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .admin-dashboard button:hover {
   background-color: #0056b3;
 }
 
-/* Container for form to provide centered alignment */
+.admin-dashboard .btn-save {
+  background-color: #28a745;
+}
+
+.admin-dashboard .btn-save:hover {
+  background-color: #218838;
+}
+
+.admin-dashboard .btn-cancel {
+  background-color: #ffc107;
+}
+
+.admin-dashboard .btn-cancel:hover {
+  background-color: #e0a800;
+}
+
+/* Form Container */
 .form-container {
   display: flex;
   justify-content: center;
@@ -48,19 +92,24 @@
   margin-top: 20px;
 }
 
-/* Card component to give a professional look */
+/* Card Styles */
 .form-card {
   position: relative;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 25px;
   max-width: 500px;
   width: 100%;
   margin: 20px 0;
+  transition: transform 0.2s ease;
 }
 
-/* Close button styling */
+.form-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Close Button */
 .close-btn {
   position: absolute;
   top: 10px;
@@ -69,65 +118,120 @@
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: #333;
+  color: #999;
 }
 
 .close-btn:hover {
-  color: #dc3545;
+  color: #333;
 }
 
-/* Form group for better alignment of label and input */
+/* Form Group Styles */
 .form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
-/* Styling for the input fields */
-.form-input {
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
   border-radius: 5px;
-  font-size: 16px;
-  margin-top: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 1rem;
 }
 
-/* Action buttons styling */
+.form-group input[readonly] {
+  background-color: #e9ecef;
+}
+
+/* Form Actions */
 .form-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  margin-top: 15px;
 }
 
-/* Button styles */
-.btn {
+/* Active/Inactive Status Styling */
+.status-active {
+  color: green;
+  font-weight: bold;
+}
+
+.status-inactive {
+  color: red;
+  font-weight: bold;
+}
+
+button {
   padding: 10px 20px;
-  margin-left: 10px;
+  margin-right: 10px;
   border: none;
   border-radius: 5px;
-  font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.btn-save {
+/* Primary Button */
+button.primary {
+  background-color: #007bff;
+  color: white;
+}
+
+button.primary:hover {
+  background-color: #0056b3;
+}
+
+/* Secondary Button */
+button.secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+button.secondary:hover {
+  background-color: #565e64;
+}
+
+/* Success Button */
+button.success {
   background-color: #28a745;
-  color: #fff;
+  color: white;
 }
 
-.btn-save:hover {
+button.success:hover {
   background-color: #218838;
 }
 
-.btn-cancel {
+/* Danger Button */
+button.danger {
   background-color: #dc3545;
-  color: #fff;
+  color: white;
 }
 
-.btn-cancel:hover {
+button.danger:hover {
   background-color: #c82333;
 }
 
-/* Ensure the form-card has smooth spacing */
-h3 {
-  text-align: center;
-  margin-bottom: 20px;
+button+button {
+  margin-left: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+
+  .admin-dashboard table,
+  .admin-dashboard th,
+  .admin-dashboard td {
+    font-size: 0.875rem;
+  }
+
+  .form-card {
+    max-width: 100%;
+  }
 }
