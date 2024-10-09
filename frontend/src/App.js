@@ -6,8 +6,11 @@ import Register from './components/Register';
 import CustomerDashboard from './components/CustomerDashboard';
 import ProviderDashboard from './components/ProviderDashboard';
 import DriverDashboard from './components/DriverDashboard';
-import AdminDashboard from './components/AdminDashboard'; // Import AdminDashboard
+import AdminDashboard from './components/AdminDashboard';
 import './App.css';
+import Home from './components/Home';
+import Footer from './components/Footer';
+
 
 // Higher-Order Component (HOC) for protecting routes
 const ProtectedRoute = ({ component: Component, role, ...rest }) => {
@@ -22,6 +25,7 @@ const App = () => {
       <div className="app">
         <Navbar />
         <Routes>
+        <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route
@@ -36,12 +40,12 @@ const App = () => {
             path="/driver-dashboard"
             element={<ProtectedRoute component={DriverDashboard} role="driver" />}
           />
-          <Route
-            path="/admin-dashboard"
-            element={<ProtectedRoute component={AdminDashboard} role="admin" />}
-          /> {/* Admin protected route */}
-          <Route path="/" element={<h1>Welcome to Tiffin Connect</h1>} />
+          <Route 
+            path='admin-dashboard'
+            element={<ProtectedRoute component={AdminDashboard} role="admin"/>}
+            />
         </Routes>
+        <Footer/>
       </div>
     </Router>
   );

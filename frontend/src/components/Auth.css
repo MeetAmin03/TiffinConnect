@@ -1,38 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
+
 /* src/components/Auth.css */
+
+/* **********************************Login Pagen and register Page*************************** */
+/* Custom Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px; 
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f0f0; 
+  border-radius: 10px; 
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #f7d842;
+  border-radius: 10px;
+  border: 2px solid #f0f0f0; 
+  transition: background-color 0.3s ease; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #ffd700; 
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: #ffcc00; 
+}
+
 .auth-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+  background-image: url('../Images/TiffinBack.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 97.9%;
+  height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  padding: 25px;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); 
+  margin-bottom: 30vh;
+}
+
+.auth-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333; 
+  font-family: "Arvo", serif;
+}
+
+.auth-container input {
+  width: 92%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #333; 
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.auth-container input:hover, 
+.auth-container input:focus {
+  border-color: #F8D807; 
+  background-color: #f9f9f9; 
+  outline: none; 
+}
+
+.auth-container button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #F8D807; 
+  color: #000;
+  font-size: 1.1rem;
+  font-weight: bold;
+  font-family: "Arvo", serif;
+  cursor: pointer;
+  transition: background-color 0.4s ease, transform 0.3s ease;
+}
+
+.auth-container button:hover {
+  background-color: #ff6347; 
+  transform: scale(1.05); 
+}
+
+.auth-container button:active {
+  background-color: #F8D807;
+  transform: scale(0.98); 
+}
+
+.auth-container .error {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  text-align: center;
+  font-family: "Arial", sans-serif;
+}
+
+.SelectVal {
+  background-color: #f7d842;
+  color: #333; 
+  font-size: 16px; 
+  border: 2px solid #f2c14e; 
+  border-radius: 5px;
+  padding: 10px; 
+  outline: none; 
+  cursor: pointer; 
+  transition: all 0.3s ease; 
+  margin-bottom: 20px;
+}
+
+.SelectVal {
+  border-color: #ffd700; 
+  box-shadow: 0 0 5px rgba(255, 215, 0, 0.8); 
+}
+
+option {
+  background-color: #fff8db; 
+  color: #333; 
+}
+
+/* Optional hover effect for the select dropdown */
+.SelectVal:hover {
+  background-color: #ffe066; 
+}
+
+
+
+
+/* **********************Home Page************************** */
+
+
+
+  
+  .Headings {
+    margin-left: 20px; 
+    margin-right: auto; 
   }
   
-  .auth-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
+  .Headings h1 {
+    font-size: 2.5em;
+    color: #f0df71;
+    margin-right: 60vw;
+    text-shadow: 0px 4px 3px rgba(0,0,0,0.4),0px 8px 13px rgba(0,0,0,0.1), 0px 18px 23px rgba(0,0,0,0.1);
   }
   
-  .auth-container input {
+  .Headings h3 {
+    font-size: 1.5em;
+    color: #f0df71;
+    margin-left: 5vw;
+    text-shadow: 0px 4px 3px rgba(0,0,0,0.4),0px 8px 13px rgba(0,0,0,0.1), 0px 18px 23px rgba(0,0,0,0.1);
+    /* margin-top: 10vh; */
+  }
+
+  .HomeContainer {
+    background-image: url('../Images/TiffinBack.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    height: 100vh; 
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
   }
   
-  .auth-container button {
-    width: 100%;
-    padding: 10px;
+  .OrderNowButton {
+    display: inline-block;
+    background-color: #F8D807;
+    color: #000000;
+    padding: 10px 20px;
     border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Arvo", serif;
+    font-weight: 700;
+    font-style: normal;
+    margin-left: 7vw; 
+    font-size: 1.2em;
   }
   
-  .auth-container button:hover {
-    background-color: #0056b3;
+  .OrderNowButton:hover {
+    background-color: #ff6347;
   }
   
+  /* Optional: Add padding for the entire container */
+  .Headings,
+  .OrderNowButton {
+    padding-left: 20px;
+  }
+  
+
+
+/* ************************** MANU *************************** */
+
+/* Full-width and height container */
+.manuContainer {
+  width: 98.8vw;  
+  height: auto; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+}
+
+/* Inner div taking 100% width and height */
+.manuContainer > div {
+  width: 100%;  
+  height: 100%; 
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center; 
+  flex-wrap: wrap;
+}
+
+/* Inner items covering 40% width and 20% height */
+.manuItem {
+  display: flex;
+  width: 100%; 
+  max-width: 800px; 
+  height: auto; 
+  background-color: #fff; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  overflow: hidden; 
+  margin: 20px 0; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.manuItem:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+}
+
+.menuImage {
+  width: 40%; 
+  height: 100%; 
+  object-fit: cover; 
+  border-top-left-radius: 10px; 
+  border-bottom-left-radius: 10px;
+}
+
+.menuContent {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around; 
+  color: #333; 
+}
+
+.menuName {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.menuPrice {
+  font-size: 1.2rem;
+  color: #f7b42c; 
+  font-weight: bold;
+}
+
+.menuAvailability {
+  font-size: 1rem;
+  color: #28a745; 
+  margin-bottom: 10px;
+}
+
+.mealType {
+  font-size: 0.9rem;
+  background-color: #f7d842; 
+  padding: 5px 10px;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+  max-width: fit-content;
+}
+.menuHeading{
+  font-family: "Arvo", serif;
+}
+
+
