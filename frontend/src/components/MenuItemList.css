@@ -1,0 +1,38 @@
+/* MenuItemList.css */
+.menu-container {
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+  }
+  
+  .menu-container h2, .menu-list h3 {
+    text-align: center;
+  }
+  
+  .menu-container label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .menu-container input, .menu-container select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .menu-list {
+    margin-top: 30px;
+  }
+  
+  .menu-item {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  

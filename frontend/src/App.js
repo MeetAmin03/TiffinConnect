@@ -7,15 +7,14 @@ import CustomerDashboard from './components/CustomerDashboard';
 import ProviderDashboard from './components/ProviderDashboard';
 import DriverDashboard from './components/DriverDashboard';
 import AdminDashboard from './components/AdminDashboard';
-import './App.css';
 import Home from './components/Home';
 import Footer from './components/Footer';
+import ProviderProfile from './components/ProviderProfile';
+import MenuItemList from './components/MenuItemList';
+import './App.css';
 
-
-// Higher-Order Component (HOC) for protecting routes
 const ProtectedRoute = ({ component: Component, role, ...rest }) => {
-  const userRole = sessionStorage.getItem('role'); // Get the user role from sessionStorage
-
+  const userRole = sessionStorage.getItem('role');
   return userRole === role ? <Component {...rest} /> : <Navigate to="/login" />;
 };
 
@@ -25,7 +24,7 @@ const App = () => {
       <div className="app">
         <Navbar />
         <Routes>
-        <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route
@@ -40,12 +39,20 @@ const App = () => {
             path="/driver-dashboard"
             element={<ProtectedRoute component={DriverDashboard} role="driver" />}
           />
-          <Route 
-            path='admin-dashboard'
-            element={<ProtectedRoute component={AdminDashboard} role="admin"/>}
-            />
+          <Route
+            path="/admin-dashboard"
+            element={<ProtectedRoute component={AdminDashboard} role="admin" />}
+          />
+          <Route
+            path="/provider-profile"
+            element={<ProtectedRoute component={ProviderProfile} role="provider" />}
+          />
+          <Route
+            path="/menu-items"
+            element={<ProtectedRoute component={MenuItemList} role="provider" />}
+          />
         </Routes>
-        <Footer/>
+        <Footer />
       </div>
     </Router>
   );
