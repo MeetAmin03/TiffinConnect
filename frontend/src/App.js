@@ -53,7 +53,7 @@ const App = () => {
             path="/menu-items"
             element={<ProtectedRoute component={MenuItemList} role="provider" />}
           />
-            <Route
+          <Route
             path="/subscription-plans"
             element={<ProtectedRoute component={SubscriptionPlanList} role="provider" />}
           />
