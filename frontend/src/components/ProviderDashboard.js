@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getProviderProfile, getMenuItems } from '../api'; // Import the API functions
+import { getProviderProfile, getMenuItems, getSubscriptionPlans } from '../api'; // Import the API functions
 import './ProviderDashboard.css'; // Assuming you have a CSS file for styling
 
 const ProviderDashboard = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState({});
   const [menuItems, setMenuItems] = useState([]);
+  const [subscriptionPlans, setSubscriptionPlans] = useState([]); // State for subscription plans
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,6 +49,7 @@ const ProviderDashboard = () => {
   const handleSubscriptionClick = () => {
     navigate('/subscription-plans'); // Assuming you'll create this route
   };
+
 
   return (
 <div className="provider-dashboard">

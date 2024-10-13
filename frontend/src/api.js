@@ -1,11 +1,11 @@
 // In api.js (Use sessionStorage instead of localStorage)
 import axios from 'axios';
 
+
 const API = axios.create({
   baseURL: 'http://localhost:5000/api',
 });
 
-// Set the authorization token for requests if available
 API.interceptors.request.use((req) => {
   const token = sessionStorage.getItem('token');  // Get the token from sessionStorage
   if (token) {
@@ -25,13 +25,11 @@ export const updateProviderProfile = (profileData) => API.put('/provider/profile
 // Menu item APIs
 export const getMenuItems = () => API.get('/provider/menu');
 export const addMenuItem = (menuItemData) => API.post('/provider/menu', menuItemData);
-export const updateMenuItem = (id, menuItemData) => API.put(`/provider/menu/${id}`, menuItemData); // Added this line
-export const deleteMenuItem = (id) => API.delete(`/provider/menu/${id}`); // Added this line
-
+export const updateMenuItem = (id, menuItemData) => API.put(`/provider/menu/${id}`, menuItemData);
+export const deleteMenuItem = (id) => API.delete(`/provider/menu/${id}`);
 
 // Subscription plan APIs
 export const getSubscriptionPlans = () => API.get('/provider/plans');
 export const addSubscriptionPlan = (planData) => API.post('/provider/plans', planData);
 export const updateSubscriptionPlan = (id, planData) => API.put(`/provider/plans/${id}`, planData);
 export const deleteSubscriptionPlan = (id) => API.delete(`/provider/plans/${id}`);
-
