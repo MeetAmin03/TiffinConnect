@@ -38,9 +38,15 @@ const ProviderProfile = () => {
     }
   };
 
+  const handleBackClick = () => {
+    history.back(); // Navigate back to the previous page
+  };
+
   return (
     <div className="profile-container">
+      <button className="back-button" onClick={handleBackClick}>←</button>
       <h2>Manage Provider Profile</h2>
+
       <form onSubmit={handleSubmit}>
         <label>
           Restaurant Name:
@@ -82,6 +88,7 @@ const ProviderProfile = () => {
         </label>
         <button type="submit">Update Profile</button>
       </form>
+
       {message && <p className="success-message">{message}</p>}
     </div>
   );
