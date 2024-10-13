@@ -1,0 +1,201 @@
+/* Main container styling */
+.subscription-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #f4f4f9;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+.subscription-container h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+/* Add New Plan Button */
+.add-new-plan-btn {
+  display: block;
+  margin: 0 auto 30px;
+  padding: 12px 24px;
+  background-color: #e67e22;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-new-plan-btn:hover {
+  background-color: #d35400;
+}
+
+/* Form styling */
+form {
+  margin-bottom: 40px;
+  padding: 25px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #34495e;
+}
+
+form input[type="text"],
+form input[type="number"],
+form select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccd1d9;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+}
+
+form input:focus,
+form select:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+form button {
+  padding: 12px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #2980b9;
+}
+
+.cancel-btn {
+  background-color: #95a5a6;
+  margin-left: 15px;
+}
+
+.cancel-btn:hover {
+  background-color: #7f8c8d;
+}
+
+/* Meal selection styling */
+.meal-selection {
+  margin-bottom: 20px;
+}
+
+.meal-selection div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.meal-selection select {
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #ecf0f1;
+  border: 1px solid #bdc3c7;
+}
+
+/* Subscription plan list styling */
+.subscription-list {
+  margin-top: 40px;
+}
+
+.subscription-list h3 {
+  text-align: center;
+  color: #34495e;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* Subscription plan item styling */
+.subscription-item {
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.subscription-item:hover {
+  transform: scale(1.02);
+}
+
+.subscription-item h4 {
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+  color: #e67e22;
+  font-weight: 700;
+}
+
+.subscription-item p {
+  margin-bottom: 5px;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+/* Edit and Delete buttons */
+.edit-btn,
+.delete-btn {
+  padding: 10px 18px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.edit-btn:hover {
+  background-color: #2980b9;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .subscription-container {
+    padding: 20px;
+  }
+
+  .subscription-item {
+    padding: 15px;
+  }
+
+  .add-new-plan-btn {
+    font-size: 1rem;
+  }
+
+  form button {
+    font-size: 1rem;
+  }
+}

@@ -96,3 +96,75 @@ exports.deleteMenuItem = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+
+// Create a new subscription plan
+exports.createSubscriptionPlan = async (req, res) => {
+  const { planName, description, price, duration, meals } = req.body;
+  try {
+    const subscriptionPlan = await SubscriptionPlan.create({
+      providerId: req.user.userId,
+      planName,
+      description,
+      price,
+      duration,
+      meals // Include the selected menu items (array of menu item IDs)
+    });
+    res.status(201).json(subscriptionPlan);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Update a subscription plan
+exports.updateSubscriptionPlan = async (req, res) => {
+  try {
+    const { planName, description, price, duration, meals } = req.body;
+    const updatedPlan = await SubscriptionPlan.findByIdAndUpdate(req.params.id, {
+      planName,
+      description,
+      price,
+      duration,
+      meals // Update the menu items associated with the plan
+    }, { new: true });
+
+    if (!updatedPlan) {
+      return res.status(404).json({ message: 'Subscription plan not found' });
+    }
+    res.json(updatedPlan);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+// Get all subscription plans for a provider
+// Get all subscription plans for a provider
+exports.getSubscriptionPlans = async (req, res) => {
+  try {
+    const plans = await SubscriptionPlan.find({ providerId: req.user.userId })
+      .populate('meals', 'mealName'); // Populate meals with only the mealName field
+
+      console.log(plans);
+
+    res.json(plans);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching subscription plans' });
+  }
+};
+
+
+// Delete a subscription plan
+exports.deleteSubscriptionPlan = async (req, res) => {
+  try {
+    const plan = await SubscriptionPlan.findByIdAndDelete(req.params.id);
+    if (!plan) {
+      return res.status(404).json({ message: 'Subscription plan not found' });
+    }
+    res.json({ message: 'Subscription plan deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
