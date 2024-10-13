@@ -42,38 +42,47 @@ const ProviderDashboard = () => {
   };
 
   return (
-    <div className="provider-dashboard">
-      <h1>Welcome, {profile.restaurantName}!</h1>
+<div className="provider-dashboard">
+  <header className="dashboard-header">
+    <h1>Welcome, {profile.restaurantName}!</h1>
+    <p>Your one-stop dashboard to manage your restaurant's profile and menu.</p>
+  </header>
 
-      <div className="dashboard-stats">
-        <div className="stat-card">
-          <h3>Total Menu Items</h3>
-          <p>{menuItems.length}</p> {/* Display the count of menu items */}
-        </div>
-        <div className="stat-card">
-          <h3>Address</h3>
-          <p>{profile.address}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Delivery Options</h3>
-          <p>{profile.deliveryOptions}</p>
-        </div>
-      </div>
-
-      <div className="dashboard-options">
-        <div className="card">
-          <h3>Manage Profile</h3>
-          <p>View and update your restaurant details, delivery options, and more.</p>
-          <button onClick={handleProfileClick} className="dashboard-btn">Go to Profile</button>
-        </div>
-
-        <div className="card">
-          <h3>Manage Menu</h3>
-          <p>Add, edit, or delete menu items for your restaurant.</p>
-          <button onClick={handleMenuClick} className="dashboard-btn">Go to Menu</button>
-        </div>
-      </div>
+  <div className="dashboard-stats">
+    <div className="stat-card">
+      <div className="stat-icon">🍽️</div>
+      <h3>Total Menu Items</h3>
+      <p className="stat-value">{menuItems.length}</p>
     </div>
+
+    <div className="stat-card">
+      <div className="stat-icon">📍</div>
+      <h3>Address</h3>
+      <p>{profile.address}</p>
+    </div>
+
+    <div className="stat-card">
+      <div className="stat-icon">🚚</div>
+      <h3>Delivery Options</h3>
+      <p>{profile.deliveryOptions}</p>
+    </div>
+  </div>
+
+  <section className="dashboard-options">
+    <div className="card profile-card">
+      <h3>Manage Profile</h3>
+      <p>View and update your restaurant details, delivery options, and more.</p>
+      <button onClick={handleProfileClick} className="dashboard-btn">Go to Profile</button>
+    </div>
+
+    <div className="card menu-card">
+      <h3>Manage Menu</h3>
+      <p>Add, edit, or delete menu items for your restaurant.</p>
+      <button onClick={handleMenuClick} className="dashboard-btn">Go to Menu</button>
+    </div>
+  </section>
+</div>
+
   );
 };
 
