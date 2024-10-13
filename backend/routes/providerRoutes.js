@@ -9,7 +9,11 @@ const {
   createMenuItem, 
   updateMenuItem, 
   deleteMenuItem,
-  getMenuItems // Import the getMenuItems controller
+  getMenuItems, 
+  createSubscriptionPlan, 
+  getSubscriptionPlans, 
+  updateSubscriptionPlan, 
+  deleteSubscriptionPlan
 } = require('../controllers/providerController');
 
 const router = express.Router();
@@ -24,5 +28,12 @@ router.get('/menu', authMiddleware, getMenuItems); // Add this route for fetchin
 router.post('/menu', authMiddleware, createMenuItem);
 router.put('/menu/:id', authMiddleware, updateMenuItem);
 router.delete('/menu/:id', authMiddleware, deleteMenuItem);
+
+
+// Subscription plan routes
+router.get('/plans', authMiddleware, getSubscriptionPlans);
+router.post('/plans', authMiddleware, createSubscriptionPlan);
+router.put('/plans/:id', authMiddleware, updateSubscriptionPlan);
+router.delete('/plans/:id', authMiddleware, deleteSubscriptionPlan);
 
 module.exports = router;

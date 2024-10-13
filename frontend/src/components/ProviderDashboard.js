@@ -19,6 +19,10 @@ const ProviderDashboard = () => {
         const menuResponse = await getMenuItems();
         setMenuItems(menuResponse.data); // Set menu items to state
 
+        // Fetch subscription plans
+        const plansResponse = await getSubscriptionPlans();
+        setSubscriptionPlans(plansResponse.data); // Set subscription plans to state
+
       } catch (error) {
         if (error.response && error.response.status === 401) {
           // Handle unauthorized error: Redirect to login
@@ -39,6 +43,10 @@ const ProviderDashboard = () => {
 
   const handleMenuClick = () => {
     navigate('/menu-items');
+  };
+
+  const handleSubscriptionClick = () => {
+    navigate('/subscription-plans'); // Assuming you'll create this route
   };
 
   return (
@@ -80,6 +88,13 @@ const ProviderDashboard = () => {
       <p>Add, edit, or delete menu items for your restaurant.</p>
       <button onClick={handleMenuClick} className="dashboard-btn">Go to Menu</button>
     </div>
+
+    <div className="card">
+          <h3>Manage Subscription Plans</h3>
+          <p>Create, edit, or delete subscription plans for your customers.</p>
+          <button onClick={handleSubscriptionClick} className="dashboard-btn">Go to Subscription Plans</button>
+        </div>
+
   </section>
 </div>
 
