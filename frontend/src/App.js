@@ -12,6 +12,8 @@ import Footer from './components/Footer';
 import ProviderProfile from './components/ProviderProfile';
 import MenuItemList from './components/MenuItemList';
 import './App.css';
+import SubscriptionPlanList from './components/SubscriptionPlanList';
+
 
 const ProtectedRoute = ({ component: Component, role, ...rest }) => {
   const userRole = sessionStorage.getItem('role');
@@ -50,6 +52,10 @@ const App = () => {
           <Route
             path="/menu-items"
             element={<ProtectedRoute component={MenuItemList} role="provider" />}
+          />
+            <Route
+            path="/subscription-plans"
+            element={<ProtectedRoute component={SubscriptionPlanList} role="provider" />}
           />
         </Routes>
         <Footer />
