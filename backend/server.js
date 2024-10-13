@@ -5,6 +5,8 @@ const bcrypt = require('bcryptjs'); // Import bcrypt for password hashing
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken for generating tokens
 const cors = require('cors'); // Import cors
 const { authMiddleware, isAdmin } = require('./middleware/authMiddleware');
+const SubscriptionPlan = require('./models/SubscriptionPlan'); // Add this line
+
 
 // Load environment variables
 dotenv.config();
@@ -47,6 +49,7 @@ async function insertSampleData() {
     await Order.deleteMany({});
     await Delivery.deleteMany({});
     await Driver.deleteMany({});
+    await SubscriptionPlan.deleteMany({});
 
     console.log('All collections cleared successfully.');
 
@@ -122,7 +125,7 @@ async function insertSampleData() {
       reviews: [{ reviewId: new mongoose.Types.ObjectId(), comment: 'Great food!' }],
       restaurantLogoURL: 'https://example.com/logo/provider1.jpg',
       address: '101 Apple St, Foodville',
-      subscriptionPlans: [{ planId: new mongoose.Types.ObjectId(), price: 50, duration: 'monthly' }],
+      subscriptionPlans: [],
     });
 
     const provider2 = await Provider.create({
@@ -133,7 +136,7 @@ async function insertSampleData() {
       reviews: [{ reviewId: new mongoose.Types.ObjectId(), comment: 'Tasty and quick!' }],
       restaurantLogoURL: 'https://example.com/logo/provider2.jpg',
       address: '202 Orange St, Mealville',
-      subscriptionPlans: [{ planId: new mongoose.Types.ObjectId(), price: 60, duration: 'monthly' }],
+      subscriptionPlans: [],
     });
 
     // Sample menu items for Provider 1
@@ -153,30 +156,6 @@ async function insertSampleData() {
         price: 10.99,
         imageURL: 'https://example.com/menu/veggie-pizza.jpg',
         mealType: 'vegetarian',
-      },
-      {
-        providerId: provider1._id,
-        mealName: 'Spaghetti Bolognese',
-        description: 'Classic spaghetti with rich bolognese sauce.',
-        price: 12.99,
-        imageURL: 'https://example.com/menu/spaghetti.jpg',
-        mealType: 'non-vegetarian',
-      },
-      {
-        providerId: provider1._id,
-        mealName: 'Vegan Burrito',
-        description: 'A flavorful vegan burrito.',
-        price: 7.99,
-        imageURL: 'https://example.com/menu/vegan-burrito.jpg',
-        mealType: 'vegan',
-      },
-      {
-        providerId: provider1._id,
-        mealName: 'Fruit Smoothie',
-        description: 'A refreshing blend of fresh fruits.',
-        price: 5.99,
-        imageURL: 'https://example.com/menu/smoothie.jpg',
-        mealType: 'vegan',
       },
     ]);
 
@@ -198,37 +177,40 @@ async function insertSampleData() {
         imageURL: 'https://example.com/menu/margherita.jpg',
         mealType: 'vegetarian',
       },
-      {
-        providerId: provider2._id,
-        mealName: 'Chicken Caesar Wrap',
-        description: 'Chicken Caesar wrap with a fresh salad.',
-        price: 8.99,
-        imageURL: 'https://example.com/menu/caesar-wrap.jpg',
-        mealType: 'non-vegetarian',
-      },
-      {
-        providerId: provider2._id,
-        mealName: 'Falafel Wrap',
-        description: 'Vegan falafel wrap with hummus and salad.',
-        price: 7.99,
-        imageURL: 'https://example.com/menu/falafel-wrap.jpg',
-        mealType: 'vegan',
-      },
-      {
-        providerId: provider2._id,
-        mealName: 'Mango Lassi',
-        description: 'Refreshing mango lassi drink.',
-        price: 4.99,
-        imageURL: 'https://example.com/menu/lassi.jpg',
-        mealType: 'vegetarian',
-      },
     ]);
 
-    console.log('Sample data with two providers and five menu items each inserted successfully');
+    // Sample subscription plans for providers
+    const subscriptionPlan1 = await SubscriptionPlan.create({
+      providerId: provider1._id,
+      planName: 'Monthly Meal Plan',
+      description: 'Includes 30 meals per month.',
+      price: 50,
+      duration: 'monthly',
+      meals: menuItemsProvider1.map((item) => item._id),
+    });
+
+    const subscriptionPlan2 = await SubscriptionPlan.create({
+      providerId: provider2._id,
+      planName: 'Weekly Meal Plan',
+      description: 'Includes 7 meals per week.',
+      price: 60,
+      duration: 'weekly',
+      meals: menuItemsProvider2.map((item) => item._id),
+    });
+
+    // Update providers with their respective subscription plans
+    provider1.subscriptionPlans.push(subscriptionPlan1._id);
+    provider2.subscriptionPlans.push(subscriptionPlan2._id);
+
+    await provider1.save();
+    await provider2.save();
+
+    console.log('Sample data with two providers, menu items, and subscription plans inserted successfully');
   } catch (error) {
     console.log('Error inserting sample data:', error);
   }
 }
+
 
 
 // Registration Endpoint

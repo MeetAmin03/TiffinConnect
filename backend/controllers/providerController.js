@@ -2,6 +2,8 @@
 
 const Provider = require('../models/Provider');
 const MenuItem = require('../models/MenuItem');
+const SubscriptionPlan = require('../models/SubscriptionPlan');
+
 
 // Get provider profile
 exports.getProviderProfile = async (req, res) => {
