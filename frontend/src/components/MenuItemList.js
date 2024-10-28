@@ -13,6 +13,7 @@ const MenuItemList = () => {
     mealType: 'vegetarian',
   });
   const [editingItem, setEditingItem] = useState(null); // Track the item being edited
+  const [imagePreview, setImagePreview] = useState('');
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -30,9 +31,22 @@ const MenuItemList = () => {
     setNewItem({ ...newItem, [e.target.name]: e.target.value });
   };
 
+  const handleImageError = (e) => {
+    e.target.onerror = null; // Prevent infinite loop
+    e.target.src = '/placeholder-food.jpg'; // Replace with your default image path
+  };
+
+
+
   const handleAddNewItemClick = () => {
     setIsAdding(true); // Show the add menu item form
     setEditingItem(null); // Reset editing
+  };
+
+  const handleImageURLChange = (e) => {
+    const url = e.target.value;
+    setNewItem({ ...newItem, imageURL: url });
+    setImagePreview(url);
   };
 
   const handleEditClick = (item) => {
@@ -76,8 +90,13 @@ const MenuItemList = () => {
     setEditingItem(null); // Reset editing
   };
 
+  const handleBackClick = () => {
+    history.back(); // Navigate back to the previous page
+  };
+
   return (
     <div className="menu-container">
+      <button className="back-button" onClick={handleBackClick}>&#11013;</button>
       <h2>Manage Menu Items</h2>
 
       {/* Button to add new menu item */}
@@ -125,9 +144,19 @@ const MenuItemList = () => {
               type="text"
               name="imageURL"
               value={newItem.imageURL}
-              onChange={handleChange}
+              onChange={handleImageURLChange}
             />
           </label>
+          {/* Image preview */}
+          {newItem.imageURL && (
+            <div className="image-preview">
+              <img
+                src={newItem.imageURL}
+                alt="Preview"
+                onError={handleImageError}
+              />
+            </div>
+          )}
           <label>
             Meal Type:
             <select name="mealType" value={newItem.mealType} onChange={handleChange}>
@@ -149,7 +178,16 @@ const MenuItemList = () => {
       <div className="menu-list">
         <h3>Existing Menu Items</h3>
         {menuItems.map((item) => (
-          <div key={item._id} className="menu-item">
+          <div key={item._id} className="menu-item" data-meal-type={item.mealType}>
+            {item.imageURL && (
+              <div className="menu-item-image">
+                <img
+                  src={item.imageURL}
+                  alt={item.mealName}
+                  onError={handleImageError}
+                />
+              </div>
+            )}
             <h4>{item.mealName}</h4>
             <p>{item.description}</p>
             <p>Price: ${item.price}</p>
