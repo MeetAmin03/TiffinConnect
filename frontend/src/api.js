@@ -1,18 +1,19 @@
-// In api.js (Use sessionStorage instead of localStorage)
+// api.js
 import axios from 'axios';
-
 
 const API = axios.create({
   baseURL: 'http://localhost:5000/api',
 });
 
 API.interceptors.request.use((req) => {
-  const token = sessionStorage.getItem('token');  // Get the token from sessionStorage
+  const token = sessionStorage.getItem('token');
   if (token) {
-    req.headers.Authorization = `Bearer ${token}`;  // Attach token to Authorization header
+    req.headers.Authorization = `Bearer ${token}`;
   }
   return req;
 });
+
+export default API; // Default export for API
 
 // User registration and login
 export const registerUser = (formData) => API.post('/auth/register', formData);
@@ -33,3 +34,10 @@ export const getSubscriptionPlans = () => API.get('/provider/plans');
 export const addSubscriptionPlan = (planData) => API.post('/provider/plans', planData);
 export const updateSubscriptionPlan = (id, planData) => API.put(`/provider/plans/${id}`, planData);
 export const deleteSubscriptionPlan = (id) => API.delete(`/provider/plans/${id}`);
+
+// Customer profile APIs
+export const getCustomerProfile = () => API.get('/customer/profile');
+export const updateCustomerProfile = (profileData) => 
+  API.put('/customer/profile', profileData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  });

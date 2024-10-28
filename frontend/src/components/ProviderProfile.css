@@ -115,7 +115,6 @@ body {
 }
 
 .dashboard-btn {
-  background-color: #2a9d8f;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -187,7 +186,7 @@ body {
 }
 
 .profile-container input:focus {
-  border-color: #2a9d8f;
+  /* border-color: #2a9d8f; */
   outline: none;
   box-shadow: 0 0 5px rgba(42, 157, 143, 0.5);
 }

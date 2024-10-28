@@ -49,13 +49,26 @@ const ProviderDashboard = () => {
   const handleSubscriptionClick = () => {
     navigate('/subscription-plans'); // Assuming you'll create this route
   };
+useEffect(() => {
+  const typewriterElement = document.querySelector('.TypeWritter');
+  const typerwriterp = document.querySelector('.typerwriterp');
+  const paragraphElement = document.querySelector('.dashboard-header p');
 
+  // Wait for the typewriter animation to finish (3s)
+  setTimeout(() => {
+    typewriterElement.classList.add('no-cursor'); // Remove the blinking cursor
+    typerwriterp.classList.add('no-cursor');
+    paragraphElement.classList.add('show-p'); // Show the <p> tag
+  }, 3000); // Matches the typewriter animation duration
+}, []);
+
+  
 
   return (
 <div className="provider-dashboard">
   <header className="dashboard-header">
-    <h1>Welcome, {profile.restaurantName}!</h1>
-    <p>Your one-stop dashboard to manage your restaurant's profile and menu.</p>
+    <h1 className="TypeWritter">Welcome, {profile.restaurantName}!</h1>
+    <p className='typerwriterp'>Your one-stop dashboard to manage your restaurant's profile and menu.</p>
   </header>
 
   <div className="dashboard-stats">
@@ -82,23 +95,23 @@ const ProviderDashboard = () => {
     <div className="card profile-card">
       <h3>Manage Profile</h3>
       <p>View and update your restaurant details, delivery options, and more.</p>
-      <button onClick={handleProfileClick} className="dashboard-btn">Go to Profile</button>
+      <button onClick={handleProfileClick} className="dashboard-btn">Profile</button>
     </div>
 
     <div className="card menu-card">
       <h3>Manage Menu</h3>
       <p>Add, edit, or delete menu items for your restaurant.</p>
-      <button onClick={handleMenuClick} className="dashboard-btn">Go to Menu</button>
+      <button onClick={handleMenuClick} className="dashboard-btn">Menu</button>
     </div>
 
     <div className="card">
-          <h3>Manage Subscription Plans</h3>
-          <p>Create, edit, or delete subscription plans for your customers.</p>
-          <button onClick={handleSubscriptionClick} className="dashboard-btn">Go to Subscription Plans</button>
-        </div>
-
+      <h3>Manage Subscription Plans</h3>
+      <p>Create, edit, or delete subscription plans for your customers.</p>
+      <button onClick={handleSubscriptionClick} className="dashboard-btn">Subscription Plans</button>
+    </div>
   </section>
 </div>
+
 
   );
 };
