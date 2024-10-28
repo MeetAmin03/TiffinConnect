@@ -11,9 +11,9 @@ import Home from './components/Home';
 import Footer from './components/Footer';
 import ProviderProfile from './components/ProviderProfile';
 import MenuItemList from './components/MenuItemList';
-import './App.css';
 import SubscriptionPlanList from './components/SubscriptionPlanList';
-
+import CustomerProfile from './components/CustomerProfile'; // Import CustomerProfile component
+import './App.css';
 
 const ProtectedRoute = ({ component: Component, role, ...rest }) => {
   const userRole = sessionStorage.getItem('role');
@@ -32,6 +32,10 @@ const App = () => {
           <Route
             path="/customer-dashboard"
             element={<ProtectedRoute component={CustomerDashboard} role="customer" />}
+          />
+          <Route
+            path="/customer-profile" 
+            element={<ProtectedRoute component={CustomerProfile} role="customer" />}
           />
           <Route
             path="/provider-dashboard"
