@@ -65,9 +65,14 @@ const CustomerProfile = () => {
     }
     return URL.createObjectURL(profilePicture); // For newly uploaded image
   };
+  const handleBackClick = () => {
+    history.back(); // Navigate back to the previous page
+  };
+
 
   return (
     <div className="profile-container">
+      <button className="back-button" onClick={handleBackClick}>&#11013;</button>
       <h1>Manage Your Profile</h1>
       <div className="profile-card">
         <form onSubmit={handleSubmit}>
