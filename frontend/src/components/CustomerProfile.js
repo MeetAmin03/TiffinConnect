@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from '../api';
 import './CustomerProfile.css';
 
@@ -9,30 +9,61 @@ const CustomerProfile = () => {
   const [profilePicture, setProfilePicture] = useState(null);
   const [message, setMessage] = useState('');
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get('/customer/profile');
+        const { name, address, preferences, profilePicture } = response.data;
+
+        setName(name);
+        setAddress(address);
+        setPreferences(preferences.dietaryRestrictions || ''); // Display dietary restrictions
+        setProfilePicture(profilePicture);
+        console.log("Profile picture URL:", profilePicture); // Log to check URL
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const formData = new FormData();
     formData.append('name', name);
     formData.append('address', address);
-    formData.append('preferences', preferences);
-    if (profilePicture) {
+    formData.append('preferences', JSON.stringify({ dietaryRestrictions: preferences })); // Stringify preferences
+    if (profilePicture instanceof File) {
       formData.append('profilePicture', profilePicture);
     }
 
     try {
       const response = await axios.put('/customer/profile', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
       setMessage(response.data.message);
     } catch (error) {
       setMessage('Error updating profile');
-      console.error(error);
+      console.error('Error in profile update:', error);
     }
   };
 
   const handleProfilePictureChange = (e) => {
     setProfilePicture(e.target.files[0]);
+  };
+
+  const getProfilePictureUrl = () => {
+    if (!profilePicture) {
+      return '/default-profile.png';
+    }
+    if (typeof profilePicture === 'string') {
+      return profilePicture.startsWith('http')
+        ? profilePicture
+        : `http://localhost:5000/${profilePicture}`;
+    }
+    return URL.createObjectURL(profilePicture); // For newly uploaded image
   };
 
   return (
@@ -43,8 +74,8 @@ const CustomerProfile = () => {
           {/* Profile Picture Upload */}
           <div className="profile-picture-section">
             <img
-              src={profilePicture ? URL.createObjectURL(profilePicture) : '/default-profile.png'}
-              alt="Profile Preview"
+              src={getProfilePictureUrl()}
+              alt="Profile"
               className="profile-picture-preview"
             />
             <input
@@ -62,7 +93,6 @@ const CustomerProfile = () => {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Enter your name"
               required
             />
           </div>
@@ -74,18 +104,17 @@ const CustomerProfile = () => {
               type="text"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              placeholder="Enter your address"
               required
             />
           </div>
 
-          {/* Preferences */}
+          {/* Dietary Restrictions */}
           <div className="form-group">
-            <label>Preferences</label>
+            <label>Dietary Restrictions</label>
             <textarea
               value={preferences}
               onChange={(e) => setPreferences(e.target.value)}
-              placeholder="Any dietary preferences or notes"
+              placeholder="Any dietary restrictions"
             />
           </div>
 
