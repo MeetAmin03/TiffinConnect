@@ -19,13 +19,6 @@ export default API; // Default export for API
 export const registerUser = (formData) => API.post('/auth/register', formData);
 export const loginUser = (formData) => API.post('/auth/login', formData);
 
-// Customer profile APIs
-export const getCustomerProfile = () => API.get('/customer/profile');
-export const updateCustomerProfile = (profileData) => 
-  API.put('/customer/profile', profileData, {
-    headers: { 'Content-Type': 'multipart/form-data' }
-  });
-
 // Provider profile APIs
 export const getProviderProfile = () => API.get('/provider/profile');
 export const updateProviderProfile = (profileData) => API.put('/provider/profile', profileData);
@@ -41,3 +34,10 @@ export const getSubscriptionPlans = () => API.get('/provider/plans');
 export const addSubscriptionPlan = (planData) => API.post('/provider/plans', planData);
 export const updateSubscriptionPlan = (id, planData) => API.put(`/provider/plans/${id}`, planData);
 export const deleteSubscriptionPlan = (id) => API.delete(`/provider/plans/${id}`);
+
+// Customer profile APIs
+export const getCustomerProfile = () => API.get('/customer/profile');
+export const updateCustomerProfile = (profileData) => 
+  API.put('/customer/profile', profileData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  });
