@@ -6,6 +6,12 @@ const jwt = require('jsonwebtoken'); // Import jsonwebtoken for generating token
 const cors = require('cors'); // Import cors
 const { authMiddleware, isAdmin } = require('./middleware/authMiddleware');
 const SubscriptionPlan = require('./models/SubscriptionPlan'); // Add this line
+const customerRoutes = require('./routes/customerRoutes');
+const providerRoutes = require('./routes/providerRoutes');
+const authRoutes = require('./routes/authRoutes'); // Import authRoutes
+const path = require('path');
+
+
 
 
 // Load environment variables
@@ -35,8 +41,18 @@ const Delivery = require('./models/Delivery');
 const Driver = require('./models/Driver');
 
 // Importing routes for provider profile management
-const providerRoutes = require('./routes/providerRoutes');
 app.use('/api/provider', providerRoutes);
+
+
+
+// Register customer routes under /api/customer
+app.use('/api/customer', customerRoutes);
+
+app.use('/api', authRoutes); // Use authRoutes here
+
+// Serve static files from the "uploads" directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 // Function to insert sample data
 async function insertSampleData() {
@@ -54,7 +70,7 @@ async function insertSampleData() {
     console.log('All collections cleared successfully.');
 
     // Hash passwords for users
-    const hashedPasswordCustomer = await bcrypt.hash('passwordCustomer123', 10);
+    const hashedPasswordCustomer = await bcrypt.hash('111111', 10);
     const hashedPasswordProvider1 = await bcrypt.hash('111111', 10);
     const hashedPasswordProvider2 = await bcrypt.hash('111111', 10);
     const hashedPasswordDriver = await bcrypt.hash('passwordDriver123', 10);
@@ -63,7 +79,7 @@ async function insertSampleData() {
     // Sample users
     const userCustomer = await User.create({
       name: 'John Doe',
-      email: 'john.doe@example.com',
+      email: 'c@gmail.com',
       password: hashedPasswordCustomer,
       role: 'customer',
       contactNumber: '1234567890',
@@ -210,77 +226,6 @@ async function insertSampleData() {
     console.log('Error inserting sample data:', error);
   }
 }
-
-
-
-// Registration Endpoint
-app.post('/api/register', async (req, res) => {
-  try {
-    const { name, email, password, role, contactNumber, address } = req.body;
-
-    // Check if user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: 'Email already exists' });
-    }
-
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create a new user
-    const user = await User.create({
-      name,
-      email,
-      password: hashedPassword,
-      role,
-      contactNumber,
-      address
-    });
-
-    return res.status(201).json({ message: 'User registered successfully', user });
-  } catch (error) {
-    console.error('Error during user registration:', error);
-    return res.status(500).json({ message: 'Error registering user' });
-  }
-});
-
-// Login Endpoint
-app.post('/api/login', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    // Find the user
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ message: 'Invalid credentials' });
-    }
-
-    // Check password
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid credentials' });
-    }
-
-    // Generate JWT token
-    const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, {
-      expiresIn: '1h' // Token expires in 1 hour
-    });
-
-    console.log(token);
-
-    // Include the user's role in the response
-    return res.status(200).json({
-      message: 'Login successful',
-      token,
-      role: user.role // Include the user's role
-    });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Error logging in user', error });
-  }
-});
-
-// Admin APIs (existing code)
 
 /// Get all users (Admin only)
 app.get('/api/admin/users', authMiddleware, isAdmin, async (req, res) => {

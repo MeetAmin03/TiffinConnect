@@ -8,7 +8,7 @@ const customerSchema = new mongoose.Schema({
   subscriptions: [{ providerId: mongoose.Schema.Types.ObjectId, mealPlanId: mongoose.Schema.Types.ObjectId, startDate: Date, endDate: Date }],
   paymentInfo: [{ paymentId: mongoose.Schema.Types.ObjectId, paymentMethod: String }],
   favoriteProviders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Provider' }],
-  address: [{ type: String }],
+  address: { type: String },
   preferences: { type: Object }
 }, { timestamps: true });
 

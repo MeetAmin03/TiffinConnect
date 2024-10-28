@@ -290,3 +290,9 @@ option {
 .menuHeading{
   font-family: "Arvo", serif;
 }
+
+.success {
+  color: green;
+  margin-top: 10px;
+  font-size: 1em;
+}
