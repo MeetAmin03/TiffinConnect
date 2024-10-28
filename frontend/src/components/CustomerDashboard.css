@@ -1,93 +1,164 @@
-/* CustomerDashboard.css */
+/* General Styling */
+body {
+  background: linear-gradient(135deg, #f0f5ff, #dfe9f3);
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
 .dashboard-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 800px;
-  margin: auto;
+  max-width: 900px;
+  margin: 50px auto;
   padding: 20px;
-  font-family: Arial, sans-serif;
 }
 
 .dashboard-container h1 {
-  font-size: 2.5em;
+  font-size: 3em;
   color: #4a90e2;
-  margin-bottom: 20px;
   text-align: center;
+  margin-bottom: 30px;
 }
 
+/* Dashboard Cards */
 .dashboard-card {
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   width: 100%;
-  margin-bottom: 20px;
-  padding: 20px;
-  text-align: left;
+  padding: 30px;
+  margin-bottom: 25px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 .dashboard-card h2 {
-  font-size: 1.8em;
-  color: #333333;
-  margin-bottom: 15px;
+  font-size: 2em; /* Increase size for better readability */
+  color: #333; 
+  background: linear-gradient(90deg, #0c0c0c, #727171); /* Subtle gradient for a vibrant look */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* Text gradient effect */
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
+  gap: 10px; /* Space between icon and text */
+  font-weight: 700; /* Make the heading bold */
+  letter-spacing: 1px; /* Slight letter spacing for readability */
+  text-transform: uppercase; /* Make it look modern and bold */
 }
 
-.dashboard-card ul {
-  list-style-type: none;
+ul.delivery-list, ul.notification-list {
+  list-style: none;
   padding: 0;
+  margin: 0;
   font-size: 1.1em;
 }
 
-.subscription-controls {
+/* Favorite Providers */
+.favorite-providers {
   display: flex;
-  gap: 10px;
-  margin-top: 15px;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-around;
 }
 
-.pause-button, .resume-button, .cancel-button {
-  padding: 10px 15px;
-  font-size: 1em;
+.provider-card {
+  width: 150px;
+  text-align: left;
+  background-color: #f8f8f8;
+  border-radius: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.provider-card:hover {
+  transform: scale(1.05);
+}
+
+.provider-image {
+  width: 100%;
+  height: auto;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.provider-details {
+  padding: 10px;
+}
+
+.provider-name {
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.provider-rating {
+  color: #ff9800;
+}
+
+/* Subscription Controls */
+.subscription-controls {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.control-button {
+  padding: 12px 20px;
   font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  color: white;
   display: flex;
   align-items: center;
-  color: #ffffff;
+  gap: 8px;
+  transition: background-color 0.3s ease;
 }
 
 .pause-button {
   background-color: #f0ad4e;
 }
+.pause-button:hover {
+  background-color: #ec971f;
+}
 
 .resume-button {
   background-color: #5bc0de;
+}
+.resume-button:hover {
+  background-color: #31b0d5;
 }
 
 .cancel-button {
   background-color: #d9534f;
 }
+.cancel-button:hover {
+  background-color: #c9302c;
+}
 
+/* Navigation Buttons */
 .button-group {
+  margin-top: 30px;
   display: flex;
-  gap: 15px;
-  margin-top: 20px;
+  gap: 20px;
 }
 
 .profile-button {
-  padding: 12px 24px;
   background-color: #4a90e2;
-  color: #ffffff;
-  font-size: 1.1em;
-  font-weight: bold;
+  color: white;
+  padding: 12px 24px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s;
 }
 .profile-button:hover {
   background-color: #357ab8;
+  transform: scale(1.05);
 }
