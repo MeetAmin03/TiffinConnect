@@ -1,201 +1,366 @@
-/* Main container styling */
+/* Main container styles */
 .subscription-container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: #f4f4f9;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
 }
 
-/* Heading */
 .subscription-container h2 {
-  text-align: center;
-  color: #2c3e50;
-  margin-bottom: 30px;
-  font-size: 2.5rem;
-  font-weight: 700;
+  color: #1a2b3c;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 3px solid #3b82f6;
+  padding-bottom: 0.5rem;
+  display: flex;
 }
 
-/* Add New Plan Button */
+/* Add new plan button */
 .add-new-plan-btn {
-  display: block;
-  margin: 0 auto 30px;
-  padding: 12px 24px;
-  background-color: #e67e22;
+  background-color: #3b82f6;
   color: white;
+  padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
+  margin-bottom: 2rem;
 }
 
 .add-new-plan-btn:hover {
-  background-color: #d35400;
+  background-color: #2563eb;
 }
 
-/* Form styling */
+/* Form styles */
 form {
-  margin-bottom: 40px;
-  padding: 25px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f8fafc;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
 }
 
 form label {
   display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #34495e;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  color: #374151;
 }
 
-form input[type="text"],
-form input[type="number"],
+form input,
 form select {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 20px;
-  border: 1px solid #ccd1d9;
-  border-radius: 6px;
-  box-sizing: border-box;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
   font-size: 1rem;
-  background-color: #f9f9f9;
+  transition: border-color 0.2s ease;
 }
 
 form input:focus,
 form select:focus {
-  border-color: #3498db;
   outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Multiple select styles */
+form select[multiple] {
+  height: 200px;
 }
 
 form button {
-  padding: 12px 20px;
-  background-color: #3498db;
+  background-color: #3b82f6;
   color: white;
+  padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1.1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
   font-weight: 600;
-  transition: background-color 0.3s ease;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-right: 1rem;
 }
 
 form button:hover {
-  background-color: #2980b9;
+  background-color: #2563eb;
 }
 
-.cancel-btn {
-  background-color: #95a5a6;
-  margin-left: 15px;
+form .cancel-btn {
+  background-color: #ef4444;
 }
 
-.cancel-btn:hover {
-  background-color: #7f8c8d;
+form .cancel-btn:hover {
+  background-color: #dc2626;
 }
 
-/* Meal selection styling */
-.meal-selection {
-  margin-bottom: 20px;
-}
-
-.meal-selection div {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.meal-selection select {
-  padding: 10px;
-  border-radius: 6px;
-  background-color: #ecf0f1;
-  border: 1px solid #bdc3c7;
-}
-
-/* Subscription plan list styling */
+/* Subscription list styles */
 .subscription-list {
-  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
 .subscription-list h3 {
-  text-align: center;
-  color: #34495e;
-  margin-bottom: 30px;
-  font-size: 1.8rem;
-  font-weight: bold;
+  grid-column: 1 / -1;
+  color: #1a2b3c;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-/* Subscription plan item styling */
 .subscription-item {
-  padding: 20px;
-  margin-bottom: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .subscription-item:hover {
-  transform: scale(1.02);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.1);
 }
 
 .subscription-item h4 {
-  margin-bottom: 10px;
-  font-size: 1.4rem;
-  color: #e67e22;
-  font-weight: 700;
+  color: #1a2b3c;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0.5rem;
 }
 
 .subscription-item p {
-  margin-bottom: 5px;
-  color: #2c3e50;
-  font-size: 1.1rem;
+  color: #4b5563;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
 }
 
-/* Edit and Delete buttons */
-.edit-btn,
-.delete-btn {
-  padding: 10px 18px;
-  background-color: #3498db;
-  color: white;
+.subscription-item .edit-btn,
+.subscription-item .delete-btn {
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  margin-right: 10px;
-  transition: background-color 0.3s ease;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-right: 0.5rem;
 }
 
-.edit-btn:hover {
-  background-color: #2980b9;
+.subscription-item .edit-btn {
+  background-color: #059669;
+  color: white;
 }
 
-.delete-btn {
-  background-color: #e74c3c;
+.subscription-item .edit-btn:hover {
+  background-color: #047857;
 }
 
-.delete-btn:hover {
-  background-color: #c0392b;
+.subscription-item .delete-btn {
+  background-color: #ef4444;
+  color: white;
 }
 
-/* Responsive Design */
+.subscription-item .delete-btn:hover {
+  background-color: #dc2626;
+}
+
+/* Existing styles remain the same */
+
+/* Meal selection container styles */
+.meal-selection-container {
+  margin-top: 1rem;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+}
+
+.meal-select {
+  width: 100%;
+  min-height: 150px;
+  margin-bottom: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+/* Selected meals preview styles */
+.selected-meals-preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
+}
+
+.meal-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.meal-preview:hover {
+  transform: translateY(-2px);
+}
+
+.meal-preview-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 0.375rem;
+  margin-bottom: 0.5rem;
+  border: 2px solid #e5e7eb;
+}
+
+/* Subscription meals grid styles */
+.subscription-meals {
+  margin-top: 1.5rem;
+  border-top: 2px solid #e5e7eb;
+  padding-top: 1rem;
+}
+
+.subscription-meals h5 {
+  color: #1a2b3c;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.meal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.meal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: #f8fafc;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.meal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.meal-image {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 0.375rem;
+  margin-bottom: 0.5rem;
+  border: 2px solid #e5e7eb;
+}
+
+.meal-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  line-height: 1.25;
+}
+
+/* Subscription details and actions layout */
+.subscription-details {
+  margin-bottom: 1rem;
+}
+
+.subscription-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid #e5e7eb;
+}
+
+.back-button {
+  margin-right: 90%;
+  margin-bottom: 3%;
+  background-color: #047857;
+  color: white;
+}
+
+/* Responsive adjustments for meal grids */
+@media (max-width: 768px) {
+
+  .selected-meals-preview,
+  .meal-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+
+  .meal-preview-image,
+  .meal-image {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* Image error state */
+.meal-preview-image.error,
+.meal-image.error {
+  border-color: #ef4444;
+  opacity: 0.7;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .subscription-container {
-    padding: 20px;
+    padding: 0 1rem;
+  }
+
+  .subscription-list {
+    grid-template-columns: 1fr;
+  }
+
+  form {
+    padding: 1.5rem;
   }
 
   .subscription-item {
-    padding: 15px;
+    padding: 1rem;
   }
+}
 
-  .add-new-plan-btn {
-    font-size: 1rem;
-  }
+/* Loading states */
+.subscription-item.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
 
-  form button {
-    font-size: 1rem;
-  }
+/* Error states */
+.error-message {
+  color: #ef4444;
+  background-color: #fee2e2;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #fecaca;
+}
+
+/* Success states */
+.success-message {
+  color: #059669;
+  background-color: #d1fae5;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #a7f3d0;
 }
