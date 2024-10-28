@@ -1,10 +1,25 @@
 /* ProviderDashboard.css */
 
+/* Apply background image to the body */
+body {
+  /* margin: 0;
+  padding: 0;
+  background-image: url('../Images/Provider\ Background.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  backdrop-filter: blur(1.5px);
+  filter: blur(.4px); */
+}
+
 .provider-dashboard {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 30px;
+  min-height: 100vh;
 }
 
 h1 {
@@ -23,7 +38,7 @@ h1 {
 }
 
 .stat-card {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -41,7 +56,7 @@ h1 {
   color: #333;
 }
 
-/* Existing dashboard options */
+/* Dashboard options */
 .dashboard-options {
   display: flex;
   justify-content: space-around;
@@ -50,7 +65,7 @@ h1 {
 }
 
 .card {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -71,17 +86,88 @@ h1 {
   color: #555;
 }
 
+/* Button Styles with Enhanced Hover Effects */
 .dashboard-btn {
   padding: 10px 20px;
   background-color: #e67e22;
   color: white;
-  border: none;
+  border: 1px solid #c0392b;
   border-radius: 5px;
-  cursor: pointer;
+  position: relative;
+  overflow: hidden;
   font-size: 1rem;
-  transition: background-color 0.3s ease;
+  cursor: pointer;
+  transition: background-color 0.3s ease, all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.dashboard-btn span {
+  z-index: 20;
+}
+
+.dashboard-btn:after {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: -75px;
+  width: 50px;
+  height: 155px;
+  background: #fff;
+  opacity: 0.2;
+  transform: rotate(35deg);
+  transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: -10;
 }
 
 .dashboard-btn:hover {
   background-color: #d35400;
+}
+
+.dashboard-btn:hover:after {
+  left: 120%;
+}
+
+/* Typewriter animation */
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-right-color: transparent;
+  }
+}
+
+/* Apply typewriter animation to .TypeWritter */
+.TypeWritter {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0; /* Hidden initially */
+  border-right: 2px solid #333;
+  animation: typewriter 3s steps(30, end) forwards, blink 0.5s step-end infinite;
+  animation-fill-mode: forwards; /* Keeps the final state after animation */
+}
+
+/* Hide the blinking cursor after animation */
+.no-cursor {
+  border-right: none;
+}
+
+/* Hide the <p> initially */
+.dashboard-header p {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0; /* Hidden initially */
+  border-right: 2px solid #333;
+  animation: typewriter 3s steps(30, end) forwards, blink 0.5s step-end infinite;
+  animation-fill-mode: forwards; /* Keeps the final state after animation */
+}
+
+/* Display the <p> tag after typewriter animation completes */
+.show-p {
+  opacity: 1;
 }
