@@ -45,13 +45,48 @@ const CustomerDashboard = () => {
       </div>
 
       {/* Favorite Providers */}
-      <div className="dashboard-card">
-        <h2><FontAwesomeIcon icon={faStar} /> Favorite Providers</h2>
-        <ul>
-          <li>Tiffin House - 4.8 stars</li>
-          <li>Homemade Bites - 4.6 stars</li>
-        </ul>
+      {/* Favorite Providers */}
+<div className="dashboard-card">
+  <h2><FontAwesomeIcon icon={faStar} /> Favorite Providers</h2>
+  <div className="favorite-providers">
+    <div className="provider-card">
+      <img src="https://via.placeholder.com/150" alt="Tiffin House" className="provider-image" />
+      <div className="provider-details">
+      <h5 className="provider-name">Homemade Bites</h5>
+        <p className="provider-rating">⭐ 4.8</p>
       </div>
+    </div>
+
+    <div className="provider-card">
+      <img src="https://via.placeholder.com/150" alt="Homemade Bites" className="provider-image" />
+      <div className="provider-details">
+      <h5 className="provider-name">Homemade Bites</h5>
+        <p className="provider-rating">⭐ 4.6</p>
+      </div>
+    </div>
+    <div className="provider-card">
+      <img src="https://via.placeholder.com/150" alt="Homemade Bites" className="provider-image" />
+      <div className="provider-details">
+      <h5 className="provider-name">Homemade Bites</h5>
+        <p className="provider-rating">⭐ 4.6</p>
+      </div>
+    </div>
+    <div className="provider-card">
+      <img src="https://via.placeholder.com/150" alt="Homemade Bites" className="provider-image" />
+      <div className="provider-details">
+        <h5 className="provider-name">Homemade Bites</h5>
+        <p className="provider-rating">⭐ 4.6</p>
+      </div>
+    </div>
+    <div className="provider-card">
+      <img src="https://via.placeholder.com/150" alt="Homemade Bites" className="provider-image" />
+      <div className="provider-details">
+      <h5 className="provider-name">Homemade Bites</h5>
+        <p className="provider-rating">⭐ 4.6</p>
+      </div>
+    </div>
+  </div>
+</div>
 
       {/* Notifications */}
       <div className="dashboard-card">
