@@ -41,3 +41,9 @@ export const updateCustomerProfile = (profileData) =>
   API.put('/customer/profile', profileData, {
     headers: { 'Content-Type': 'multipart/form-data' }
   });
+  
+  export const bookSubscription = async (subscriptionId) => {
+    console.log(`Calling API to book subscription with ID: ${subscriptionId}`);
+    return API.post('/provider/bookSubscription', { subscriptionId });
+  };
+  
