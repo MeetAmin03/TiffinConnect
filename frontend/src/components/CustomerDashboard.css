@@ -162,3 +162,43 @@ ul.delivery-list, ul.notification-list {
   background-color: #357ab8;
   transform: scale(1.05);
 }
+/* CustomerDashboard.css */
+.dashboard-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.profile-button, .tiffins-button {
+  padding: 12px 24px;
+  color: #ffffff;
+  font-size: 1.1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.profile-button {
+  background-color: #4a90e2;
+}
+
+.tiffins-button {
+  background-color: #FFA500; /* Orange for differentiation */
+}
+
+.profile-button:hover {
+  background-color: #357ab8;
+}
+
+.tiffins-button:hover {
+  background-color: #ff8c00;
+}
+

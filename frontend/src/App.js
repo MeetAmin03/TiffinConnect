@@ -12,8 +12,11 @@ import Footer from './components/Footer';
 import ProviderProfile from './components/ProviderProfile';
 import MenuItemList from './components/MenuItemList';
 import SubscriptionPlanList from './components/SubscriptionPlanList';
-import CustomerProfile from './components/CustomerProfile'; // Import CustomerProfile component
+import CustomerProfile from './components/CustomerProfile';
+import SubscriptionProcess from './components/SubscriptionProcess'; // Import SubscriptionProcess component
 import './App.css';
+import CheckoutPage from './components/CheckoutPage'; 
+
 
 const ProtectedRoute = ({ component: Component, role, ...rest }) => {
   const userRole = sessionStorage.getItem('role');
@@ -34,7 +37,7 @@ const App = () => {
             element={<ProtectedRoute component={CustomerDashboard} role="customer" />}
           />
           <Route
-            path="/customer-profile" 
+            path="/customer-profile"
             element={<ProtectedRoute component={CustomerProfile} role="customer" />}
           />
           <Route
@@ -61,6 +64,14 @@ const App = () => {
             path="/subscription-plans"
             element={<ProtectedRoute component={SubscriptionPlanList} role="provider" />}
           />
+          {/* Route for subscription process to view all available tiffin subscriptions */}
+          <Route
+            path="/subscription-process"
+            element={<SubscriptionProcess />}
+          />
+
+          <Route path="/checkout/:subscriptionId" element={<CheckoutPage />} />
+
         </Routes>
         <Footer />
       </div>

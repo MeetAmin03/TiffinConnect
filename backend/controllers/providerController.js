@@ -3,6 +3,8 @@
 const Provider = require('../models/Provider');
 const MenuItem = require('../models/MenuItem');
 const SubscriptionPlan = require('../models/SubscriptionPlan');
+const Customer = require('../models/Customer');
+
 
 
 // Get provider profile
@@ -142,7 +144,6 @@ exports.updateSubscriptionPlan = async (req, res) => {
 
 
 // Get all subscription plans for a provider
-// Get all subscription plans for a provider
 exports.getSubscriptionPlans = async (req, res) => {
   try {
     const plans = await SubscriptionPlan.find({ providerId: req.user.userId })
@@ -169,4 +170,67 @@ exports.deleteSubscriptionPlan = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// backend/controllers/providerController.js
+
+exports.getAllSubscriptionPlans = async (req, res) => {
+  try {
+    console.log("getAllSubscriptionPlans API called");
+    const plans = await SubscriptionPlan.find({})
+      .populate('meals', 'mealName price')
+      .populate('providerId', 'restaurantName'); // Populate provider's restaurant name
+    
+    if (plans.length === 0) {
+      console.log("No subscription plans found");
+    } else {
+      console.log("Subscription plans retrieved:", plans);
+    }
+
+    res.json(plans);
+  } catch (error) {
+    console.error("Error fetching all subscription plans:", error);
+    res.status(500).json({ message: 'Error fetching all subscription plans' });
+  }
+};
+
+exports.getSubscriptionById = async (req, res) => {
+  try {
+    console.log(`Fetching subscription with ID: ${req.params.id}`);
+    const subscription = await SubscriptionPlan.findById(req.params.id).populate('meals', 'mealName price');
+    if (!subscription) {
+      console.log(`Subscription with ID ${req.params.id} not found`);
+      return res.status(404).json({ message: 'Subscription not found' });
+    }
+    console.log(`Subscription fetched successfully: ${JSON.stringify(subscription)}`);
+    res.json(subscription);
+  } catch (error) {
+    console.error(`Error fetching subscription with ID ${req.params.id}:`, error);
+    res.status(500).json({ message: 'Error fetching subscription', error });
+  }
+};
+
+// Book subscription for customer
+exports.bookSubscription = async (req, res) => {
+  try {
+    console.log(`Booking subscription for customer: ${req.user.userId} with subscription ID: ${req.body.subscriptionId}`);
+    
+    const customer = await Customer.findOneAndUpdate(
+      { userId: req.user.userId },
+      { $push: { subscriptions: { mealPlanId: req.body.subscriptionId, startDate: new Date() } } },
+      { new: true }
+    );
+
+    if (!customer) {
+      console.log('Customer not found during booking process');
+      return res.status(404).json({ message: 'Customer not found' });
+    }
+
+    console.log(`Subscription added successfully for customer: ${req.user.userId}`);
+    res.status(200).json({ message: 'Subscription booked successfully' });
+  } catch (error) {
+    console.error('Error booking subscription:', error);
+    res.status(500).json({ message: 'Error booking subscription', error });
+  }
+};
+
 

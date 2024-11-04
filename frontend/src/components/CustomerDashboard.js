@@ -1,3 +1,4 @@
+// CustomerDashboard.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,6 +10,10 @@ const CustomerDashboard = () => {
 
   const goToProfile = () => {
     navigate('/customer-profile');
+  };
+
+  const goToSubscriptionProcess = () => {
+    navigate('/subscription-process');
   };
 
   return (
@@ -45,48 +50,19 @@ const CustomerDashboard = () => {
       </div>
 
       {/* Favorite Providers */}
-      {/* Favorite Providers */}
-<div className="dashboard-card">
-  <h2><FontAwesomeIcon icon={faStar} /> Favorite Providers</h2>
-  <div className="favorite-providers">
-    <div className="provider-card">
-      <img src="https://via.placeholder.com/150" alt="Tiffin House" className="provider-image" />
-      <div className="provider-details">
-      <h5 className="provider-name">Homemade Bites</h5>
-        <p className="provider-rating">⭐ 4.8</p>
+      <div className="dashboard-card">
+        <h2><FontAwesomeIcon icon={faStar} /> Favorite Providers</h2>
+        <div className="favorite-providers">
+          <div className="provider-card">
+            <img src="https://via.placeholder.com/150" alt="Tiffin House" className="provider-image" />
+            <div className="provider-details">
+              <h5 className="provider-name">Homemade Bites</h5>
+              <p className="provider-rating">⭐ 4.8</p>
+            </div>
+          </div>
+          {/* Add more favorite providers if needed */}
+        </div>
       </div>
-    </div>
-
-    <div className="provider-card">
-      <img src="https://via.placeholder.com/150" alt="Homemade Bites" className="provider-image" />
-      <div className="provider-details">
-      <h5 className="provider-name">Homemade Bites</h5>
-        <p className="provider-rating">⭐ 4.6</p>
-      </div>
-    </div>
-    <div className="provider-card">
-      <img src="https://via.placeholder.com/150" alt="Homemade Bites" className="provider-image" />
-      <div className="provider-details">
-      <h5 className="provider-name">Homemade Bites</h5>
-        <p className="provider-rating">⭐ 4.6</p>
-      </div>
-    </div>
-    <div className="provider-card">
-      <img src="https://via.placeholder.com/150" alt="Homemade Bites" className="provider-image" />
-      <div className="provider-details">
-        <h5 className="provider-name">Homemade Bites</h5>
-        <p className="provider-rating">⭐ 4.6</p>
-      </div>
-    </div>
-    <div className="provider-card">
-      <img src="https://via.placeholder.com/150" alt="Homemade Bites" className="provider-image" />
-      <div className="provider-details">
-      <h5 className="provider-name">Homemade Bites</h5>
-        <p className="provider-rating">⭐ 4.6</p>
-      </div>
-    </div>
-  </div>
-</div>
 
       {/* Notifications */}
       <div className="dashboard-card">
@@ -101,6 +77,9 @@ const CustomerDashboard = () => {
       <div className="button-group">
         <button className="profile-button" onClick={goToProfile}>
           <FontAwesomeIcon icon={faUser} /> Go to Profile
+        </button>
+        <button className="tiffins-button" onClick={goToSubscriptionProcess}>
+          Available Tiffins
         </button>
       </div>
     </div>
