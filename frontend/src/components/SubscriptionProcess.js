@@ -18,7 +18,7 @@ const SubscriptionProcess = () => {
         console.error("Error fetching subscriptions:", error);
       }
     };
-    
+
     fetchSubscriptions();
   }, []);
 
