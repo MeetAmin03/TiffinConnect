@@ -68,7 +68,7 @@ const BillingForm = ({ subscriptionId }) => {
         console.log("Payment processed successfully:", paymentResponse.data);
 
         // If payment is successful, book the subscription
-        console.log(`Booking subscription for subscription ID: ${subscriptionId}`);
+        console.log("Booking subscription for subscription ID: ${subscriptionId}");
         const bookingResponse = await axios.post('/provider/bookSubscription', { subscriptionId });
         console.log("Subscription booked successfully:", bookingResponse.data);
 
@@ -177,4 +177,4 @@ const BillingForm = ({ subscriptionId }) => {
   );
 };
 
-export default BillingForm;
+export default BillingForm;
