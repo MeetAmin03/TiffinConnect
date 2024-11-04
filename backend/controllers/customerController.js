@@ -1,4 +1,5 @@
 const Customer = require('../models/Customer');
+const SubscriptionPlan = require('../models/SubscriptionPlan');
 
 // Get Customer Profile
 exports.getCustomerProfile = async (req, res) => {
@@ -18,8 +19,6 @@ exports.getCustomerProfile = async (req, res) => {
     res.status(500).json({ message: 'Error retrieving profile', error });
   }
 };
-
-
 
 exports.updateProfile = async (req, res) => {
   try {
@@ -43,4 +42,20 @@ exports.updateProfile = async (req, res) => {
     res.status(500).json({ message: 'Error updating profile', error });
   }
 };
+
+exports.processPayment = async (req, res) => {
+  try {
+    const { subscriptionId, address, city, state, zipCode, cardNumber, expiryDate, cvv, cardHolderName } = req.body;
+    
+    console.log(`Processing payment for subscription ID: ${subscriptionId}`);
+    // Implement logic here to process the payment using a payment gateway
+
+    // Mock success response
+    res.status(200).json({ message: 'Payment processed successfully' });
+  } catch (error) {
+    console.error('Error processing payment:', error);
+    res.status(500).json({ message: 'Error processing payment', error });
+  }
+};
+
 

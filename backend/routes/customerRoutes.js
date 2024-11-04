@@ -10,4 +10,7 @@ router.get('/profile', authMiddleware, customerController.getCustomerProfile);
 // Route to update customer profile
 router.put('/profile', authMiddleware, upload.single('profilePicture'), customerController.updateProfile);
 
+router.post('/payment', authMiddleware, customerController.processPayment);
+
+
 module.exports = router;
