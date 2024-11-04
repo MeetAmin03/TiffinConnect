@@ -1,82 +1,129 @@
+/* General Checkout Page Styling */
 .checkout-page {
-  max-width: 800px;
-  margin: auto;
-  padding: 30px;
-  font-family: Arial, sans-serif;
+  max-width: 750px;
+  margin: 2rem auto;
+  padding: 40px;
+  font-family: 'Arial', sans-serif;
   color: #333;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Header */
 .checkout-page h1 {
   text-align: center;
-  font-size: 2.2em;
+  font-size: 2.4em;
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  font-weight: bold;
 }
 
+/* Subscription Details Section */
 .checkout-details {
   background: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 25px;
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .checkout-details p {
   font-size: 1.1em;
-  line-height: 1.5;
-  margin: 10px 0;
+  line-height: 1.6;
+  margin: 12px 0;
+  color: #555;
 }
 
+/* Included Meals List */
 .meals-list {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .meals-list h3 {
-  font-size: 1.3em;
+  font-size: 1.4em;
   color: #666;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  font-weight: 500;
 }
 
 .meals-list span {
   display: inline-block;
   background: #e0f7fa;
-  color: #333;
-  padding: 6px 10px;
-  margin: 5px;
-  border-radius: 4px;
-  font-size: 0.9em;
+  color: #00796b;
+  padding: 8px 12px;
+  margin: 6px;
+  border-radius: 20px;
+  font-size: 0.95em;
+  font-weight: bold;
 }
 
+/* Buttons Section */
 .checkout-buttons {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  align-items: center;
+  gap: 15px;
+  margin-top: 25px;
 }
 
+/* Proceed to Pay Button */
 .pay-button {
   background-color: #4caf50;
   color: white;
-  padding: 10px 25px;
+  padding: 12px 30px;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  border-radius: 6px;
   font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s ease;
 }
 
 .pay-button:hover {
   background-color: #45a049;
+  transform: scale(1.05);
 }
 
+/* Cancel Button */
 .cancel-button {
   background-color: #f44336;
   color: white;
-  padding: 10px 25px;
+  padding: 12px 30px;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  border-radius: 6px;
   font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s ease;
 }
 
 .cancel-button:hover {
   background-color: #e53935;
+  transform: scale(1.05);
 }
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .checkout-page {
+    padding: 20px;
+  }
+
+  .checkout-page h1 {
+    font-size: 1.8em;
+  }
+
+  .checkout-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pay-button,
+  .cancel-button {
+    width: 100%;
+  }
+}
+.provider-logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
