@@ -1,18 +1,17 @@
-/* src/components/Navbar.css */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #282c34; 
+  background-color: #282c34;
   color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-  padding: 0 50px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 0 50px;
 }
 
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: #f7d842; 
+.logo img {
+  width: 150px;
+  height: 60px; /* Adjust height as needed */
+  width: auto;
 }
 
 .nav-links {
@@ -21,7 +20,7 @@
 }
 
 .nav-link {
-  color: #f7d842; 
+  color: #f7d842;
   text-decoration: none;
   padding: 10px 15px;
   border-radius: 5px;
@@ -32,19 +31,14 @@
 }
 
 .nav-link:hover {
-  background-color: #ffe066; 
-  color: #282c34; 
-  border-color: #f7d842; 
-  box-shadow: 0 4px 6px rgba(247, 216, 66, 0.5); 
-}
-
-.nav-link:active {
-  background-color: #ffd700; 
+  background-color: #ffe066;
   color: #282c34;
+  border-color: #f7d842;
+  box-shadow: 0 4px 6px rgba(247, 216, 66, 0.5);
 }
 
 button.nav-link {
-  background-color: #f7d842; 
+  background-color: #f7d842;
   color: #282c34;
   border: none;
   cursor: pointer;
@@ -56,8 +50,4 @@ button.nav-link:hover {
 
 button.nav-link:active {
   background-color: #ffd700;
-}
-
-.navbar .nav-link.active {
-  border-color: #ffd700; 
 }
