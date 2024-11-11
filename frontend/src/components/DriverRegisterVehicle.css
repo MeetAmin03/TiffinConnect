@@ -1,56 +1,154 @@
-/* DriverRegisterVehicle.css */
+/* Container styles */
 .form-container {
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styles */
+.form-container h2 {
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Form styles */
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Label styles */
+.form-container label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+/* Input and select styles */
+.form-container input,
+.form-container select {
+  padding: 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+  background-color: #fff;
+}
+
+.form-container input:focus,
+.form-container select:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+/* Select specific styles */
+.form-container select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234a5568'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+}
+
+/* Button container */
+.form-container form>div:last-child {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Button styles */
+.save-button,
+.cancel-button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.save-button {
+  background-color: #4299e1;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #3182ce;
+}
+
+.cancel-button {
+  background-color: #e2e8f0;
+  color: #4a5568;
+}
+
+.cancel-button:hover {
+  background-color: #cbd5e0;
+}
+
+/* Error state */
+.form-container input:invalid,
+.form-container select:invalid {
+  border-color: #fc8181;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .form-container {
+    margin: 1rem;
+    padding: 1.5rem;
   }
-  
-  h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
+
+  .form-container h2 {
+    font-size: 1.5rem;
   }
-  
-  label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-    color: #333;
+
+  .form-container input,
+  .form-container select,
+  .save-button,
+  .cancel-button {
+    padding: 0.625rem;
   }
-  
-  input[type="text"], input[type="number"], select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1em;
-  }
-  
-  button {
-    width: 100%;
-    padding: 10px;
-    font-size: 1em;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  button.cancel-button {
-    background-color: #dc3545;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  button.cancel-button:hover {
-    background-color: #c82333;
-  }
-  
+}
+
+/* Loading state styles */
+.form-container.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Success message styles */
+.success-message {
+  color: #48bb78;
+  background-color: #f0fff4;
+  border: 1px solid #c6f6d5;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Error message styles */
+.error-message {
+  color: #e53e3e;
+  background-color: #fff5f5;
+  border: 1px solid #feb2b2;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
