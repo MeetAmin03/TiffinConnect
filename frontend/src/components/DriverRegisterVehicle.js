@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../api';
 import { useNavigate } from 'react-router-dom';
+import './DriverRegisterVehicle.css';
 
 const DriverRegisterVehicle = () => {
   const [formData, setFormData] = useState({
@@ -44,8 +45,8 @@ const DriverRegisterVehicle = () => {
 
   return (
     <div className="form-container">
-      <h2>Register/Update Vehicle</h2>
       <form onSubmit={handleFormSubmit}>
+        <h2>Register/Update Vehicle</h2>
         <label>
           Vehicle Type:
           <select
