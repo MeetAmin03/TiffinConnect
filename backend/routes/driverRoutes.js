@@ -17,6 +17,6 @@ router.get('/profile', authMiddleware, driverController.getDriverProfile);
 router.put('/profile', authMiddleware, driverController.updateDriverProfile);
 
 // Route for uploading driver profile photo
-router.post('/uploadProfilePhoto', authMiddleware, upload.single('profilePhoto'), driverController.uploadProfilePhoto);
+router.post('/upload-profile-photo', authMiddleware, upload.single('profilePhoto'), driverController.uploadProfilePhoto);
 
 module.exports = router;
