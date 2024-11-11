@@ -10,9 +10,7 @@ const customerRoutes = require('./routes/customerRoutes');
 const providerRoutes = require('./routes/providerRoutes');
 const authRoutes = require('./routes/authRoutes'); // Import authRoutes
 const path = require('path');
-
-
-
+const driverRoutes = require('./routes/driverRoutes');
 
 // Load environment variables
 dotenv.config();
@@ -27,7 +25,9 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('MongoDB connected successfully');
     // Insert sample data after successful connection
-    insertSampleData(); // Uncomment if you want to insert sample data on each run
+    (async () => {
+      await insertSampleData();
+    })(); // Wrapping insertSampleData in an async IIFE
   })
   .catch((error) => console.log('MongoDB connection error:', error));
 
@@ -43,8 +43,6 @@ const Driver = require('./models/Driver');
 // Importing routes for provider profile management
 app.use('/api/provider', providerRoutes);
 
-
-
 // Register customer routes under /api/customer
 app.use('/api/customer', customerRoutes);
 
@@ -52,6 +50,8 @@ app.use('/api', authRoutes); // Use authRoutes here
 
 // Serve static files from the "uploads" directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+app.use('/api/driver', driverRoutes);
 
 
 // Function to insert sample data
@@ -70,164 +70,118 @@ async function insertSampleData() {
     console.log('All collections cleared successfully.');
 
     // Hash passwords for users
-    const hashedPasswordCustomer = await bcrypt.hash('111111', 10);
-    const hashedPasswordProvider1 = await bcrypt.hash('111111', 10);
-    const hashedPasswordProvider2 = await bcrypt.hash('111111', 10);
-    const hashedPasswordDriver = await bcrypt.hash('passwordDriver123', 10);
-    const hashedPasswordAdmin = await bcrypt.hash('passwordAdmin123', 10);
+    const hashedPasswordProvider = await bcrypt.hash('111111', 10);
 
-    // Sample users
-    const userCustomer = await User.create({
-      name: 'John Doe',
-      email: 'c@gmail.com',
-      password: hashedPasswordCustomer,
-      role: 'customer',
-      contactNumber: '1234567890',
-      address: '123 Maple St, Cityville',
-      isVerified: true,
-      profilePictureURL: 'https://example.com/profile/john.jpg',
-    });
+    // Sample providers and subscription plans data
+    const providers = [
+      { name: 'Provider 1', email: 'p1@gmail.com', restaurantName: 'Provider 1 Meals', address: '101 Apple St, Foodville' },
+      { name: 'Provider 2', email: 'p2@gmail.com', restaurantName: 'Provider 2 Kitchen', address: '202 Orange St, Mealville' },
+      { name: 'Provider 3', email: 'p3@gmail.com', restaurantName: 'Provider 3 Dishes', address: '303 Banana St, Tastyville' },
+      { name: 'Provider 4', email: 'p4@gmail.com', restaurantName: 'Provider 4 Eatery', address: '404 Cherry St, Foodtown' },
+      { name: 'Provider 5', email: 'p5@gmail.com', restaurantName: 'Provider 5 Bistro', address: '505 Grape St, Mealville' }
+    ];
 
-    const userProvider1 = await User.create({
-      name: 'Provider 1',
-      email: 'p1@gmail.com',
-      password: hashedPasswordProvider1,
-      role: 'provider',
-      contactNumber: '2345678901',
-      address: '101 Apple St, Foodville',
-      isVerified: true,
-      profilePictureURL: 'https://example.com/profile/provider1.jpg',
-    });
+    for (const providerData of providers) {
+      // Create user for each provider
+      const user = await User.create({
+        name: providerData.name,
+        email: providerData.email,
+        password: hashedPasswordProvider,
+        role: 'provider',
+        contactNumber: '1234567890',
+        address: providerData.address,
+        isVerified: true,
+        profilePictureURL: `https://example.com/profile/${providerData.name.toLowerCase()}.jpg`
+      });
 
-    const userProvider2 = await User.create({
-      name: 'Provider 2',
-      email: 'p2@gmail.com',
-      password: hashedPasswordProvider2,
-      role: 'provider',
-      contactNumber: '3456789012',
-      address: '202 Orange St, Mealville',
-      isVerified: true,
-      profilePictureURL: 'https://example.com/profile/provider2.jpg',
-    });
+      // Create provider
+      const provider = await Provider.create({
+        userId: user._id,
+        restaurantName: providerData.restaurantName,
+        deliveryOptions: 'Home Delivery',
+        rating: 4.5,
+        reviews: [{ reviewId: new mongoose.Types.ObjectId(), comment: 'Great food!' }],
+        restaurantLogoURL: `https://example.com/logo/${providerData.name.toLowerCase()}.jpg`,
+        address: providerData.address,
+        subscriptionPlans: []
+      });
 
-    const userDriver = await User.create({
-      name: 'Michael Johnson',
-      email: 'michael.johnson@food.com',
-      password: hashedPasswordDriver,
-      role: 'driver',
-      contactNumber: '3456789012',
-      address: '789 Oak Ave, Villageland',
-      isVerified: true,
-      profilePictureURL: 'https://example.com/profile/michael.jpg',
-    });
+      // Sample menu items for each provider
+      const menuItems = await MenuItem.insertMany([
+        {
+          providerId: provider._id,
+          mealName: 'Grilled Chicken Salad',
+          description: 'Healthy grilled chicken with fresh salad.',
+          price: 8.99,
+          imageURL: 'https://example.com/menu/chicken-salad.jpg',
+          mealType: 'non-vegetarian',
+        },
+        {
+          providerId: provider._id,
+          mealName: 'Vegetarian Pizza',
+          description: 'Delicious veggie pizza with a crispy crust.',
+          price: 10.99,
+          imageURL: 'https://example.com/menu/veggie-pizza.jpg',
+          mealType: 'vegetarian',
+        },
+        {
+          providerId: provider._id,
+          mealName: 'Beef Steak',
+          description: 'Juicy beef steak with garlic butter sauce.',
+          price: 15.99,
+          imageURL: 'https://example.com/menu/steak.jpg',
+          mealType: 'non-vegetarian',
+        },
+        {
+          providerId: provider._id,
+          mealName: 'Margherita Pizza',
+          description: 'Classic Margherita pizza with fresh tomatoes and basil.',
+          price: 9.99,
+          imageURL: 'https://example.com/menu/margherita.jpg',
+          mealType: 'vegetarian',
+        }
+      ]);
 
-    const userAdmin = await User.create({
-      name: 'Admin',
-      email: 'admin@example.com',
-      password: hashedPasswordAdmin,
-      role: 'admin',
-      contactNumber: '4567890123',
-      address: '101 Cedar Ln, Cityville',
-      isVerified: true,
-      profilePictureURL: 'https://example.com/profile/admin.jpg',
-    });
+      // Sample subscription plans for each provider
+      const subscriptionPlans = await SubscriptionPlan.insertMany([
+        {
+          providerId: provider._id,
+          planName: 'Weekly Meal Plan',
+          description: '7 meals per week.',
+          price: 30,
+          duration: 'weekly',
+          meals: [menuItems[0]._id, menuItems[1]._id, menuItems[2]._id]
+        },
+        {
+          providerId: provider._id,
+          planName: 'Monthly Meal Plan',
+          description: 'Includes 30 meals per month.',
+          price: 100,
+          duration: 'monthly',
+          meals: [menuItems[1]._id, menuItems[2]._id, menuItems[3]._id]
+        },
+        {
+          providerId: provider._id,
+          planName: 'Family Meal Plan',
+          description: '15 meals per week, designed for families.',
+          price: 70,
+          duration: 'weekly',
+          meals: [menuItems[0]._id, menuItems[2]._id, menuItems[3]._id]
+        }
+      ]);
 
-    // Sample providers
-    const provider1 = await Provider.create({
-      userId: userProvider1._id,
-      restaurantName: 'Provider 1 Meals',
-      deliveryOptions: 'Home Delivery',
-      rating: 4.8,
-      reviews: [{ reviewId: new mongoose.Types.ObjectId(), comment: 'Great food!' }],
-      restaurantLogoURL: 'https://example.com/logo/provider1.jpg',
-      address: '101 Apple St, Foodville',
-      subscriptionPlans: [],
-    });
+      // Update provider with their subscription plans
+      provider.subscriptionPlans.push(...subscriptionPlans.map(plan => plan._id));
+      await provider.save();
+    }
 
-    const provider2 = await Provider.create({
-      userId: userProvider2._id,
-      restaurantName: 'Provider 2 Kitchen',
-      deliveryOptions: 'Takeaway and Delivery',
-      rating: 4.6,
-      reviews: [{ reviewId: new mongoose.Types.ObjectId(), comment: 'Tasty and quick!' }],
-      restaurantLogoURL: 'https://example.com/logo/provider2.jpg',
-      address: '202 Orange St, Mealville',
-      subscriptionPlans: [],
-    });
-
-    // Sample menu items for Provider 1
-    const menuItemsProvider1 = await MenuItem.insertMany([
-      {
-        providerId: provider1._id,
-        mealName: 'Grilled Chicken Salad',
-        description: 'Healthy grilled chicken with fresh salad.',
-        price: 8.99,
-        imageURL: 'https://example.com/menu/chicken-salad.jpg',
-        mealType: 'non-vegetarian',
-      },
-      {
-        providerId: provider1._id,
-        mealName: 'Vegetarian Pizza',
-        description: 'Delicious veggie pizza with a crispy crust.',
-        price: 10.99,
-        imageURL: 'https://example.com/menu/veggie-pizza.jpg',
-        mealType: 'vegetarian',
-      },
-    ]);
-
-    // Sample menu items for Provider 2
-    const menuItemsProvider2 = await MenuItem.insertMany([
-      {
-        providerId: provider2._id,
-        mealName: 'Beef Steak',
-        description: 'Juicy beef steak with garlic butter sauce.',
-        price: 15.99,
-        imageURL: 'https://example.com/menu/steak.jpg',
-        mealType: 'non-vegetarian',
-      },
-      {
-        providerId: provider2._id,
-        mealName: 'Margherita Pizza',
-        description: 'Classic Margherita pizza with fresh tomatoes and basil.',
-        price: 9.99,
-        imageURL: 'https://example.com/menu/margherita.jpg',
-        mealType: 'vegetarian',
-      },
-    ]);
-
-    // Sample subscription plans for providers
-    const subscriptionPlan1 = await SubscriptionPlan.create({
-      providerId: provider1._id,
-      planName: 'Monthly Meal Plan',
-      description: 'Includes 30 meals per month.',
-      price: 50,
-      duration: 'monthly',
-      meals: menuItemsProvider1.map((item) => item._id),
-    });
-
-    const subscriptionPlan2 = await SubscriptionPlan.create({
-      providerId: provider2._id,
-      planName: 'Weekly Meal Plan',
-      description: 'Includes 7 meals per week.',
-      price: 60,
-      duration: 'weekly',
-      meals: menuItemsProvider2.map((item) => item._id),
-    });
-
-    // Update providers with their respective subscription plans
-    provider1.subscriptionPlans.push(subscriptionPlan1._id);
-    provider2.subscriptionPlans.push(subscriptionPlan2._id);
-
-    await provider1.save();
-    await provider2.save();
-
-    console.log('Sample data with two providers, menu items, and subscription plans inserted successfully');
+    console.log('Sample data with 5 providers, menu items, and subscription plans inserted successfully.');
   } catch (error) {
     console.log('Error inserting sample data:', error);
   }
 }
 
-/// Get all users (Admin only)
+// REST API routes for admin actions
 app.get('/api/admin/users', authMiddleware, isAdmin, async (req, res) => {
   try {
     const users = await User.find();
@@ -237,95 +191,7 @@ app.get('/api/admin/users', authMiddleware, isAdmin, async (req, res) => {
   }
 });
 
-// Get all providers (Admin only)
-app.get('/api/admin/providers', authMiddleware, isAdmin, async (req, res) => {
-  try {
-    const providers = await Provider.find();
-    res.json(providers);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching providers' });
-  }
-});
-
-// Get all orders (Admin only)
-app.get('/api/admin/orders', authMiddleware, isAdmin, async (req, res) => {
-  try {
-    const orders = await Order.find()
-      .populate('customerId', 'name email') // Populate customerId with specific fields
-      .populate('providerId', 'restaurantName') // Populate providerId with specific fields
-      .populate('menuItemIds', 'mealName price'); // Populate menuItemIds with meal details
-    res.json(orders);
-  } catch (error) {
-    console.error('Error fetching orders:', error);
-    res.status(500).json({ message: 'Error fetching orders' });
-  }
-});
-
-// Get user by ID (Admin only)
-app.get('/api/admin/users/:id', authMiddleware, isAdmin, async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) return res.status(404).json({ message: 'User not found' });
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching user' });
-  }
-});
-
-// Get provider by ID (Admin only)
-app.get('/api/admin/providers/:id', authMiddleware, isAdmin, async (req, res) => {
-  try {
-    const provider = await Provider.findById(req.params.id);
-    if (!provider) return res.status(404).json({ message: 'Provider not found' });
-    res.json(provider);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching provider' });
-  }
-});
-
-// Update user by ID (Admin only)
-app.put('/api/admin/users/:id', authMiddleware, isAdmin, async (req, res) => {
-  try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedUser) return res.status(404).json({ message: 'User not found' });
-    res.json(updatedUser);
-  } catch (error) {
-    res.status(500).json({ message: 'Error updating user' });
-  }
-});
-
-// Update provider by ID (Admin only)
-app.put('/api/admin/providers/:id', authMiddleware, isAdmin, async (req, res) => {
-  try {
-    const updatedProvider = await Provider.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedProvider) return res.status(404).json({ message: 'Provider not found' });
-    res.json(updatedProvider);
-  } catch (error) {
-    res.status(500).json({ message: 'Error updating provider' });
-  }
-});
-
-// Delete user by ID (Admin only)
-app.delete('/api/admin/users/:id', authMiddleware, isAdmin, async (req, res) => {
-  try {
-    const deletedUser = await User.findByIdAndDelete(req.params.id);
-    if (!deletedUser) return res.status(404).json({ message: 'User not found' });
-    res.json({ message: 'User deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ message: 'Error deleting user' });
-  }
-});
-
-// Delete provider by ID (Admin only)
-app.delete('/api/admin/providers/:id', authMiddleware, isAdmin, async (req, res) => {
-  try {
-    const deletedProvider = await Provider.findByIdAndDelete(req.params.id);
-    if (!deletedProvider) return res.status(404).json({ message: 'Provider not found' });
-    res.json({ message: 'Provider deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ message: 'Error deleting provider' });
-  }
-});
+// Other admin routes, including providers and orders, go here...
 
 // Start the server
 const PORT = process.env.PORT || 5000;

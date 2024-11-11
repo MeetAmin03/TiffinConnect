@@ -3,10 +3,11 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Customer = require('../models/Customer');
 const Provider = require('../models/Provider');
+const Driver = require('../models/Driver'); 
 
 exports.register = async (req, res) => {
   const { name, email, password, role } = req.body;
-  
+
   try {
     console.log(`Attempting to register user: ${name}, Role: ${role}`);
 
@@ -32,8 +33,11 @@ exports.register = async (req, res) => {
     } else if (role === 'provider') {
       const provider = await Provider.create({ userId: user._id, name, restaurantName: `${name}'s Kitchen`, address: user.address });
       console.log(`Provider entry created in Provider collection with ID: ${provider._id}`);
+    }  else if (role === 'driver') {
+      const driver = await Driver.create({ userId: user._id });
+      console.log(`Driver profile created with ID: ${driver._id} for user: ${user._id}`);
     }
-    
+
     console.log(`Registration successful for user: ${email}`);
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
@@ -41,7 +45,6 @@ exports.register = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   try {
