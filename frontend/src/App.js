@@ -16,6 +16,9 @@ import CustomerProfile from './components/CustomerProfile';
 import SubscriptionProcess from './components/SubscriptionProcess'; // Import SubscriptionProcess component
 import './App.css';
 import CheckoutPage from './components/CheckoutPage'; 
+import BillingForm from './components/BillingForm';
+import DriverProfile from './components/DriverProfile';
+import DriverRegisterVehicle from './components/DriverRegisterVehicle';
 
 
 const ProtectedRoute = ({ component: Component, role, ...rest }) => {
@@ -69,9 +72,10 @@ const App = () => {
             path="/subscription-process"
             element={<SubscriptionProcess />}
           />
-
           <Route path="/checkout/:subscriptionId" element={<CheckoutPage />} />
-
+          <Route path="/billing" element={<BillingForm />} />
+          <Route path="/driver-profile" element={<ProtectedRoute component={DriverProfile} role="driver" />} />
+          <Route path="/driver-register-vehicle" element={<ProtectedRoute component={DriverRegisterVehicle} role="driver" />} />
         </Routes>
         <Footer />
       </div>

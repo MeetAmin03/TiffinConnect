@@ -1,0 +1,183 @@
+/* Driver Dashboard Styles */
+.driver-dashboard {
+  padding: 40px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2e3b4e;
+  background-color: #f0f2f5;
+  text-align: center;
+}
+
+.dashboard-header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.dashboard-header p {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.dashboard-main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  width: 350px;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+}
+
+.dashboard-card h2 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.profile-photo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid #007bff;
+}
+
+.profile-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  font-size: 1em;
+}
+
+.upload-input {
+  margin-top: 5px;
+  font-size: 0.9em;
+}
+
+.profile-info,
+.vehicle-info {
+  text-align: left;
+  margin-top: 15px;
+}
+
+.profile-info p,
+.vehicle-info p {
+  font-size: 1em;
+  margin: 10px 0;
+}
+
+.profile-info p strong,
+.vehicle-info p strong {
+  color: #333;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 0.95em;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.action-button {
+  background-color: #28a745;
+}
+
+.action-button:hover {
+  background-color: #218838;
+}
+
+.action-button.cancel {
+  background-color: #dc3545;
+}
+
+.action-button.cancel:hover {
+  background-color: #c82333;
+}
+
+.stats-section .stats-cards {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.stat-card {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  width: 90px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s;
+}
+
+.stat-card:hover {
+  background-color: #e2e6ea;
+}
+
+.stat-card h3 {
+  font-size: 1em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.stat-card p {
+  font-size: 1.2em;
+  color: #555;
+  font-weight: bold;
+}
+
+input[type='text'],
+input[type='number'] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+}
+
+input[type='file'] {
+  margin-top: 10px;
+}
