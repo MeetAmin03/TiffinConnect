@@ -188,3 +188,18 @@
       rgba(255, 255, 255, 0) 100%);
   animation: shimmer 2s infinite;
 }
+
+.back-button {
+  background-color: #f1c40f;
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.back-button:hover {
+  background-color: #e2b807;
+}

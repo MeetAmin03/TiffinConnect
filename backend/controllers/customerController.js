@@ -23,7 +23,7 @@ exports.getCustomerProfile = async (req, res) => {
 exports.updateProfile = async (req, res) => {
   try {
     const { name, address, preferences } = req.body;
-    const parsedPreferences = JSON.parse(preferences); // Parse JSON string if sent as such
+    const parsedPreferences = JSON.parse(preferences); 
 
     const profilePicture = req.file ? `${req.protocol}://${req.get('host')}/${req.file.path}` : null;
 
@@ -48,7 +48,6 @@ exports.processPayment = async (req, res) => {
     const { subscriptionId, address, city, state, zipCode, cardNumber, expiryDate, cvv, cardHolderName } = req.body;
     
     console.log(`Processing payment for subscription ID: ${subscriptionId}`);
-    // Implement logic here to process the payment using a payment gateway
 
     // Mock success response
     res.status(200).json({ message: 'Payment processed successfully' });
