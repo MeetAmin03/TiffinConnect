@@ -1,23 +1,8 @@
 // controllers/driverController.js
 const { check, validationResult } = require('express-validator');
 const Driver = require('../models/Driver');
-const uploadProfilePhotoHelper = require('../helpers/uploadProfileHelper');
+const User = require('../models/User'); // Ensure this import is present
 
-
-// Get driver profile
-exports.getDriverProfile = async (req, res) => {
-    try {
-      const driver = await Driver.findOne({ userId: req.user.userId });
-      if (!driver) {
-        return res.status(404).json({ message: 'Driver profile not found' });
-      }
-      res.json(driver);
-    } catch (error) {
-      console.error("Error fetching driver profile:", error);
-      res.status(500).json({ message: 'Error fetching driver profile' });
-    }
-  };
-  
   // Register vehicle for driver
   exports.registerVehicle = [
     // Backend validation rules
@@ -81,56 +66,100 @@ exports.getDriverProfile = async (req, res) => {
   ];
   
   
+  exports.getDriverProfile = async (req, res) => {
+    try {
+      // Find the driver and populate the 'userId' field to include 'name'
+      const driver = await Driver.findOne({ userId: req.user.userId }).populate('userId', 'name');
+      
+      if (!driver) {
+        return res.status(404).json({ message: 'Driver profile not found' });
+      }
+  
+      res.json(driver);
+    } catch (error) {
+      console.error("Error fetching driver profile:", error);
+      res.status(500).json({ message: 'Error fetching driver profile' });
+    }
+  };
+  
+  exports.updateDriverProfile = async (req, res) => {
+    console.log("Starting updateDriverProfile...");
+  
+    const { vehicleType, licenseNumber, deliveryRadius, phoneNumber, currentStatus, name, address } = req.body;
+    const userId = req.user.userId;
+    console.log("User ID from request:", userId);
+    console.log("Values to update in User document:", { name });
+  
+    try {
+      console.log("Attempting to update User document with name...");
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { name }, // Update only `name` in User document
+        { new: true }
+      );
+      console.log("User document updated:", updatedUser);
+  
+      console.log("Attempting to update Driver document...");
+      const updatedDriver = await Driver.findOneAndUpdate(
+        { userId },
+        { vehicleType, licenseNumber, deliveryRadius, phoneNumber, currentStatus, address },
+        { new: true }
+      );
+      console.log("Driver document updated:", updatedDriver);
+  
+      if (!updatedDriver || !updatedUser) {
+        console.log("Either User or Driver profile not found.");
+        return res.status(404).json({ message: 'Driver or User profile not found' });
+      }
+  
+      res.json({ message: 'Driver profile updated successfully', driver: updatedDriver, user: updatedUser });
+    } catch (error) {
+      console.error("Error updating driver profile:", error);
+      res.status(500).json({ message: 'Error updating driver profile', error });
+    }
+  };
+  
+  
 
-// Update Driver Profile
-exports.updateDriverProfile = async (req, res) => {
-  const { vehicleType, licenseNumber, deliveryRadius, phoneNumber, currentStatus } = req.body;
-  try {
-    const updatedDriver = await Driver.findOneAndUpdate(
-      { userId: req.user.userId },
-      { vehicleType, licenseNumber, deliveryRadius, phoneNumber, currentStatus },
-      { new: true }
-    );
-    if (!updatedDriver) return res.status(404).json({ message: 'Driver profile not found' });
-    res.json({ message: 'Driver profile updated successfully', driver: updatedDriver });
-  } catch (error) {
-    res.status(500).json({ message: 'Error updating driver profile', error });
-  }
-};
-
+// controllers/driverController.js
 exports.uploadProfilePhoto = async (req, res) => {
   try {
-    console.log("Upload Profile Photo API called"); // Log entry into the API
+    console.log("Upload Profile Photo API called");
+
+    // Check if authentication is applied by logging req.user
+    console.log("req.user:", req.user); // Log req.user to check if it's populated
+
+    if (!req.user || !req.user.userId) {
+      return res.status(401).json({ message: 'Unauthorized: User not found' });
+    }
 
     // Check if a file exists in the request
     if (!req.file) {
-      console.log("No file uploaded in the request"); // Log if no file
+      console.log("No file uploaded in the request");
       return res.status(400).json({ message: 'No file uploaded' });
     }
 
-    const driverId = req.user.userId; // Use the logged-in user ID as driverId
-    console.log("Driver ID:", driverId); // Log driver ID for verification
+    const driverId = req.user.userId;
+    console.log("Driver ID:", driverId);
 
-    const photoPath = `/uploads/${req.file.filename}`; // Define file path
-    console.log("File path to save:", photoPath); // Log the file path
+    const photoPath = `/uploads/${req.file.filename}`;
+    console.log("File path to save:", photoPath);
 
-    // Update the driver profile with the profile photo path
     const driver = await Driver.findOneAndUpdate(
       { userId: driverId },
-      { profilePhoto: photoPath }, // Update profilePhoto field
+      { profilePhoto: photoPath },
       { new: true }
     );
 
-    // Verify if the driver document was found and updated
     if (!driver) {
-      console.log("No driver profile found for this user ID:", driverId); // Log if driver not found
+      console.log("No driver profile found for this user ID:", driverId);
       return res.status(404).json({ message: 'Driver profile not found' });
     }
 
-    console.log("Profile photo updated successfully:", driver); // Log entire driver document after update
+    console.log("Profile photo updated successfully:", driver);
     res.status(200).json({ message: 'Profile photo uploaded successfully', profilePhoto: driver.profilePhoto });
   } catch (error) {
-    console.error("Error in uploadProfilePhoto:", error); // Log any errors
+    console.error("Error in uploadProfilePhoto:", error);
     res.status(500).json({ message: 'Error uploading profile photo', error });
   }
 };
