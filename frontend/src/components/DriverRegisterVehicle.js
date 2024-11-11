@@ -36,13 +36,17 @@ const DriverRegisterVehicle = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/driver/registerVehicle', formData);
-      navigate('/driver-dashboard'); // Redirect back to the dashboard
+      const formDataWithPhone = {
+        ...formData,
+        phoneNumber: '123-456-7890' // Example phone number if not in the form
+      };
+      await axios.post('/driver/registerVehicle', formDataWithPhone);
+      navigate('/driver-dashboard');
     } catch (error) {
       console.error("Error registering vehicle:", error);
     }
   };
-
+  
   return (
     <div className="form-container">
       <form onSubmit={handleFormSubmit}>
