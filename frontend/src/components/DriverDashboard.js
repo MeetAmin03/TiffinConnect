@@ -5,16 +5,12 @@ import './DriverDashboard.css';
 
 const DriverDashboard = () => {
   const [driverProfile, setDriverProfile] = useState(null);
-  const [profilePhoto, setProfilePhoto] = useState(null);
   const navigate = useNavigate();
 
   const fetchDriverProfile = async () => {
     try {
       const response = await axios.get('/driver/profile');
       setDriverProfile(response.data);
-      if (response.data) {
-        setProfilePhoto(response.data.profilePhoto);
-      }
     } catch (error) {
       console.error('Error fetching driver profile:', error);
     }
@@ -24,54 +20,41 @@ const DriverDashboard = () => {
     fetchDriverProfile();
   }, []);
 
-  const handlePhotoUpload = async (e) => {
-    const file = e.target.files[0];
-    const photoFormData = new FormData();
-    photoFormData.append('profilePhoto', file);
-
-    try {
-      await axios.post('/driver/uploadProfilePhoto', photoFormData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      fetchDriverProfile();
-    } catch (error) {
-      console.error('Error uploading profile photo:', error);
-    }
-  };
-
   return (
     <div className="driver-dashboard">
       <div className="dashboard-header">
-        <h1>Welcome, {driverProfile?.name || 'Driver'}!</h1>
-        <p className="dashboard-description">
-          Manage your profile, view statistics, and check upcoming deliveries.
-        </p>
-      </div>
+  <h1>Welcome, {driverProfile?.userId?.name || 'Driver'}!</h1>
+  <p className="dashboard-description">
+    Manage your profile, view statistics, and check upcoming deliveries.
+  </p>
+</div>
 
       <div className="dashboard-main">
         {/* Profile Section */}
         <div className="dashboard-card profile-section">
           <h2>Your Profile</h2>
           <div className="profile-photo-container">
-            {profilePhoto ? (
+            {driverProfile?.profilePhoto ? (
               <img
-                src={`http://localhost:5000${profilePhoto}`}
+                src={`http://localhost:5000${driverProfile.profilePhoto}`}
                 alt="Profile"
                 className="profile-photo"
               />
             ) : (
               <div className="profile-placeholder">No Photo</div>
             )}
-            <input type="file" onChange={handlePhotoUpload} className="upload-input" />
           </div>
           <div className="profile-info">
-            <p>
-              <strong>Phone Number:</strong> {driverProfile?.phoneNumber || 'Not provided'}
-            </p>
-            <p>
-              <strong>Status:</strong> {driverProfile?.currentStatus || 'N/A'}
-            </p>
-          </div>
+  <p>
+    <strong>Name:</strong> {driverProfile?.userId?.name || 'Not provided'}
+  </p>
+  <p>
+    <strong>Phone Number:</strong> {driverProfile?.phoneNumber || 'Not provided'}
+  </p>
+  <p>
+    <strong>Status:</strong> {driverProfile?.currentStatus || 'N/A'}
+  </p>
+</div>
           <button onClick={() => navigate('/driver-profile')} className="action-button">
             Edit Profile
           </button>
