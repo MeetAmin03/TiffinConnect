@@ -13,7 +13,8 @@ const driverSchema = new mongoose.Schema({
   earnings: { type: Number, default: 0 },
   currentLocation: { type: { latitude: Number, longitude: Number }, default: { latitude: 0, longitude: 0 }},
   phoneNumber: { type: String },
-  profilePhoto: { type: String }, // New field for profile photo
+  profilePhoto: { type: String },
+  address: { type: String } // Added address field
 }, { timestamps: true });
 
 module.exports = mongoose.model('Driver', driverSchema);
