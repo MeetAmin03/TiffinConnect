@@ -22,6 +22,7 @@ const User = require('../models/User'); // Ensure this import is present
       .isInt({ min: 1, max: 100 })
       .withMessage('Delivery radius must be between 1 and 100 km.'),
     check('phoneNumber')
+      .optional()
       .trim()
       .notEmpty()
       .withMessage('Phone number is required.')
@@ -37,10 +38,9 @@ const User = require('../models/User'); // Ensure this import is present
       }
   
       const { vehicleType, licenseNumber, deliveryRadius, phoneNumber } = req.body;
-      const driverId = req.user.userId; // JWT should carry userId
+      const driverId = req.user.userId;
   
       try {
-        // Ensure driver document exists, then update
         const driver = await Driver.findOne({ userId: driverId });
   
         if (!driver) {
@@ -48,7 +48,6 @@ const User = require('../models/User'); // Ensure this import is present
           return res.status(404).json({ message: 'Driver profile not found' });
         }
   
-        // Update driver profile with vehicle information
         driver.vehicleType = vehicleType;
         driver.licenseNumber = licenseNumber;
         driver.deliveryRadius = deliveryRadius;
