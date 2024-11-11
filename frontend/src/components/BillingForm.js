@@ -68,7 +68,7 @@ const BillingForm = ({ subscriptionId }) => {
         console.log("Payment processed successfully:", paymentResponse.data);
 
         // If payment is successful, book the subscription
-        console.log("Booking subscription for subscription ID: ${subscriptionId}");
+        console.log(`Booking subscription for subscription ID: ${subscriptionId}`);
         const bookingResponse = await axios.post('/provider/bookSubscription', { subscriptionId });
         console.log("Subscription booked successfully:", bookingResponse.data);
 
@@ -83,8 +83,16 @@ const BillingForm = ({ subscriptionId }) => {
     }
   };
 
+  const handleBackToCheckout = () => {
+    console.log("Navigating back to checkout with subscriptionId:", subscriptionId); // Debugging log
+    navigate(`/checkout/${subscriptionId}`);
+  };
+
   return (
     <div className="billing-form">
+      <button className="back-button" onClick={handleBackToCheckout}>
+        ← Back to Checkout
+      </button>
       <h2>Billing Information</h2>
       {successMessage && <p className="success-message">{successMessage}</p>} {/* Display success message */}
       <form onSubmit={handleFormSubmit} noValidate>
@@ -177,4 +185,4 @@ const BillingForm = ({ subscriptionId }) => {
   );
 };
 
-export default BillingForm;
+export default BillingForm;
