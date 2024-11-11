@@ -1,84 +1,83 @@
 /* VehicleRegistrationForm.css */
 
 .vehicle-registration-form {
-    background-color: #ffffff;
-    padding: 20px;
-    max-width: 500px;
-    margin: 20px auto;
-    border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .vehicle-registration-form h2 {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 15px;
-    text-align: center;
-  }
-  
-  .vehicle-registration-form form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .vehicle-registration-form label {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 5px;
-  }
-  
-  .vehicle-registration-form input {
-    padding: 10px;
-    font-size: 1rem;
-    color: #333;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    transition: border-color 0.3s ease;
-  }
-  
-  .vehicle-registration-form input:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-  
-  .vehicle-registration-form .form-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .vehicle-registration-form button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .vehicle-registration-form .submit-button {
-    background-color: #007bff;
-  }
-  
-  .vehicle-registration-form .submit-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .vehicle-registration-form .cancel-button {
-    background-color: #6c757d;
-  }
-  
-  .vehicle-registration-form .cancel-button:hover {
-    background-color: #5a6268;
-  }
-  
-  .error-message {
-    font-size: 0.9rem;
-    color: #dc3545;
-    margin-top: -10px;
-    margin-bottom: 10px;
-  }
-  
+  background-color: #ffffff;
+  padding: 20px;
+  max-width: 500px;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-registration-form h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.vehicle-registration-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.vehicle-registration-form label {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.vehicle-registration-form input {
+  padding: 10px;
+  font-size: 1rem;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  transition: border-color 0.3s ease;
+}
+
+.vehicle-registration-form input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.vehicle-registration-form .form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.vehicle-registration-form button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.vehicle-registration-form .submit-button {
+  background-color: #007bff;
+}
+
+.vehicle-registration-form .submit-button:hover {
+  background-color: #0056b3;
+}
+
+.vehicle-registration-form .cancel-button {
+  background-color: #6c757d;
+}
+
+.vehicle-registration-form .cancel-button:hover {
+  background-color: #5a6268;
+}
+
+.error-message {
+  font-size: 0.9rem;
+  color: #dc3545;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
