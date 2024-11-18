@@ -22,7 +22,7 @@ router.post('/upload-profile-photo', authMiddleware, upload.single('profilePhoto
 router.post('/assignOrder', authMiddleware, driverController.assignOrder);
 
 
-router.get('/orders', authMiddleware, driverController.getAllOrders);
+router.get('/orders', authMiddleware, driverController.getAssignedOrders);
 
 router.post('/assignOrder', authMiddleware, driverController.assignOrder);
 
