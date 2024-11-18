@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../api';
 import './DriverDashboard.css';
@@ -7,25 +7,55 @@ const DriverDashboard = () => {
   const [driverProfile, setDriverProfile] = useState(null);
   const navigate = useNavigate();
 
+  // Refs for animations
+  const typewriterRef = useRef(null);
+  const typerwriterpRef = useRef(null);
+  const paragraphRef = useRef(null);
+
   const fetchDriverProfile = async () => {
     try {
       const response = await axios.get('/driver/profile');
       setDriverProfile(response.data);
     } catch (error) {
       console.error('Error fetching driver profile:', error);
+      alert('Failed to load driver profile. Please try again later.');
     }
   };
+
+  // Calculate animation duration based on name length
+  const duration = Math.min(driverProfile?.userId?.name?.length || 0, 50) / 10;
 
   useEffect(() => {
     fetchDriverProfile();
   }, []);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (typewriterRef.current && typerwriterpRef.current && paragraphRef.current) {
+        typewriterRef.current.classList.add('no-cursor');
+        typerwriterpRef.current.classList.add('no-cursor');
+        paragraphRef.current.classList.add('show-p');
+      }
+    }, duration * 1000 || 3000); // Dynamic or fallback to 3 seconds
+
+    return () => clearTimeout(timeout); // Cleanup timeout on unmount
+  }, [duration]);
+
+  const handleBackClick = () => {
+    navigate(-1); // Navigate back to the previous page
+  };
+
   return (
     <div className="driver-dashboard">
+      <button className="back-button" onClick={handleBackClick}>←</button>
+
       {/* Hero Header */}
       <div className="dashboard-hero">
-        <h1>Welcome Back, {driverProfile?.userId?.name || 'Driver'}!</h1>
-        <p className="dashboard-subtitle">Your tools for managing deliveries and more!</p>
+        <h1 ref={typewriterRef} className="TypeWritter">
+          Welcome Back, {driverProfile?.userId?.name || 'Driver'}!
+        </h1>
+        <p ref={typerwriterpRef} className="typerwriterp">Your tools for managing deliveries and more!</p>
+        <p ref={paragraphRef}></p>
       </div>
 
       {/* Main Dashboard Sections */}
