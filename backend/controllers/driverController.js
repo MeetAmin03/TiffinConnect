@@ -223,4 +223,46 @@ exports.unassignOrder = async (req, res) => {
   }
 };
 
+exports.getAssignedOrders = async (req, res) => {
+  try {
+    // Find the driver's `_id` using the `userId`
+    const driver = await Driver.findOne({ userId: req.user.userId });
+
+    if (!driver) {
+      console.log('Driver not found for userId:', req.user.userId);
+      return res.status(404).json({ message: 'Driver not found.' });
+    }
+
+    console.log('Driver found:', driver);
+
+    // Fetch orders assigned to the driver's `_id`
+    const orders = await Order.find({ driverId: driver._id })
+      .populate({
+        path: 'customerId',
+        populate: {
+          path: 'userId', // Populate the `userId` from the `Customer` document
+          select: 'name', // Select only the `name` field
+        },
+      })
+      .populate('providerId', 'restaurantName'); // Populate provider details
+
+    console.log('Populated Orders:', JSON.stringify(orders, null, 2));
+
+    if (!orders.length) {
+      console.log(`No orders found for driver ID: ${driver._id}`);
+      return res.status(404).json({ message: 'No orders found for this driver.' });
+    }
+
+    console.log(`Found ${orders.length} assigned orders for driver ID: ${driver._id}`);
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error('Error fetching assigned orders:', error);
+    res.status(500).json({ message: 'Error fetching assigned orders', error });
+  }
+};
+
+
+
+
+
 
