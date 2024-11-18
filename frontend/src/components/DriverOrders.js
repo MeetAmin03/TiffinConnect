@@ -4,60 +4,47 @@ import './DriverOrders.css';
 
 const DriverOrders = () => {
   const [orders, setOrders] = useState([]);
-  const [driverId, setDriverId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch all orders and the logged-in driver details
-    const fetchOrdersAndDriver = async () => {
+    const fetchAssignedOrders = async () => {
       try {
-        // Fetch logged-in driver details
-        const driverResponse = await axios.get('/driver/profile');
-        setDriverId(driverResponse.data._id);
-
-        // Fetch all orders
-        const ordersResponse = await axios.get('/driver/orders');
-        setOrders(ordersResponse.data);
+        console.log('Fetching assigned orders for driver...');
+        const response = await axios.get('/driver/orders');
+        console.log('API Response:', JSON.stringify(response.data, null, 2));
+        setOrders(response.data);
       } catch (error) {
-        console.error('Error fetching orders or driver details:', error);
+        console.error(
+          'Error fetching assigned orders:',
+          error.response?.data || error.message || error
+        );
+        setError(
+          error.response?.data?.message || 'Failed to fetch assigned orders.'
+        );
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchOrdersAndDriver();
+    fetchAssignedOrders();
   }, []);
 
-  // Function to assign an order to the logged-in driver
-  const handleAssignOrder = async (orderId) => {
-    try {
-      const response = await axios.post('/driver/assignOrder', { orderId });
-      setOrders((prevOrders) =>
-        prevOrders.map((order) =>
-          order._id === orderId ? { ...order, driverId: driverId, status: 'assigned' } : order
-        )
-      );
-      alert('Order successfully assigned to you.');
-    } catch (error) {
-      console.error('Error assigning order:', error);
-    }
-  };
+  if (loading) {
+    console.log('Loading assigned orders...');
+    return <div className="loader">Loading your assigned orders...</div>;
+  }
 
-  // Function to unassign an order from the logged-in driver
-  const handleUnassignOrder = async (orderId) => {
-    try {
-      const response = await axios.post('/driver/unassignOrder', { orderId });
-      setOrders((prevOrders) =>
-        prevOrders.map((order) =>
-          order._id === orderId ? { ...order, driverId: null, status: 'pending' } : order
-        )
-      );
-      alert('Order successfully unassigned.');
-    } catch (error) {
-      console.error('Error unassigning order:', error);
-    }
-  };
+  if (error) {
+    console.log('Error message:', error);
+    return <div className="error-message">{error}</div>;
+  }
+
+  console.log('Rendering assigned orders:', JSON.stringify(orders, null, 2));
 
   return (
     <div className="driver-orders">
-      <h1>Orders</h1>
+      <h1>Your Assigned Orders</h1>
       <table className="orders-table">
         <thead>
           <tr>
@@ -65,7 +52,6 @@ const DriverOrders = () => {
             <th>Customer</th>
             <th>Provider</th>
             <th>Status</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -73,40 +59,15 @@ const DriverOrders = () => {
             orders.map((order) => (
               <tr key={order._id}>
                 <td>{order._id}</td>
-                <td>{order.customerId?.name || 'N/A'}</td>
+                <td>{order.customerId?.userId?.name || 'N/A'}</td>
                 <td>{order.providerId?.restaurantName || 'N/A'}</td>
-                <td>
-                  {order.driverId === null
-                    ? 'Unassigned'
-                    : order.driverId === driverId
-                    ? 'Assigned to You'
-                    : 'Assigned'}
-                </td>
-                <td>
-                  {order.driverId === null ? (
-                    <button
-                      className="assign-button"
-                      onClick={() => handleAssignOrder(order._id)}
-                    >
-                      Assign
-                    </button>
-                  ) : order.driverId === driverId ? (
-                    <button
-                      className="unassign-button"
-                      onClick={() => handleUnassignOrder(order._id)}
-                    >
-                      Unassign
-                    </button>
-                  ) : (
-                    <span>Assigned</span>
-                  )}
-                </td>
+                <td>{order.status || 'N/A'}</td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="5" className="empty-state">
-                No orders available.
+              <td colSpan="4" className="empty-state">
+                No assigned orders available.
               </td>
             </tr>
           )}
