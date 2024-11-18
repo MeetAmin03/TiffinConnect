@@ -12,10 +12,10 @@ const BillingForm = ({ subscriptionId }) => {
     cardNumber: '',
     expiryDate: '',
     cvv: '',
-    cardHolderName: ''
+    cardHolderName: '',
   });
   const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState(''); // State to store the success message
+  const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
   // Validation rules
@@ -30,47 +30,61 @@ const BillingForm = ({ subscriptionId }) => {
     if (!formData.cardNumber || !/^\d{4}-\d{4}-\d{4}-\d{4}$/.test(formData.cardNumber)) {
       newErrors.cardNumber = 'Valid 16-digit card number is required (formatted as XXXX-XXXX-XXXX-XXXX).';
     }
-    if (!formData.expiryDate || !/^(0[1-9]|1[0-2])\/\d{2}$/.test(formData.expiryDate)) newErrors.expiryDate = 'Valid expiry date is required (MM/YY).';
-    if (!formData.cvv || !/^\d{3,4}$/.test(formData.cvv)) newErrors.cvv = 'Valid 3 or 4-digit CVV is required.';
+    if (!formData.expiryDate || !/^(0[1-9]|1[0-2])\/\d{2}$/.test(formData.expiryDate)) {
+      newErrors.expiryDate = 'Valid expiry date is required (MM/YY).';
+    }
+    if (!formData.cvv || !/^\d{3,4}$/.test(formData.cvv)) {
+      newErrors.cvv = 'Valid 3 or 4-digit CVV is required.';
+    }
     if (!formData.cardHolderName) newErrors.cardHolderName = 'Cardholder name is required.';
     return newErrors;
   };
 
-  // Card number formatting function
   const formatCardNumber = (value) => {
     return value
-      .replace(/\D/g, '') // Remove all non-digit characters
-      .replace(/(\d{4})(?=\d)/g, '$1-') // Add hyphen after every 4 digits
-      .slice(0, 19); // Limit to 19 characters (16 digits + 3 hyphens)
+      .replace(/\D/g, '')
+      .replace(/(\d{4})(?=\d)/g, '$1-')
+      .slice(0, 19);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
-    // Apply formatting for card number
     if (name === 'cardNumber') {
       setFormData({ ...formData, cardNumber: formatCardNumber(value) });
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const formErrors = validateForm();
     setErrors(formErrors);
-
+  
     if (Object.keys(formErrors).length === 0) {
       try {
-        // Process payment
         console.log("Processing payment with form data:", formData);
+  
+        // Process payment
         const paymentResponse = await axios.post('/customer/payment', { ...formData, subscriptionId });
         console.log("Payment processed successfully:", paymentResponse.data);
-
-        // If payment is successful, book the subscription
+  
+        // Book the subscription
         console.log(`Booking subscription for subscription ID: ${subscriptionId}`);
         const bookingResponse = await axios.post('/provider/bookSubscription', { subscriptionId });
-        console.log("Subscription booked successfully:", bookingResponse.data);
+        console.log("Subscription booked successfully, response:", bookingResponse.data);
+  
+        const { customer, subscription, order } = bookingResponse.data;
+  
+        // Additional logs for debugging
+        console.log("Customer from booking response:", customer);
+        console.log("Subscription from booking response:", subscription);
+        console.log("Order from booking response:", order);
+  
+        // Ensure all required data is present
+        if (!customer || !subscription || !order) {
+          throw new Error("Invalid booking response: Missing customer, subscription, or order data");
+        }
+  
 
         // Set success message
         setSuccessMessage("Payment successful! Your subscription has been booked.");
@@ -78,13 +92,14 @@ const BillingForm = ({ subscriptionId }) => {
         // Redirect to customer dashboard after a short delay
         setTimeout(() => navigate('/customer-dashboard'), 2000);
       } catch (error) {
-        console.error("Error during payment or booking:", error);
+        console.error("Error during payment, booking, or order creation:", error);
       }
     }
   };
+  
 
   const handleBackToCheckout = () => {
-    console.log("Navigating back to checkout with subscriptionId:", subscriptionId); // Debugging log
+    console.log('Navigating back to checkout with subscriptionId:', subscriptionId);
     navigate(`/checkout/${subscriptionId}`);
   };
 
@@ -94,7 +109,7 @@ const BillingForm = ({ subscriptionId }) => {
         ← Back to Checkout
       </button>
       <h2>Billing Information</h2>
-      {successMessage && <p className="success-message">{successMessage}</p>} {/* Display success message */}
+      {successMessage && <p className="success-message">{successMessage}</p>}
       <form onSubmit={handleFormSubmit} noValidate>
         <div className="form-group">
           <label>Billing Address</label>
@@ -143,7 +158,7 @@ const BillingForm = ({ subscriptionId }) => {
             name="cardNumber"
             value={formData.cardNumber}
             onChange={handleInputChange}
-            maxLength="19" // Limit input length to 19 characters
+            maxLength="19"
           />
           {errors.cardNumber && <small className="error">{errors.cardNumber}</small>}
         </div>

@@ -193,13 +193,21 @@
   background-color: #f1c40f;
   color: #333;
   border: none;
-  padding: 8px 16px;
-  margin: 10px 0;
+  padding: 4px 8px; /* Further reduced padding */
+  margin: 5px 0; /* Smaller margin */
   cursor: pointer;
-  border-radius: 4px;
-  font-size: 14px;
+  border-radius: 3px; /* Slightly smaller border-radius */
+  font-size: 10px; /* Reduced font size */
+  font-weight: 500; /* Medium weight for better readability */
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  text-transform: uppercase; /* Optional: Makes the text uppercase for better readability */
 }
 
 .back-button:hover {
   background-color: #e2b807;
+  transform: scale(1.05); /* Slight zoom on hover for better feedback */
+}
+
+.back-button:active {
+  transform: scale(0.95); /* Slight "pressed" effect */
 }

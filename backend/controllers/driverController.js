@@ -1,7 +1,9 @@
 // controllers/driverController.js
 const { check, validationResult } = require('express-validator');
 const Driver = require('../models/Driver');
-const User = require('../models/User'); // Ensure this import is present
+const User = require('../models/User'); 
+const Order = require('../models/Order'); 
+
 
   // Register vehicle for driver
   exports.registerVehicle = [
@@ -162,3 +164,63 @@ exports.uploadProfilePhoto = async (req, res) => {
     res.status(500).json({ message: 'Error uploading profile photo', error });
   }
 };
+
+exports.getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find()
+      .populate('customerId', 'name') // Populate customer name
+      .populate('providerId', 'restaurantName') // Populate provider details
+      .populate('driverId', 'userId'); // Populate driver details if assigned
+    res.json(orders);
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    res.status(500).json({ message: 'Error fetching orders', error });
+  }
+};
+
+// Assign an order to the logged-in driver
+exports.assignOrder = async (req, res) => {
+  try {
+    const { orderId } = req.body; // Order ID from the request
+    const driverId = req.user.userId; // Logged-in driver's user ID
+
+    // Update the order with the driver ID and mark as assigned
+    const updatedOrder = await Order.findByIdAndUpdate(
+      orderId,
+      { driverId, status: 'assigned' },
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    res.status(200).json({ message: 'Order assigned to driver', order: updatedOrder });
+  } catch (error) {
+    console.error('Error assigning order:', error);
+    res.status(500).json({ message: 'Error assigning order', error });
+  }
+};
+
+exports.unassignOrder = async (req, res) => {
+  try {
+    const { orderId } = req.body;
+
+    const order = await Order.findByIdAndUpdate(
+      orderId,
+      { driverId: null, status: 'pending' },
+      { new: true }
+    );
+
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    res.status(200).json({ message: 'Order unassigned successfully', order });
+  } catch (error) {
+    console.error('Error unassigning order:', error);
+    res.status(500).json({ message: 'Error unassigning order', error });
+  }
+};
+
+

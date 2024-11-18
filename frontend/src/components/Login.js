@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
-import './Auth.css'; // Custom styles for authentication forms
+import './Login.css'; // Custom styles for login form
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -40,7 +40,7 @@ const Login = () => {
         navigate('/provider-dashboard');
       } else if (data.role === 'driver') {
         navigate('/driver-dashboard');
-      }else if (data.role === 'admin') {
+      } else if (data.role === 'admin') {
         navigate('/admin-dashboard');
       }
     } catch (error) {
@@ -49,7 +49,10 @@ const Login = () => {
   };
 
   return (
-    <div className="auth-container">
+    <div className="login-container">
+      <div className="decorative-circle"></div>
+      <div className="decorative-circle"></div>
+      <div className="decorative-circle"></div>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input
