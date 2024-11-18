@@ -189,22 +189,15 @@
   animation: shimmer 2s infinite;
 }
 
-.back-button {
-  background-color: #f1c40f;
-  color: #333;
-  border: none;
-  padding: 4px 8px; /* Further reduced padding */
-  margin: 5px 0; /* Smaller margin */
-  cursor: pointer;
-  border-radius: 3px; /* Slightly smaller border-radius */
-  font-size: 10px; /* Reduced font size */
-  font-weight: 500; /* Medium weight for better readability */
-  transition: background-color 0.2s ease, transform 0.2s ease;
-  text-transform: uppercase; /* Optional: Makes the text uppercase for better readability */
+.back-button-Customer{
+  margin-right: 90%;
+  margin-bottom: 3%;
+  background-color: #f8cf2d;
+  width: 10%;
 }
 
-.back-button:hover {
-  background-color: #e2b807;
+.back-button-Customer:hover {
+  background-color: #fae078;
   transform: scale(1.05); /* Slight zoom on hover for better feedback */
 }
 

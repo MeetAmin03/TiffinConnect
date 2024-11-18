@@ -125,10 +125,12 @@ const DriverProfile = () => {
             <option value="off duty">Off Duty</option>
           </select>
         </label>
-        <button type="submit" className="save-button">Save</button>
+        <div className="button-container">
+        <button type="submit" className="save-button-Drive">Save</button>
         <button type="button" className="cancel-button" onClick={() => navigate('/driver-dashboard')}>
           Cancel
         </button>
+        </div>
       </form>
     </div>
   );
