@@ -47,7 +47,6 @@ const DriverDashboard = () => {
 
   return (
     <div className="driver-dashboard">
-      <button className="back-button" onClick={handleBackClick}>←</button>
 
       {/* Hero Header */}
       <div className="dashboard-hero">
@@ -140,7 +139,7 @@ const DriverDashboard = () => {
             onClick={() => navigate('/driver-orders')}
             className="action-button orders-button"
           >
-            View Unassigned Orders
+            View Assigned Orders
           </button>
         </div>
       </div>
