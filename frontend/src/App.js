@@ -15,10 +15,13 @@ import SubscriptionPlanList from './components/SubscriptionPlanList';
 import CustomerProfile from './components/CustomerProfile';
 import SubscriptionProcess from './components/SubscriptionProcess'; // Import SubscriptionProcess component
 import './App.css';
-import CheckoutPage from './components/CheckoutPage'; 
+import CheckoutPage from './components/CheckoutPage';
 import BillingForm from './components/BillingForm';
 import DriverProfile from './components/DriverProfile';
 import DriverRegisterVehicle from './components/DriverRegisterVehicle';
+import DriverOrders from './components/DriverOrders';
+import AdminOrders from './components/AdminOrders'; 
+
 
 
 const ProtectedRoute = ({ component: Component, role, ...rest }) => {
@@ -76,6 +79,11 @@ const App = () => {
           <Route path="/billing" element={<BillingForm />} />
           <Route path="/driver-profile" element={<ProtectedRoute component={DriverProfile} role="driver" />} />
           <Route path="/driver-register-vehicle" element={<ProtectedRoute component={DriverRegisterVehicle} role="driver" />} />
+          <Route path="/driver-orders" element={<ProtectedRoute component={DriverOrders} role="driver" />} />
+
+          <Route path="/admin/orders" element={<AdminOrders />} />
+
+
         </Routes>
         <Footer />
       </div>

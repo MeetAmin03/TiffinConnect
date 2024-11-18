@@ -11,6 +11,8 @@ const providerRoutes = require('./routes/providerRoutes');
 const authRoutes = require('./routes/authRoutes'); // Import authRoutes
 const path = require('path');
 const driverRoutes = require('./routes/driverRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+
 
 // Load environment variables
 dotenv.config();
@@ -53,6 +55,9 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/api/driver', driverRoutes);
 
+app.use('/api/admin', adminRoutes);
+
+
 
 // Function to insert sample data
 async function insertSampleData() {
@@ -70,7 +75,7 @@ async function insertSampleData() {
     console.log('All collections cleared successfully.');
 
     // Hash passwords for users
-    const hashedPasswordProvider = await bcrypt.hash('111111', 10);
+    const hashedPassword = await bcrypt.hash('1111', 10);
 
     // Sample providers and subscription plans data
     const providers = [
@@ -81,117 +86,100 @@ async function insertSampleData() {
       { name: 'Provider 5', email: 'p5@gmail.com', restaurantName: 'Provider 5 Bistro', address: '505 Grape St, Mealville' }
     ];
 
+    // Insert providers, subscription plans, and menu items
     for (const providerData of providers) {
-      // Create user for each provider
       const user = await User.create({
         name: providerData.name,
         email: providerData.email,
-        password: hashedPasswordProvider,
+        password: hashedPassword,
         role: 'provider',
         contactNumber: '1234567890',
         address: providerData.address,
         isVerified: true,
-        profilePictureURL: `https://example.com/profile/${providerData.name.toLowerCase()}.jpg`
       });
 
-      // Create provider
       const provider = await Provider.create({
         userId: user._id,
         restaurantName: providerData.restaurantName,
         deliveryOptions: 'Home Delivery',
         rating: 4.5,
-        reviews: [{ reviewId: new mongoose.Types.ObjectId(), comment: 'Great food!' }],
-        restaurantLogoURL: `https://example.com/logo/${providerData.name.toLowerCase()}.jpg`,
         address: providerData.address,
-        subscriptionPlans: []
       });
 
-      // Sample menu items for each provider
       const menuItems = await MenuItem.insertMany([
-        {
-          providerId: provider._id,
-          mealName: 'Grilled Chicken Salad',
-          description: 'Healthy grilled chicken with fresh salad.',
-          price: 8.99,
-          imageURL: 'https://example.com/menu/chicken-salad.jpg',
-          mealType: 'non-vegetarian',
-        },
-        {
-          providerId: provider._id,
-          mealName: 'Vegetarian Pizza',
-          description: 'Delicious veggie pizza with a crispy crust.',
-          price: 10.99,
-          imageURL: 'https://example.com/menu/veggie-pizza.jpg',
-          mealType: 'vegetarian',
-        },
-        {
-          providerId: provider._id,
-          mealName: 'Beef Steak',
-          description: 'Juicy beef steak with garlic butter sauce.',
-          price: 15.99,
-          imageURL: 'https://example.com/menu/steak.jpg',
-          mealType: 'non-vegetarian',
-        },
-        {
-          providerId: provider._id,
-          mealName: 'Margherita Pizza',
-          description: 'Classic Margherita pizza with fresh tomatoes and basil.',
-          price: 9.99,
-          imageURL: 'https://example.com/menu/margherita.jpg',
-          mealType: 'vegetarian',
-        }
+        { providerId: provider._id, mealName: 'Meal A', price: 10.0, description: 'Delicious meal A', mealType: 'vegetarian' },
+        { providerId: provider._id, mealName: 'Meal B', price: 15.0, description: 'Delicious meal B', mealType: 'non-vegetarian' },
       ]);
 
-      // Sample subscription plans for each provider
       const subscriptionPlans = await SubscriptionPlan.insertMany([
-        {
-          providerId: provider._id,
-          planName: 'Weekly Meal Plan',
-          description: '7 meals per week.',
-          price: 30,
-          duration: 'weekly',
-          meals: [menuItems[0]._id, menuItems[1]._id, menuItems[2]._id]
-        },
-        {
-          providerId: provider._id,
-          planName: 'Monthly Meal Plan',
-          description: 'Includes 30 meals per month.',
-          price: 100,
-          duration: 'monthly',
-          meals: [menuItems[1]._id, menuItems[2]._id, menuItems[3]._id]
-        },
-        {
-          providerId: provider._id,
-          planName: 'Family Meal Plan',
-          description: '15 meals per week, designed for families.',
-          price: 70,
-          duration: 'weekly',
-          meals: [menuItems[0]._id, menuItems[2]._id, menuItems[3]._id]
-        }
+        { providerId: provider._id, planName: 'Weekly Plan', price: 50, duration: 'weekly', meals: menuItems.map(item => item._id) },
+        { providerId: provider._id, planName: 'Monthly Plan', price: 150, duration: 'monthly', meals: menuItems.map(item => item._id) },
       ]);
-
-      // Update provider with their subscription plans
-      provider.subscriptionPlans.push(...subscriptionPlans.map(plan => plan._id));
-      await provider.save();
     }
 
-    console.log('Sample data with 5 providers, menu items, and subscription plans inserted successfully.');
+    // Insert sample customers
+    const customers = [
+      { name: 'Customer 1', email: 'c1@gmail.com', address: 'Customer Address 1' },
+      { name: 'Customer 2', email: 'c2@gmail.com', address: 'Customer Address 2' },
+    ];
+
+    for (const customerData of customers) {
+      const user = await User.create({
+        name: customerData.name,
+        email: customerData.email,
+        password: hashedPassword,
+        role: 'customer',
+        contactNumber: '9876543210',
+        address: customerData.address,
+        isVerified: true,
+      });
+
+      await Customer.create({ userId: user._id });
+    }
+
+    // Insert sample drivers
+    const drivers = [
+      { name: 'Driver 1', email: 'd1@gmail.com', address: 'Driver Address 1', currentStatus: 'available' },
+      { name: 'Driver 2', email: 'd2@gmail.com', address: 'Driver Address 2', currentStatus: 'available' },
+    ];
+
+    for (const driverData of drivers) {
+      const user = await User.create({
+        name: driverData.name,
+        email: driverData.email,
+        password: hashedPassword,
+        role: 'driver',
+        contactNumber: '1231231230',
+        address: driverData.address,
+        isVerified: true,
+      });
+
+      await Driver.create({
+        userId: user._id,
+        vehicleType: 'Car',
+        licenseNumber: `LICENSE-${Math.floor(1000 + Math.random() * 9000)}`,
+        deliveryRadius: 50,
+        currentStatus: driverData.currentStatus,
+      });
+    }
+
+    // Insert sample orders
+    const customer = await Customer.findOne(); // Assuming at least one customer exists
+    const provider = await Provider.findOne(); // Assuming at least one provider exists
+    const subscriptionPlan = await SubscriptionPlan.findOne(); // Assuming at least one subscription plan exists
+
+    await Order.create([
+      { customerId: customer._id, providerId: provider._id, subscriptionPlanId: subscriptionPlan._id, startDate: new Date(), endDate: new Date(), status: 'pending' },
+      { customerId: customer._id, providerId: provider._id, subscriptionPlanId: subscriptionPlan._id, startDate: new Date(), endDate: new Date(), status: 'assigned' },
+    ]);
+
+    console.log('Sample data inserted successfully.');
   } catch (error) {
-    console.log('Error inserting sample data:', error);
+    console.error('Error inserting sample data:', error);
   }
 }
 
-// REST API routes for admin actions
-app.get('/api/admin/users', authMiddleware, isAdmin, async (req, res) => {
-  try {
-    const users = await User.find();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching users' });
-  }
-});
 
-// Other admin routes, including providers and orders, go here...
 
 // Start the server
 const PORT = process.env.PORT || 5000;
