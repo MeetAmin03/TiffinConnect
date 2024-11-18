@@ -39,16 +39,13 @@ const SubscriptionProcess = () => {
   const goToCheckout = (subscriptionId) => {
     navigate(`/checkout/${subscriptionId}`);
   };
-
-  const goBackToDashboard = () => {
-    navigate('/customer-dashboard');
+  const handleBackClick = () => {
+    history.back(); // Navigate back to the previous page
   };
 
   return (
     <div className="subscription-page">
-      <button className="back-button" onClick={goBackToDashboard}>
-        ← Back to Dashboard
-      </button>
+      <button className="back-button-Customer" onClick={handleBackClick}>&#11013;</button>
       <h1>Available Tiffin Subscriptions</h1>
       <div className="subscription-controls">
         <input

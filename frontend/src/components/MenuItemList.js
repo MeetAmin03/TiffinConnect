@@ -96,7 +96,7 @@ const MenuItemList = () => {
 
   return (
     <div className="menu-container">
-      <button className="back-button" onClick={handleBackClick}>&#11013;</button>
+      <button className="back-button-Customer" onClick={handleBackClick}>&#11013;</button>
       <h2>Manage Menu Items</h2>
 
       {/* Button to add new menu item */}

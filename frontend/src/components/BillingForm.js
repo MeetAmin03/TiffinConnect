@@ -104,23 +104,25 @@ const BillingForm = ({ subscriptionId }) => {
   };
 
   return (
-    <div className="billing-form">
-      <button className="back-button" onClick={handleBackToCheckout}>
-        ← Back to Checkout
-      </button>
-      <h2>Billing Information</h2>
-      {successMessage && <p className="success-message">{successMessage}</p>}
-      <form onSubmit={handleFormSubmit} noValidate>
-        <div className="form-group">
-          <label>Billing Address</label>
-          <input
-            type="text"
-            name="address"
-            value={formData.address}
-            onChange={handleInputChange}
-          />
-          {errors.address && <small className="error">{errors.address}</small>}
-        </div>
+<div className="billing-container">
+  <div className="billing-form">
+    <button className="back-button" onClick={handleBackToCheckout}>
+      ←
+    </button>
+    <h2>Billing Information</h2>
+    {successMessage && <p className="success-message">{successMessage}</p>}
+    <form onSubmit={handleFormSubmit} noValidate>
+      <div className="form-group">
+        <label>Billing Address</label>
+        <input
+          type="text"
+          name="address"
+          value={formData.address}
+          onChange={handleInputChange}
+        />
+        {errors.address && <small className="error">{errors.address}</small>}
+      </div>
+      <div className="form-group-grid">
         <div className="form-group">
           <label>City</label>
           <input
@@ -151,52 +153,54 @@ const BillingForm = ({ subscriptionId }) => {
           />
           {errors.zipCode && <small className="error">{errors.zipCode}</small>}
         </div>
-        <div className="form-group">
-          <label>Card Number</label>
-          <input
-            type="text"
-            name="cardNumber"
-            value={formData.cardNumber}
-            onChange={handleInputChange}
-            maxLength="19"
-          />
-          {errors.cardNumber && <small className="error">{errors.cardNumber}</small>}
-        </div>
-        <div className="form-group">
-          <label>Expiry Date (MM/YY)</label>
-          <input
-            type="text"
-            name="expiryDate"
-            value={formData.expiryDate}
-            onChange={handleInputChange}
-          />
-          {errors.expiryDate && <small className="error">{errors.expiryDate}</small>}
-        </div>
-        <div className="form-group">
-          <label>CVV</label>
-          <input
-            type="text"
-            name="cvv"
-            value={formData.cvv}
-            onChange={handleInputChange}
-          />
-          {errors.cvv && <small className="error">{errors.cvv}</small>}
-        </div>
-        <div className="form-group">
-          <label>Cardholder Name</label>
-          <input
-            type="text"
-            name="cardHolderName"
-            value={formData.cardHolderName}
-            onChange={handleInputChange}
-          />
-          {errors.cardHolderName && <small className="error">{errors.cardHolderName}</small>}
-        </div>
-        <div className="form-actions">
-          <button type="submit" className="pay-button">Pay Now</button>
-        </div>
-      </form>
-    </div>
+      </div>
+      <div className="form-group">
+        <label>Card Number</label>
+        <input
+          type="text"
+          name="cardNumber"
+          value={formData.cardNumber}
+          onChange={handleInputChange}
+          maxLength="19"
+        />
+        {errors.cardNumber && <small className="error">{errors.cardNumber}</small>}
+      </div>
+      <div className="form-group">
+        <label>Expiry Date (MM/YY)</label>
+        <input
+          type="text"
+          name="expiryDate"
+          value={formData.expiryDate}
+          onChange={handleInputChange}
+        />
+        {errors.expiryDate && <small className="error">{errors.expiryDate}</small>}
+      </div>
+      <div className="form-group">
+        <label>CVV</label>
+        <input
+          type="text"
+          name="cvv"
+          value={formData.cvv}
+          onChange={handleInputChange}
+        />
+        {errors.cvv && <small className="error">{errors.cvv}</small>}
+      </div>
+      <div className="form-group">
+        <label>Cardholder Name</label>
+        <input
+          type="text"
+          name="cardHolderName"
+          value={formData.cardHolderName}
+          onChange={handleInputChange}
+        />
+        {errors.cardHolderName && <small className="error">{errors.cardHolderName}</small>}
+      </div>
+      <div className="form-actions">
+        <button type="submit" className="pay-button">Pay Now</button>
+      </div>
+    </form>
+  </div>
+</div>
   );
 };
 

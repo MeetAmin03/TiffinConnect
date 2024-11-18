@@ -102,7 +102,7 @@ const SubscriptionPlanList = () => {
 
   return (
     <div className="subscription-container">
-      <button className="back-button" onClick={handleBackClick}>&#11013;</button>
+      <button className="back-button-Sub" onClick={handleBackClick}>&#11013;</button>
       <h2>Manage Subscription Plans</h2>
 
       {!isAdding && (

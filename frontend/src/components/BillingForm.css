@@ -1,16 +1,9 @@
 .billing-form {
   max-width: 500px;
   margin: auto;
-  background: #f8f8f8;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px; 
   margin: 2rem auto;
   padding: 2rem;
-  background: white;
-  border-radius: 1rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .billing-form h2 {
@@ -269,8 +262,51 @@ input[name="cvv"] {
   cursor: pointer;
   border-radius: 4px;
   font-size: 14px;
+  width: 20%;
 }
 
 .back-button:hover {
   background-color: #e2b807;
+}
+.billing-container {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  padding: 2rem;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.billing-form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+/* Form Layout Fixes */
+.form-group,
+.form-group-grid {
+  width: 100%;
+}
+
+.form-group-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Input Field Adjustments */
+input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Button Adjustments */
+.back-button {
+  display: inline-block;
+  margin-bottom: 1rem;
 }

@@ -20,9 +20,10 @@
   font-size: 2rem;
   font-weight: bold;
 }
-.back-button{
+.back-button-Customer{
   margin-right: 90%;
   margin-bottom: 3%;
+  width: 20%;
 }
 
 /* Profile Card */
