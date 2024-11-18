@@ -94,19 +94,16 @@ useEffect(() => {
   <section className="dashboard-options">
     <div className="card profile-card">
       <h3>Manage Profile</h3>
-      <p>View and update your restaurant details, delivery options, and more.</p>
       <button onClick={handleProfileClick} className="dashboard-btn">Profile</button>
     </div>
 
     <div className="card menu-card">
       <h3>Manage Menu</h3>
-      <p>Add, edit, or delete menu items for your restaurant.</p>
       <button onClick={handleMenuClick} className="dashboard-btn">Menu</button>
     </div>
 
     <div className="card">
-      <h3>Manage Subscription Plans</h3>
-      <p>Create, edit, or delete subscription plans for your customers.</p>
+      <h3>Manage Plans</h3>
       <button onClick={handleSubscriptionClick} className="dashboard-btn">Subscription</button>
     </div>
   </section>
