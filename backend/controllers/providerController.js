@@ -4,6 +4,8 @@ const Provider = require('../models/Provider');
 const MenuItem = require('../models/MenuItem');
 const SubscriptionPlan = require('../models/SubscriptionPlan');
 const Customer = require('../models/Customer');
+const Order = require('../models/Order'); 
+
 
 
 
@@ -212,25 +214,70 @@ exports.getSubscriptionById = async (req, res) => {
 // Book subscription for customer
 exports.bookSubscription = async (req, res) => {
   try {
-    console.log(`Booking subscription for customer: ${req.user.userId} with subscription ID: ${req.body.subscriptionId}`);
-    
+    const { subscriptionId } = req.body; // This is the correct field sent from the frontend
+    const customerId = req.user.userId;
+
+    console.log('Received subscriptionId:', subscriptionId);
+    console.log('Customer ID from JWT:', customerId);
+
+    const subscription = await SubscriptionPlan.findById(subscriptionId).populate('providerId');
+    console.log('Fetched subscription object:', subscription);
+
+    if (!subscription) {
+      console.log('Subscription plan not found for ID:', subscriptionId);
+      return res.status(404).json({ message: 'Subscription plan not found' });
+    }
+
     const customer = await Customer.findOneAndUpdate(
-      { userId: req.user.userId },
-      { $push: { subscriptions: { mealPlanId: req.body.subscriptionId, startDate: new Date() } } },
+      { userId: customerId },
+      {
+        $push: {
+          subscriptions: {
+            providerId: subscription.providerId._id,
+            subscriptionPlanId: subscription._id,
+            startDate: new Date(),
+            endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+          },
+        },
+      },
       { new: true }
     );
+    console.log('Updated customer object:', customer);
 
     if (!customer) {
-      console.log('Customer not found during booking process');
+      console.log('Customer not found for ID:', customerId);
       return res.status(404).json({ message: 'Customer not found' });
     }
 
-    console.log(`Subscription added successfully for customer: ${req.user.userId}`);
-    res.status(200).json({ message: 'Subscription booked successfully' });
+    // Create a new order
+    const order = new Order({
+      customerId: customer._id,
+      providerId: subscription.providerId._id,
+      subscriptionPlanId: subscription._id, // Ensure correct key
+      startDate: new Date(),
+      endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+      status: 'pending',
+    });
+
+    console.log('Order object before saving:', order);
+
+    await order.save();
+
+    console.log('Order saved successfully:', order);
+
+    res.status(200).json({
+      message: 'Subscription booked successfully',
+      customer,
+      order,
+      subscription,
+    });
   } catch (error) {
     console.error('Error booking subscription:', error);
     res.status(500).json({ message: 'Error booking subscription', error });
   }
 };
+
+
+
 
 

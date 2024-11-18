@@ -22,47 +22,72 @@ const DriverDashboard = () => {
 
   return (
     <div className="driver-dashboard">
-      <div className="dashboard-header">
-  <h1>Welcome, {driverProfile?.userId?.name || 'Driver'}!</h1>
-  <p className="dashboard-description">
-    Manage your profile, view statistics, and check upcoming deliveries.
-  </p>
-</div>
+      {/* Hero Header */}
+      <div className="dashboard-hero">
+        <h1>Welcome Back, {driverProfile?.userId?.name || 'Driver'}!</h1>
+        <p className="dashboard-subtitle">Your tools for managing deliveries and more!</p>
+      </div>
 
+      {/* Main Dashboard Sections */}
       <div className="dashboard-main">
-        {/* Profile Section */}
+        {/* Top Row: Profile and Vehicle Info */}
         <div className="dashboard-card profile-section">
-          <h2>Your Profile</h2>
-          <div className="profile-photo-container">
-            {driverProfile?.profilePhoto ? (
-              <img
-                src={`http://localhost:5000${driverProfile.profilePhoto}`}
-                alt="Profile"
-                className="profile-photo"
-              />
-            ) : (
-              <div className="profile-placeholder">No Photo</div>
-            )}
+          <div className="profile-header">
+            <h2>Driver Profile</h2>
           </div>
-          <div className="profile-info">
-  <p>
-    <strong>Name:</strong> {driverProfile?.userId?.name || 'Not provided'}
-  </p>
-  <p>
-    <strong>Phone Number:</strong> {driverProfile?.phoneNumber || 'Not provided'}
-  </p>
-  <p>
-    <strong>Status:</strong> {driverProfile?.currentStatus || 'N/A'}
-  </p>
-</div>
-          <button onClick={() => navigate('/driver-profile')} className="action-button">
-            Edit Profile
-          </button>
+          <div className="profile-content">
+            <div className="profile-photo-container">
+              {driverProfile?.profilePhoto ? (
+                <img
+                  src={`http://localhost:5000${driverProfile.profilePhoto}`}
+                  alt="Profile"
+                  className="profile-photo"
+                />
+              ) : (
+                <div className="profile-placeholder">No Photo</div>
+              )}
+            </div>
+            <div className="profile-info">
+              <p>
+                <strong>Name:</strong> {driverProfile?.userId?.name || 'Not provided'}
+              </p>
+              <p>
+                <strong>Phone Number:</strong> {driverProfile?.phoneNumber || 'Not provided'}
+              </p>
+              <p>
+                <strong>Status:</strong> {driverProfile?.currentStatus || 'N/A'}
+              </p>
+              <button onClick={() => navigate('/driver-profile')} className="action-button">
+                Edit Profile
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Statistics Section */}
+        <div className="dashboard-card vehicle-section">
+          <h2>Vehicle Information</h2>
+          <div className="vehicle-info">
+            <p>
+              <strong>Vehicle Type:</strong> {driverProfile?.vehicleType || 'Not registered'}
+            </p>
+            <p>
+              <strong>License Number:</strong> {driverProfile?.licenseNumber || 'Not registered'}
+            </p>
+            <p>
+              <strong>Delivery Radius:</strong> {`${driverProfile?.deliveryRadius || 'N/A'} km`}
+            </p>
+            <button
+              onClick={() => navigate('/driver-register-vehicle')}
+              className="action-button highlight-button"
+            >
+              Register/Update Vehicle
+            </button>
+          </div>
+        </div>
+
+        {/* Bottom Row: Statistics and Orders */}
         <div className="dashboard-card stats-section">
-          <h2>Statistics</h2>
+          <h2>Delivery Statistics</h2>
           <div className="stats-cards">
             <div className="stat-card">
               <h3>Deliveries</h3>
@@ -79,22 +104,13 @@ const DriverDashboard = () => {
           </div>
         </div>
 
-        {/* Vehicle Information Section */}
-        <div className="dashboard-card vehicle-section">
-          <h2>Vehicle Information</h2>
-          <div className="vehicle-info">
-            <p>
-              <strong>Vehicle Type:</strong> {driverProfile?.vehicleType || 'Not registered'}
-            </p>
-            <p>
-              <strong>License Number:</strong> {driverProfile?.licenseNumber || 'Not registered'}
-            </p>
-            <p>
-              <strong>Delivery Radius:</strong> {`${driverProfile?.deliveryRadius || 'N/A'} km`}
-            </p>
-          </div>
-          <button onClick={() => navigate('/driver-register-vehicle')} className="action-button">
-            Register/Update Vehicle
+        <div className="dashboard-card orders-section">
+          <h2>Orders</h2>
+          <button
+            onClick={() => navigate('/driver-orders')}
+            className="action-button orders-button"
+          >
+            View Unassigned Orders
           </button>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
-import './Auth.css'; // Custom styles for authentication forms
+import './Register.css'; // Custom styles for Register page
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -43,7 +43,7 @@ const Register = () => {
   };
 
   return (
-    <div className="auth-container">
+    <div className="register-container">
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <input

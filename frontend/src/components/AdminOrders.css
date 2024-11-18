@@ -1,0 +1,74 @@
+/* AdminOrders.css */
+
+.admin-orders {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .admin-orders h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .orders-table th,
+  .orders-table td {
+    padding: 10px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .orders-table th {
+    background-color: #007bff;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+  
+  .orders-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .orders-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .assign-button,
+  .unassign-button {
+    padding: 8px 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .assign-button:hover {
+    background-color: #218838;
+  }
+  
+  .unassign-button {
+    background-color: #dc3545;
+  }
+  
+  .unassign-button:hover {
+    background-color: #c82333;
+  }
+  
+  .empty-state {
+    text-align: center;
+    color: #666;
+    padding: 20px 0;
+  }
+  
