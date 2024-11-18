@@ -107,7 +107,7 @@ useEffect(() => {
     <div className="card">
       <h3>Manage Subscription Plans</h3>
       <p>Create, edit, or delete subscription plans for your customers.</p>
-      <button onClick={handleSubscriptionClick} className="dashboard-btn">Subscription Plans</button>
+      <button onClick={handleSubscriptionClick} className="dashboard-btn">Subscription</button>
     </div>
   </section>
 </div>

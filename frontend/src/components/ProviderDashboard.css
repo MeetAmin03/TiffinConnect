@@ -1,4 +1,148 @@
 /* ProviderDashboard.css */
+/* *********************************Provider dashboard page ************************** */
+/* Global Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f1f1f1;
+  margin: 0;
+  padding: 0;
+}
+
+/* Provider Dashboard Styles */
+.provider-dashboard {
+  max-width: 1100px;
+  margin: 50px auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Section */
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+  font-size: 2.5rem;
+  color: #f0ad4e;
+}
+
+.dashboard-header p {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-top: 10px;
+}
+
+/* Dashboard Stats Section */
+.dashboard-stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background-color: #f9f9f9;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  width: 32%;
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #f0ad4e;
+}
+
+.stat-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #f0ad4e;
+}
+
+/* Dashboard Options Section */
+.dashboard-options {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.card {
+  background-color: #f4f4f4;
+  padding: 30px;
+  border-radius: 12px;
+  width: 48%;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 220px;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #264653;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #6d6d6d;
+}
+
+.dashboard-btn {
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.dashboard-btn:hover {
+  background-color: #f5ae4a;
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-stats {
+    flex-direction: column;
+  }
+
+  .dashboard-options {
+    flex-direction: column;
+  }
+
+  .stat-card, .card {
+    width: 100%;
+  }
+}
 
 /* General Styles */
 body {
@@ -98,29 +242,31 @@ body {
   color: #555;
 }
 
-/* Button Styles */
+/* Button Styling */
 .dashboard-btn {
-  padding: 15px 30px;
-  background-color: #e67e22;
-  color: white;
+  background-color: #e67e22; 
+  color: white; 
   border: none;
-  border-radius: 8px;
-  font-size: 1.2rem;
-  font-weight: 600;
+  padding-left: 25px;
+  padding-right: 25px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  text-align: center;
+  border-radius: 8px; /* Rounded corners for a modern look */
+  transition: background-color 0.3s, transform 0.2s;
+  margin: 10px 0;
+  width: auto;
 }
 
 .dashboard-btn:hover {
-  background-color: #d35400;
-  transform: translateY(-3px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background-color: #f0994e; /* Darker blue on hover */
+  transform: scale(1.05); /* Slight scaling effect */
 }
 
 .dashboard-btn:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  background-color: #1c6388; /* Even darker blue when clicked */
 }
+
 
 /* Typewriter Animation */
 @keyframes typewriter {
@@ -141,14 +287,16 @@ body {
 .TypeWritter {
   overflow: hidden;
   white-space: nowrap;
-  width: 0;
-  border-right: 2px solid #333;
+  width: 100%;
+  height: auto;
+  border-right: 2px solid #333; /* Cursor style */
   animation: typewriter 3s steps(30, end) forwards, blink 0.5s step-end infinite;
 }
 
 .no-cursor {
-  border-right: none;
+  border-right-color: transparent; /* Hide cursor after animation */
 }
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
