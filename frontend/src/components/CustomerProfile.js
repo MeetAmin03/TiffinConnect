@@ -72,7 +72,7 @@ const CustomerProfile = () => {
 
   return (
     <div className="profile-container">
-      <button className="back-button" onClick={handleBackClick}>&#11013;</button>
+      <button className="back-button-Customer" onClick={handleBackClick}>&#11013;</button>
       <h1>Manage Your Profile</h1>
       <div className="profile-card">
         <form onSubmit={handleSubmit}>

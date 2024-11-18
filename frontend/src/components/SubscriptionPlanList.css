@@ -9,14 +9,14 @@
   color: #1a2b3c;
   font-size: 2rem;
   margin-bottom: 2rem;
-  border-bottom: 3px solid #3b82f6;
+  border-bottom: 3px solid #f0ad4e;
   padding-bottom: 0.5rem;
   display: flex;
 }
 
 /* Add new plan button */
 .add-new-plan-btn {
-  background-color: #3b82f6;
+  background-color: #f0ad4e;
   color: white;
   padding: 0.75rem 1.5rem;
   border: none;
@@ -29,7 +29,7 @@
 }
 
 .add-new-plan-btn:hover {
-  background-color: #2563eb;
+  background-color: #f3b662;
 }
 
 /* Form styles */
@@ -291,10 +291,11 @@ form .cancel-btn:hover {
   border-top: 2px solid #e5e7eb;
 }
 
-.back-button {
+.back-button-Sub {
   margin-right: 90%;
   margin-bottom: 3%;
-  background-color: #047857;
+  width: 10%;
+  background-color: #f0ad4e;
   color: white;
 }
 

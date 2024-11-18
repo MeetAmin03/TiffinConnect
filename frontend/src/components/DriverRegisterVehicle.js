@@ -48,50 +48,55 @@ const DriverRegisterVehicle = () => {
   };
   
   return (
-    <div className="form-container">
-      <form onSubmit={handleFormSubmit}>
-        <h2>Register/Update Vehicle</h2>
-        <label>
-          Vehicle Type:
-          <select
-            name="vehicleType"
-            value={formData.vehicleType}
-            onChange={handleInputChange}
-            required
-          >
-            <option value="">Select a type</option>
-            <option value="Car">Car</option>
-            <option value="Van">Van</option>
-            <option value="Bike">Bike</option>
-            <option value="Truck">Truck</option>
-          </select>
-        </label>
-        <label>
-          License Number:
-          <input
-            type="text"
-            name="licenseNumber"
-            value={formData.licenseNumber}
-            onChange={handleInputChange}
-            required
-          />
-        </label>
-        <label>
-          Delivery Radius (km):
-          <input
-            type="number"
-            name="deliveryRadius"
-            value={formData.deliveryRadius}
-            onChange={handleInputChange}
-            required
-          />
-        </label>
-        <button type="submit" className="save-button">Save</button>
-        <button type="button" className="cancel-button" onClick={() => navigate('/driver-dashboard')}>
-          Cancel
-        </button>
-      </form>
+<div className="form-container">
+  <form onSubmit={handleFormSubmit}>
+    <h2>Register/Update Vehicle</h2>
+    <label>
+      Vehicle Type:
+      <select
+        name="vehicleType"
+        value={formData.vehicleType}
+        onChange={handleInputChange}
+        required
+      >
+        <option value="">Select a type</option>
+        <option value="Car">Car</option>
+        <option value="Van">Van</option>
+        <option value="Bike">Bike</option>
+        <option value="Truck">Truck</option>
+      </select>
+    </label>
+    <label>
+      License Number:
+      <input
+        type="text"
+        name="licenseNumber"
+        placeholder="Enter License Number"
+        value={formData.licenseNumber}
+        onChange={handleInputChange}
+        required
+      />
+    </label>
+    <label>
+      Delivery Radius (km):
+      <input
+        type="number"
+        name="deliveryRadius"
+        placeholder="Enter Delivery Radius"
+        value={formData.deliveryRadius}
+        onChange={handleInputChange}
+        required
+      />
+    </label>
+    <div className="button-container">
+      <button type="submit" className="save-button">Save</button>
+      <button type="button" className="cancel-button" onClick={() => navigate('/driver-dashboard')}>
+        Cancel
+      </button>
     </div>
+  </form>
+</div>
+
   );
 };
 

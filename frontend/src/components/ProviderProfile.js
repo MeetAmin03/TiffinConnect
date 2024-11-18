@@ -1,4 +1,3 @@
-// frontend/components/ProviderProfile.js
 import React, { useState, useEffect } from 'react';
 import { getProviderProfile, updateProviderProfile } from '../api'; // API functions
 import './ProviderProfile.css'; // Custom CSS for profile styling
@@ -16,7 +15,13 @@ const ProviderProfile = () => {
     const fetchProfile = async () => {
       try {
         const response = await getProviderProfile();
-        setProfile(response.data);
+        // Ensure that all profile fields are always defined
+        setProfile({
+          restaurantName: response.data.restaurantName || '',
+          address: response.data.address || '',
+          deliveryOptions: response.data.deliveryOptions || '',
+          restaurantLogoURL: response.data.restaurantLogoURL || '',
+        });
       } catch (error) {
         console.error('Error fetching profile:', error);
       }
@@ -46,7 +51,6 @@ const ProviderProfile = () => {
     <div className="profile-container">
       <button className="back-button" onClick={handleBackClick}>←</button>
       <h2>Manage Provider Profile</h2>
-
       <form onSubmit={handleSubmit}>
         <label>
           Restaurant Name:
