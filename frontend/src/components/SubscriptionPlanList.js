@@ -1,3 +1,4 @@
+// Updated JavaScript with added modal and animations
 import React, { useState, useEffect } from 'react';
 import { getSubscriptionPlans, addSubscriptionPlan, updateSubscriptionPlan, deleteSubscriptionPlan, getMenuItems } from '../api'; // Import API functions
 import './SubscriptionPlanList.css'; // Custom CSS for subscription plan list
@@ -14,6 +15,8 @@ const SubscriptionPlanList = () => {
     meals: [] // Meals to be selected from the menu items
   });
   const [editingPlan, setEditingPlan] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
 
   useEffect(() => {
     const fetchPlans = async () => {
@@ -66,17 +69,23 @@ const SubscriptionPlanList = () => {
     setIsAdding(true);
   };
 
-  const handleDeleteClick = async (id) => {
+  const handleDeleteClick = (id) => {
+    setDeleteId(id);
+    setShowModal(true);
+  };
+
+  const confirmDelete = async () => {
     try {
-      await deleteSubscriptionPlan(id);
-      setPlans(plans.filter((plan) => plan._id !== id));
+      await deleteSubscriptionPlan(deleteId);
+      setPlans(plans.filter((plan) => plan._id !== deleteId));
+      setShowModal(false);
     } catch (error) {
       console.error('Error deleting subscription plan:', error);
     }
   };
 
   const handleBackClick = () => {
-    history.back(); // Navigate back to the previous page
+    history.back(); // Navigate back to the previous page
   };
 
   const handleSubmit = async (e) => {
@@ -99,9 +108,17 @@ const SubscriptionPlanList = () => {
     }
   };
 
-
   return (
     <div className="subscription-container">
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <p>Are you sure you want to delete this subscription plan?</p>
+            <button onClick={confirmDelete} className="confirm-btn">Confirm</button>
+            <button onClick={() => setShowModal(false)} className="cancel-btn">Cancel</button>
+          </div>
+        </div>
+      )}
       <button className="back-button-Sub" onClick={handleBackClick}>&#11013;</button>
       <h2>Manage Subscription Plans</h2>
 
@@ -112,7 +129,7 @@ const SubscriptionPlanList = () => {
       )}
 
       {isAdding && (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="fade-in">
           <label>
             Plan Name:
             <input
@@ -184,17 +201,16 @@ const SubscriptionPlanList = () => {
             </div>
           </label>
 
-          <button type="submit">
+          <button type="submit" className="confirm-btn">
             {editingPlan ? 'Update Subscription Plan' : 'Add Subscription Plan'}
           </button>
           <button type="button" onClick={() => setIsAdding(false)} className="cancel-btn">
             Cancel
           </button>
         </form>
-      )
-      }
+      )}
 
-      <div className="subscription-list">
+      <div className="subscription-list fade-in">
         <h3>Existing Subscription Plans</h3>
         {plans.map((plan) => (
           <div key={plan._id} className="subscription-item">
@@ -231,6 +247,5 @@ const SubscriptionPlanList = () => {
     </div>
   );
 };
-
 
 export default SubscriptionPlanList;
