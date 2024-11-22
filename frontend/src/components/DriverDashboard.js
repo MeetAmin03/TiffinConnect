@@ -41,13 +41,8 @@ const DriverDashboard = () => {
     return () => clearTimeout(timeout); // Cleanup timeout on unmount
   }, [duration]);
 
-  const handleBackClick = () => {
-    navigate(-1); // Navigate back to the previous page
-  };
-
   return (
     <div className="driver-dashboard">
-
       {/* Hero Header */}
       <div className="dashboard-hero">
         <h1 ref={typewriterRef} className="TypeWritter">

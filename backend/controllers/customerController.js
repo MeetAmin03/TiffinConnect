@@ -1,5 +1,7 @@
 const Customer = require('../models/Customer');
 const SubscriptionPlan = require('../models/SubscriptionPlan');
+const Order = require('../models/Order'); 
+
 
 // Get Customer Profile
 exports.getCustomerProfile = async (req, res) => {
@@ -54,6 +56,25 @@ exports.processPayment = async (req, res) => {
   } catch (error) {
     console.error('Error processing payment:', error);
     res.status(500).json({ message: 'Error processing payment', error });
+  }
+};
+
+// Fetch order history for customer
+exports.getOrderHistoryForCustomer = async (req, res) => {
+  try {
+    const customer = await Customer.findOne({ userId: req.user.userId });
+    if (!customer) {
+      return res.status(404).json({ message: 'Customer not found' });
+    }
+
+    const orders = await Order.find({ customerId: customer._id })
+      .populate('providerId', 'restaurantName') // Populate provider's restaurant name
+      .populate('subscriptionPlanId', 'planName startDate endDate'); // Populate subscription plan details
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error('Error fetching order history for customer:', error);
+    res.status(500).json({ message: 'Error fetching order history', error });
   }
 };
 

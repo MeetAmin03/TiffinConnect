@@ -12,5 +12,8 @@ router.put('/profile', authMiddleware, upload.single('profilePicture'), customer
 
 router.post('/payment', authMiddleware, customerController.processPayment);
 
+router.get('/orders', authMiddleware, customerController.getOrderHistoryForCustomer);
+
+
 
 module.exports = router;

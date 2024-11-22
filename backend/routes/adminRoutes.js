@@ -24,6 +24,7 @@ router.delete('/providers/:id', authMiddleware, isAdmin, adminController.deleteP
 
 // Order Management
 router.get('/orders', authMiddleware, isAdmin, adminController.getAllOrders);
+router.delete('/orders/:id', authMiddleware, isAdmin, adminController.deleteOrder); 
 
 router.get('/drivers', authMiddleware, isAdmin, adminController.getAllDrivers);
 router.post('/assignOrder', authMiddleware, isAdmin, adminController.assignOrderToDriver);
