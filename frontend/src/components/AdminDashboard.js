@@ -131,20 +131,14 @@ const AdminDashboard = () => {
       <h1>Admin Dashboard</h1>
 
       <div className="dashboard-cards fancy-cards">
-        <div
-          className="card fancy-card users-card"
-          onClick={() => navigate('/admin/users')}
-        >
+        <div className="card fancy-card users-card">
           <h3>Total Users</h3>
           <div className="card-content">
             <i className="fas fa-users"></i>
             <p>{users.length}</p>
           </div>
         </div>
-        <div
-          className="card fancy-card providers-card"
-          onClick={() => navigate('/admin/providers')}
-        >
+        <div className="card fancy-card providers-card">
           <h3>Total Providers</h3>
           <div className="card-content">
             <i className="fas fa-utensils"></i>

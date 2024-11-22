@@ -1,0 +1,113 @@
+/* Customer Orders Page - Improved CSS for better UI */
+
+/* General Styling */
+body {
+  background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.customer-orders-container {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.order-history-title {
+  font-size: 2.5rem;
+  color: #00796b;
+  text-align: center;
+  margin-bottom: 2rem;
+  border-bottom: 4px solid #00796b;
+  padding-bottom: 0.5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* Loading and Error Message Styling */
+.loading,
+.error-message {
+  font-size: 1.5rem;
+  color: #d32f2f;
+  text-align: center;
+  padding: 2rem;
+  background-color: #fbe9e7;
+  border-radius: 0.5rem;
+  margin: 1rem;
+}
+
+/* Orders Table Styling */
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background-color: #ffffff;
+}
+
+.orders-table thead {
+  background-color: #00796b;
+  color: #ffffff;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  font-size: 1.1rem;
+}
+
+.orders-table th {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.order-row {
+  transition: background-color 0.3s ease;
+}
+
+.order-row:hover {
+  background-color: #e0f2f1;
+}
+
+.no-orders {
+  color: #757575;
+  font-size: 1.3rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Order Status Styling */
+.status-pending {
+  color: #ff9800;
+  font-weight: bold;
+}
+
+.status-active {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.status-completed {
+  color: #00796b;
+  font-weight: bold;
+}
+
+.status-cancelled {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

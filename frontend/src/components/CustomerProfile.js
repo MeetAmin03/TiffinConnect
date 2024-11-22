@@ -1,3 +1,4 @@
+// CustomerProfile.js
 import React, { useState, useEffect } from 'react';
 import axios from '../api';
 import './CustomerProfile.css';
@@ -17,9 +18,9 @@ const CustomerProfile = () => {
 
         setName(name);
         setAddress(address);
-        setPreferences(preferences.dietaryRestrictions || ''); // Display dietary restrictions
+        setPreferences(preferences.dietaryRestrictions || '');
         setProfilePicture(profilePicture);
-        console.log("Profile picture URL:", profilePicture); // Log to check URL
+        console.log("Profile picture URL:", profilePicture);
       } catch (error) {
         console.error("Error fetching profile:", error);
       }
@@ -34,7 +35,7 @@ const CustomerProfile = () => {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('address', address);
-    formData.append('preferences', JSON.stringify({ dietaryRestrictions: preferences })); // Stringify preferences
+    formData.append('preferences', JSON.stringify({ dietaryRestrictions: preferences }));
     if (profilePicture instanceof File) {
       formData.append('profilePicture', profilePicture);
     }
@@ -63,12 +64,11 @@ const CustomerProfile = () => {
         ? profilePicture
         : `http://localhost:5000/${profilePicture}`;
     }
-    return URL.createObjectURL(profilePicture); // For newly uploaded image
+    return URL.createObjectURL(profilePicture);
   };
   const handleBackClick = () => {
-    history.back(); // Navigate back to the previous page
+    history.back();
   };
-
 
   return (
     <div className="profile-container">

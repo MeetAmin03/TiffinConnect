@@ -2,6 +2,7 @@
 
 const express = require('express');
 const { authMiddleware } = require('../middleware/authMiddleware');
+
 const {
   getProviderProfile,
   updateProviderProfile,
@@ -15,8 +16,10 @@ const {
   updateSubscriptionPlan,
   deleteSubscriptionPlan,
   getAllSubscriptionPlans,
-  getSubscriptionById, // ensure this is imported
-  bookSubscription // ensure this is imported correctly
+  getSubscriptionById,
+  bookSubscription,
+  getOrderHistoryForProvider, 
+
 } = require('../controllers/providerController');
 
 const router = express.Router();
@@ -55,5 +58,8 @@ router.post('/bookSubscription', authMiddleware, (req, res, next) => {
   console.log("Route /bookSubscription matched"); 
   next();
 }, bookSubscription);
+
+router.get('/orders', authMiddleware, getOrderHistoryForProvider);
+
 
 module.exports = router;

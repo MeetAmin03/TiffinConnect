@@ -1,0 +1,103 @@
+/* General Styling */
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.provider-orders {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  background: linear-gradient(to right, #ffffff, #f8f9fa);
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.provider-orders h1 {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Table Styling */
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 16px 20px;
+  text-align: center;
+}
+
+.orders-table th {
+  background: #007bff;
+  color: white;
+  text-transform: uppercase;
+}
+
+.orders-table td {
+  background: #ffffff;
+  color: #555;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.orders-table tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.orders-table tbody tr:hover {
+  background: #f1f1f1;
+  cursor: pointer;
+}
+
+/* Status Labels */
+.status-label {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 12px;
+}
+
+.status-label.pending {
+  background: #ffc107;
+  color: #ffffff;
+}
+
+.status-label.assigned {
+  background: #007bff;
+  color: #ffffff;
+}
+
+.status-label.completed {
+  background: #28a745;
+  color: #ffffff;
+}
+
+/* Loader Styling */
+.loader {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #007bff;
+}
+
+/* Error Message Styling */
+.error-message {
+  text-align: center;
+  color: #dc3545;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Empty State Styling */
+.empty-state {
+  text-align: center;
+  color: #888;
+  padding: 20px;
+  font-size: 1.2rem;
+}

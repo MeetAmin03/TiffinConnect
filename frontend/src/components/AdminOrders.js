@@ -71,6 +71,23 @@ const AdminOrders = () => {
     }
   };
 
+// handleDeleteOrder function
+const handleDeleteOrder = async (orderId) => {
+  console.log(`Deleting order: ${orderId}`);
+  const confirmation = window.confirm(`Are you sure you want to delete this order?`);
+  
+  if (confirmation) {
+    try {
+      await axios.delete(`/admin/orders/${orderId}`); // Ensure this matches the backend route
+      setOrders((prevOrders) => prevOrders.filter((order) => order._id !== orderId));
+      alert('Order successfully deleted.');
+    } catch (error) {
+      console.error('Error deleting order:', error);
+      alert('Failed to delete the order. Please try again.');
+    }
+  }
+};
+
   if (loading) {
     console.log('Loading data...');
     return <div className="loader">Loading orders and drivers...</div>;
@@ -92,7 +109,7 @@ const AdminOrders = () => {
             <th>Provider</th>
             <th>Status</th>
             <th>Assigned Driver</th>
-            <th>Action</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -122,6 +139,12 @@ const AdminOrders = () => {
                       </option>
                     ))}
                   </select>
+                  <button
+                    className="action-button delete-button"
+                    onClick={() => handleDeleteOrder(order._id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))

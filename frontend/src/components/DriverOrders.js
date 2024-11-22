@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../api';
+import { useNavigate } from 'react-router-dom';
 import './DriverOrders.css';
 
 const DriverOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAssignedOrders = async () => {
@@ -44,6 +46,7 @@ const DriverOrders = () => {
 
   return (
     <div className="driver-orders">
+      <button className="back-button" onClick={() => navigate('/driver-dashboard')}>&#11013; Back to Dashboard</button>
       <h1>Your Assigned Orders</h1>
       <table className="orders-table">
         <thead>
