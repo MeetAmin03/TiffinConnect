@@ -1,4 +1,5 @@
-/* General Styles */
+/* Driver Dashboard - Enhanced CSS for better visual appeal */
+
 :root {
   --primary-color: #4a90e2;
   --secondary-color: #50e3c2;
@@ -12,15 +13,14 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
-
 
 .driver-dashboard {
   padding: 2rem;
   background-color: var(--background-color);
   min-height: 100vh;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -30,79 +30,57 @@ body {
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: white;
   border-radius: 1rem;
-  padding: 2rem;
-  margin-bottom: 2rem;
+  padding: 3rem;
+  margin-bottom: 3rem;
   box-shadow: 0 6px 12px var(--shadow-color);
 }
 
 .dashboard-hero h1 {
-  animation: typewriter 3s steps(30, end) forwards, blink 0.5s step-end infinite;
-  font-size: 2.5rem;
+  font-size: 3rem;
   margin: 0;
-}
-
-@keyframes typewriter {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes blink {
-  50% {
-    border-right-color: transparent;
-  }
-}
-
-.TypeWritter {
-  overflow: hidden;
-  white-space: nowrap;
-  width: 0%;
-  border-right: 2px solid #333;
   animation: typewriter 3s steps(30, end) forwards, blink 0.5s step-end infinite;
+}
+
+.typerwriterp {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  opacity: 0.9;
 }
 
 .no-cursor {
   border-right: none;
 }
 
-.dashboard-subtitle {
-
-  margin-top: 0.5rem;
-  font-size: 1.2rem;
-  opacity: 0.9;
-}
-
 /* Dashboard Main Grid */
 .dashboard-main {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
 }
 
 .dashboard-card {
   background: var(--card-background);
   border-radius: 1rem;
-  padding: 1.5rem;
-  box-shadow: 0 4px 8px var(--shadow-color);
-  transition: all var(--transition-speed);
-  width: 550px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  flex: 1 1 45%;
+  max-width: 500px;
+  min-width: 300px;
 }
 
 .dashboard-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px var(--shadow-color);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px var(--shadow-color);
 }
 
 .dashboard-card h2 {
   color: var(--text-primary);
-  font-size: 1.5rem;
-  border-bottom: 2px solid var(--highlight-color);
+  font-size: 1.8rem;
+  border-bottom: 3px solid var(--highlight-color);
   padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 /* Profile Section */
@@ -110,6 +88,7 @@ body {
   width: 120px;
   height: 120px;
   margin: 1rem auto;
+  position: relative;
 }
 
 .profile-photo {
@@ -117,7 +96,8 @@ body {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--highlight-color);
+  border: 4px solid var(--highlight-color);
+  box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .profile-placeholder {
@@ -129,53 +109,118 @@ body {
   align-items: center;
   justify-content: center;
   color: var(--text-secondary);
+  font-size: 1.2rem;
+  box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.profile-info {
+  text-align: left;
+  padding: 1.5rem;
+}
+
+.profile-info p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+.profile-info .action-button,
+.vehicle-info .action-button {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+/* Vehicle Section */
+.vehicle-info p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
 }
 
 /* Statistics Section */
 .stats-cards {
-  gap: 1rem;
   display: flex;
   justify-content: space-between;
+  gap: 1.5rem;
+  align-items: center;
 }
 
 .stat-card {
   background: linear-gradient(135deg, #e3f2fd, #f3faff);
-  padding: 1rem;
+  padding: 2rem;
   border-radius: 0.75rem;
   text-align: center;
   box-shadow: 0 4px 8px var(--shadow-color);
+  flex: 1;
 }
 
 .stat-card h3 {
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   color: var(--text-secondary);
+  margin-bottom: 0.5rem;
 }
 
 .stat-card p {
-  font-size: 1.5rem;
+  font-size: 2.2rem;
   color: var(--primary-color);
   font-weight: bold;
 }
 
-.back-button {
-  margin-right: 90%;
-  margin-bottom: 3%;
-  width: 40px;
-}
-
 /* Action Buttons */
 .action-button {
-  height: 40px;
-  background: var(--primary-color);
+  background-color: var(--primary-color);
   color: white;
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
   font-weight: bold;
+  transition: background-color var(--transition-speed), transform var(--transition-speed);
+  margin-top: 1rem;
 }
 
 .action-button:hover {
-  background: var(--secondary-color);
+  background-color: var(--secondary-color);
   transform: translateY(-3px);
+}
+
+.highlight-button {
+  background-color: var(--highlight-color);
+}
+
+.highlight-button:hover {
+  background-color: #e06b4f;
+}
+
+.orders-button {
+  background-color: #ff9800;
+}
+
+.orders-button:hover {
+  background-color: #f57c00;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-right-color: transparent;
+  }
 }

@@ -186,3 +186,34 @@ exports.assignOrderToDriver = async (req, res) => {
     }
   };
 
+  // Update order
+exports.updateOrder = async (req, res) => {
+  try {
+    const updatedOrder = await Order.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!updatedOrder) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+    res.status(200).json(updatedOrder);
+  } catch (error) {
+    console.error('Error updating order:', error);
+    res.status(500).json({ message: 'Failed to update order' });
+  }
+};
+
+// Delete order
+exports.deleteOrder = async (req, res) => {
+  try {
+    const deletedOrder = await Order.findByIdAndDelete(req.params.id);
+    if (!deletedOrder) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+    res.status(200).json({ message: 'Order deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting order:', error);
+    res.status(500).json({ message: 'Failed to delete order' });
+  }
+};
+

@@ -13,20 +13,32 @@ import ProviderProfile from './components/ProviderProfile';
 import MenuItemList from './components/MenuItemList';
 import SubscriptionPlanList from './components/SubscriptionPlanList';
 import CustomerProfile from './components/CustomerProfile';
-import SubscriptionProcess from './components/SubscriptionProcess'; // Import SubscriptionProcess component
-import './App.css';
+import SubscriptionProcess from './components/SubscriptionProcess';
 import CheckoutPage from './components/CheckoutPage';
 import BillingForm from './components/BillingForm';
 import DriverProfile from './components/DriverProfile';
 import DriverRegisterVehicle from './components/DriverRegisterVehicle';
 import DriverOrders from './components/DriverOrders';
-import AdminOrders from './components/AdminOrders'; 
+import AdminOrders from './components/AdminOrders';
+import CustomerOrders from './components/CustomerOrders';
+import ProviderOrders from './components/ProviderOrders';
+import AdminUsers from './components/AdminUsers';
+import './App.css';
 
-
-
+// Protected Route Component
 const ProtectedRoute = ({ component: Component, role, ...rest }) => {
-  const userRole = sessionStorage.getItem('role');
-  return userRole === role ? <Component {...rest} /> : <Navigate to="/login" />;
+  const userRole = sessionStorage.getItem('role'); // Retrieve the user's role from session storage
+  const isAuthenticated = !!sessionStorage.getItem('token'); // Check if token exists (authentication)
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
+  if (role && userRole !== role) {
+    return <Navigate to="/" />;
+  }
+
+  return <Component {...rest} />;
 };
 
 const App = () => {
@@ -38,6 +50,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
+          {/* Customer Routes */}
           <Route
             path="/customer-dashboard"
             element={<ProtectedRoute component={CustomerDashboard} role="customer" />}
@@ -47,16 +61,26 @@ const App = () => {
             element={<ProtectedRoute component={CustomerProfile} role="customer" />}
           />
           <Route
+            path="/customer-orders"
+            element={<ProtectedRoute component={CustomerOrders} role="customer" />}
+          />
+          <Route
+            path="/subscription-process"
+            element={<ProtectedRoute component={SubscriptionProcess} role="customer" />}
+          />
+          <Route
+            path="/checkout/:subscriptionId"
+            element={<ProtectedRoute component={CheckoutPage} role="customer" />}
+          />
+          <Route
+            path="/billing"
+            element={<ProtectedRoute component={BillingForm} role="customer" />}
+          />
+
+          {/* Provider Routes */}
+          <Route
             path="/provider-dashboard"
             element={<ProtectedRoute component={ProviderDashboard} role="provider" />}
-          />
-          <Route
-            path="/driver-dashboard"
-            element={<ProtectedRoute component={DriverDashboard} role="driver" />}
-          />
-          <Route
-            path="/admin-dashboard"
-            element={<ProtectedRoute component={AdminDashboard} role="admin" />}
           />
           <Route
             path="/provider-profile"
@@ -70,20 +94,42 @@ const App = () => {
             path="/subscription-plans"
             element={<ProtectedRoute component={SubscriptionPlanList} role="provider" />}
           />
-          {/* Route for subscription process to view all available tiffin subscriptions */}
           <Route
-            path="/subscription-process"
-            element={<SubscriptionProcess />}
+            path="/provider-orders"
+            element={<ProtectedRoute component={ProviderOrders} role="provider" />}
           />
-          <Route path="/checkout/:subscriptionId" element={<CheckoutPage />} />
-          <Route path="/billing" element={<BillingForm />} />
-          <Route path="/driver-profile" element={<ProtectedRoute component={DriverProfile} role="driver" />} />
-          <Route path="/driver-register-vehicle" element={<ProtectedRoute component={DriverRegisterVehicle} role="driver" />} />
-          <Route path="/driver-orders" element={<ProtectedRoute component={DriverOrders} role="driver" />} />
 
-          <Route path="/admin/orders" element={<AdminOrders />} />
+          {/* Driver Routes */}
+          <Route
+            path="/driver-dashboard"
+            element={<ProtectedRoute component={DriverDashboard} role="driver" />}
+          />
+          <Route
+            path="/driver-profile"
+            element={<ProtectedRoute component={DriverProfile} role="driver" />}
+          />
+          <Route
+            path="/driver-register-vehicle"
+            element={<ProtectedRoute component={DriverRegisterVehicle} role="driver" />}
+          />
+          <Route
+            path="/driver-orders"
+            element={<ProtectedRoute component={DriverOrders} role="driver" />}
+          />
 
-
+          {/* Admin Routes */}
+          <Route
+            path="/admin-dashboard"
+            element={<ProtectedRoute component={AdminDashboard} role="admin" />}
+          />
+          <Route
+            path="/admin/orders"
+            element={<ProtectedRoute component={AdminOrders} role="admin" />}
+          />
+          <Route
+            path="/admin/users"
+            element={<ProtectedRoute component={AdminUsers} role="admin" />}
+          />
         </Routes>
         <Footer />
       </div>
