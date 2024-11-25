@@ -27,7 +27,7 @@ const SubscriptionProcess = () => {
 
   const filteredSubscriptions = subscriptions.filter((plan) => {
     const planNameMatch = plan.planName.toLowerCase().includes(searchQuery);
-    const providerNameMatch = plan.providerId.restaurantName.toLowerCase().includes(searchQuery);
+    const providerNameMatch = plan.providerId?.restaurantName?.toLowerCase().includes(searchQuery); // Optional chaining
     const mealNameMatch = plan.meals.some(meal => meal.mealName.toLowerCase().includes(searchQuery));
 
     return (
@@ -39,8 +39,9 @@ const SubscriptionProcess = () => {
   const goToCheckout = (subscriptionId) => {
     navigate(`/checkout/${subscriptionId}`);
   };
+  
   const handleBackClick = () => {
-    history.back(); // Navigate back to the previous page
+    navigate(-1); // Navigate back to the previous page
   };
 
   return (
@@ -66,7 +67,7 @@ const SubscriptionProcess = () => {
         {filteredSubscriptions.map((plan, index) => (
           <div className="subscription-card" key={index}>
             <h2>{plan.planName}</h2>
-            <p><strong>Provider:</strong> {plan.providerId.restaurantName}</p>
+            <p><strong>Provider:</strong> {plan.providerId?.restaurantName || 'Provider not available'}</p>
             <p>{plan.description}</p>
             <p><strong>Price:</strong> ${plan.price}</p>
             <p><strong>Duration:</strong> {plan.duration}</p>
