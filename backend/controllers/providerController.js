@@ -180,12 +180,21 @@ exports.getAllSubscriptionPlans = async (req, res) => {
     console.log("getAllSubscriptionPlans API called");
     const plans = await SubscriptionPlan.find({})
       .populate('meals', 'mealName price')
-      .populate('providerId', 'restaurantName'); // Populate provider's restaurant name
-    
+      .populate('providerId', 'restaurantName'); 
+
+    console.log("Raw subscription plans retrieved:", plans);
+
     if (plans.length === 0) {
       console.log("No subscription plans found");
     } else {
-      console.log("Subscription plans retrieved:", plans);
+      console.log("Subscription plans retrieved:");
+      plans.forEach((plan, index) => {
+        console.log(`Plan ${index + 1}:`, {
+          planName: plan.planName,
+          provider: plan.providerId ? plan.providerId.restaurantName : "No provider",
+          meals: plan.meals.map((meal) => meal.mealName),
+        });
+      });
     }
 
     res.json(plans);
@@ -194,6 +203,7 @@ exports.getAllSubscriptionPlans = async (req, res) => {
     res.status(500).json({ message: 'Error fetching all subscription plans' });
   }
 };
+
 
 exports.getSubscriptionById = async (req, res) => {
   try {
