@@ -33,40 +33,53 @@ const CustomerOrders = () => {
   if (error) return <div className="error-message">{error}</div>;
 
   return (
-    <div className="customer-orders-container">
-      <button className="back-button" onClick={handleBackClick}>&#11013; Back to Dashboard</button>
-      <h1 className="order-history-title">Your Order History</h1>
-      <table className="orders-table">
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Provider</th>
-            <th>Subscription Plan</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.length > 0 ? (
-            orders.map((order) => (
-              <tr key={order._id} className="order-row">
-                <td>{order._id}</td>
-                <td>{order.providerId?.restaurantName || 'N/A'}</td>
-                <td>{order.subscriptionPlanId?.planName || 'N/A'}</td>
-                <td>{new Date(order.startDate).toLocaleDateString()}</td>
-                <td>{new Date(order.endDate).toLocaleDateString()}</td>
-                <td className={`status-${order.status.toLowerCase()}`}>{order.status}</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="6" className="no-orders">No orders found.</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
+<div className="customer-orders-container">
+  <button className="back-button" onClick={handleBackClick}>
+    &#11013; Back to Dashboard
+  </button>
+  <h1 className="order-history-title">Your Order History</h1>
+  <div className="orders-table-wrapper">
+  <div className="orders-grid">
+  {orders.length > 0 ? (
+    orders.map((order) => (
+      <div key={order._id} className="order-card">
+        <div className="order-header">
+          <span className={`status-badge status-${order.status.toLowerCase()}`}>
+            {order.status}
+          </span>
+          <h3 className="order-id">Order #{order._id}</h3>
+        </div>
+        
+        <div className="order-details">
+          <div className="detail-item">
+            <span className="detail-label">Provider</span>
+            <span className="detail-value">{order.providerId?.restaurantName || "N/A"}</span>
+          </div>
+          
+          <div className="detail-item">
+            <span className="detail-label">Subscription Plan</span>
+            <span className="detail-value">{order.subscriptionPlanId?.planName || "N/A"}</span>
+          </div>
+          
+          <div className="detail-item">
+            <span className="detail-label">Start Date</span>
+            <span className="detail-value">{new Date(order.startDate).toLocaleDateString()}</span>
+          </div>
+          
+          <div className="detail-item">
+            <span className="detail-label">End Date</span>
+            <span className="detail-value">{new Date(order.endDate).toLocaleDateString()}</span>
+          </div>
+        </div>
+      </div>
+    ))
+  ) : (
+    <div className="no-orders">No orders found.</div>
+  )}
+</div>
+  </div>
+</div>
+
   );
 };
 
