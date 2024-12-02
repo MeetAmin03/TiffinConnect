@@ -108,20 +108,32 @@ exports.deleteMenuItem = async (req, res) => {
 // Create a new subscription plan
 exports.createSubscriptionPlan = async (req, res) => {
   const { planName, description, price, duration, meals } = req.body;
+
   try {
+    // Find the provider based on the logged-in user
+    const provider = await Provider.findOne({ userId: req.user.userId });
+
+    if (!provider) {
+      return res.status(404).json({ message: 'Provider not found' });
+    }
+
+    // Create the subscription plan with the correct provider ID
     const subscriptionPlan = await SubscriptionPlan.create({
-      providerId: req.user.userId,
+      providerId: provider._id, // Use the provider document's _id, not the userId
       planName,
       description,
       price,
       duration,
-      meals // Include the selected menu items (array of menu item IDs)
+      meals,
     });
+
     res.status(201).json(subscriptionPlan);
   } catch (error) {
+    console.error("Error creating subscription plan:", error);
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Update a subscription plan
 exports.updateSubscriptionPlan = async (req, res) => {

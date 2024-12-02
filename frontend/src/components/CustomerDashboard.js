@@ -53,19 +53,7 @@ const CustomerDashboard = () => {
       </div>
 
       {/* Favorite Providers */}
-      <div className="dashboard-card favorite-providers">
-        <h2><FontAwesomeIcon icon={faStar} /> Favorite Providers</h2>
-        <div className="providers-container">
-          <div className="provider-card">
-            <img src="https://via.placeholder.com/150" alt="Tiffin House" className="provider-image" />
-            <div className="provider-details">
-              <h5 className="provider-name">Homemade Bites</h5>
-              <p className="provider-rating">⭐ 4.8</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
+  
       {/* Notifications */}
       <div className="dashboard-card notifications-card">
         <h2><FontAwesomeIcon icon={faBell} /> Notifications</h2>

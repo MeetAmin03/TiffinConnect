@@ -1,87 +1,128 @@
+/* General Container Styles */
+.billing-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  background: linear-gradient(to bottom, #f0f4f8, #d9e2ec);
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
 .billing-form {
   max-width: 500px;
+  width: 100%;
   margin: auto;
-  padding: 20px; 
-  margin: 2rem auto;
   padding: 2rem;
+  background: linear-gradient(to top, #ffffff, #f8fafc);
+  border-radius: 20px;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+  transform: translateY(10px);
+  transition: transform 0.4s ease;
+  position: relative;
+}
+
+.billing-form:hover {
+  transform: translateY(0);
 }
 
 .billing-form h2 {
-  color: #1a202c;
-  font-size: 1.875rem;
+  color: #2d3748;
+  font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.success-message {
-  background-color: #c6f6d5;
-  color: #2f855a;
-  padding: 1rem;
-  border-radius: 0.5rem;
   margin-bottom: 1.5rem;
   text-align: center;
-  font-weight: 500;
-  animation: slideDown 0.3s ease-out;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* Back Button Styles */
+.back-button {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  padding: 0.8rem 1.5rem;
+  background-color: #007acc;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #005f99;
+  transform: translateY(-3px);
+}
+
+/* Success Message Styles */
+.success-message {
+  background-color: #e6ffed;
+  color: #38a169;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  animation: slideDown 0.4s ease-out;
+  border: 2px solid #38a169;
 }
 
 @keyframes slideDown {
   from {
-    transform: translateY(-10px);
+    transform: translateY(-15px);
     opacity: 0;
   }
-
   to {
     transform: translateY(0);
     opacity: 1;
   }
 }
 
+/* Form Group Styles */
 .form-group {
   margin-bottom: 1.5rem;
 }
 
 .form-group label {
   display: block;
-  color: #4a5568;
-  font-size: 0.875rem;
-  font-weight: 500;
+  color: #2c5282;
+  font-size: 1rem;
+  font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
 .form-group input {
   width: 100%;
-  padding: 0.75rem 1rem;
-  border: 2px solid #e2e8f0;
-  border-radius: 0.5rem;
+  padding: 1rem;
+  border: 2px solid #cbd5e0;
+  border-radius: 10px;
   font-size: 1rem;
-  transition: all 0.2s ease;
-  background-color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #f7fafc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .form-group input:hover {
-  border-color: #cbd5e0;
+  border-color: #a0aec0;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #4299e1;
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.4);
 }
 
-/* Style for input fields when they contain data */
-.form-group input:not(:placeholder-shown) {
-  border-color: #a0aec0;
-}
-
-/* Error states */
-.form-group input.error {
-  border-color: #fc8181;
+/* Error Message and Input Styles */
+.input-error {
+  border-color: #f56565;
 }
 
 .error {
   color: #e53e3e;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   margin-top: 0.5rem;
   display: block;
   animation: fadeIn 0.2s ease-in;
@@ -91,36 +132,36 @@
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }
 }
 
-/* Payment button styles */
+/* Payment Button Styles */
 .form-actions {
   margin-top: 2rem;
+  text-align: center;
 }
 
 .pay-button {
   width: 100%;
   padding: 1rem;
-  background-color: #4299e1;
+  background-color: #28a745;
   color: white;
   border: none;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  font-weight: 600;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
   position: relative;
   overflow: hidden;
 }
 
 .pay-button:hover {
-  background-color: #3182ce;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px -1px rgba(66, 153, 225, 0.2);
+  background-color: #218838;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(40, 167, 69, 0.25);
 }
 
 .pay-button:active {
@@ -130,89 +171,53 @@
 
 .pay-button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.4);
+  box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.5);
 }
 
-/* Credit card input specific styles */
-input[name="cardNumber"],
-input[name="expiryDate"],
-input[name="cvv"] {
-  font-family: 'Courier New', monospace;
-  letter-spacing: 0.5px;
+/* Grid Layout for City, State, Zip Code */
+.form-group-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
 }
 
-/* Responsive styles */
+/* Responsive Styles */
 @media (max-width: 640px) {
   .billing-form {
     margin: 1rem;
-    padding: 1.5rem;
+    padding: 2rem;
   }
 
   .billing-form h2 {
     text-align: center;
-    color: #333;
-    font-size: 1.5rem;
+    color: #2d3748;
+    font-size: 1.8rem;
     margin-bottom: 1.5rem;
   }
 
-
   .form-group {
-    margin-bottom: 15px;
-    margin-bottom: 1rem;
-  }
-
-  .form-group label {
-    display: block;
-    font-weight: bold;
-    color: #555;
-  }
-
-
-  .form-group input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
-  .error {
-    color: red;
-    font-size: 0.9em;
-  }
-
-  .form-actions {
-    text-align: center;
+    margin-bottom: 1.25rem;
   }
 
   .pay-button {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em;
+    padding: 1rem;
+    font-size: 1.1rem;
   }
 
-  .pay-button:hover {
-    background-color: #218838;
-    padding: 0.625rem 0.875rem;
-  }
-}
-
-/* Grid layout for city, state, zip code */
-@media (min-width: 640px) {
   .form-group-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 1rem;
+    display: block;
   }
 }
 
-/* Loading state for payment button */
+/* Placeholder Styles */
+.form-group input::placeholder {
+  color: #a0aec0;
+  opacity: 0.8;
+}
+
+/* Loading State for Payment Button */
 .pay-button.loading {
-  background-color: #4299e1;
+  background-color: #28a745;
   cursor: not-allowed;
   opacity: 0.7;
 }
@@ -224,10 +229,7 @@ input[name="cvv"] {
   left: -100%;
   width: 200%;
   height: 100%;
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, 0.2),
-      transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   animation: loading 1.5s infinite;
 }
 
@@ -235,78 +237,13 @@ input[name="cvv"] {
   from {
     transform: translateX(-100%);
   }
-
   to {
     transform: translateX(100%);
   }
 }
 
-/* Focus visible styles for accessibility */
+/* Focus Visible Styles for Accessibility */
 .form-group input:focus-visible {
-  outline: 2px solid #4299e1;
+  outline: 2px solid #28a745;
   outline-offset: 2px;
-}
-
-/* Placeholder styles */
-.form-group input::placeholder {
-  color: #a0aec0;
-  opacity: 0.7;
-}
-
-.back-button {
-  background-color: #f1c40f;
-  color: #333;
-  border: none;
-  padding: 8px 16px;
-  margin: 10px 0;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 14px;
-  width: 20%;
-}
-
-.back-button:hover {
-  background-color: #e2b807;
-}
-.billing-container {
-  display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center; /* Centers vertically */
-  padding: 2rem;
-  background-color: #f9f9f9;
-  min-height: 100vh;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-.billing-form h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #333;
-  font-size: 1.8rem;
-}
-
-/* Form Layout Fixes */
-.form-group,
-.form-group-grid {
-  width: 100%;
-}
-
-.form-group-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 1rem;
-}
-
-/* Input Field Adjustments */
-input {
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Button Adjustments */
-.back-button {
-  display: inline-block;
-  margin-bottom: 1rem;
 }

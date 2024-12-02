@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from '../api';
-import BillingForm from './BillingForm';
 import './CheckoutPage.css';
 
 const CheckoutPage = () => {
-  const { subscriptionId } = useParams();
+  const { subscriptionId } = useParams(); // Get subscriptionId from the URL
   const [subscription, setSubscription] = useState(null);
   const [showBillingForm, setShowBillingForm] = useState(false);
   const navigate = useNavigate();
@@ -24,7 +23,7 @@ const CheckoutPage = () => {
   }, [subscriptionId]);
 
   const handleProceedToPay = () => {
-    setShowBillingForm(true);
+    navigate(`/billing/${subscriptionId}`); // Updated navigation to billing page with subscriptionId
   };
 
   const handleCancel = () => {
@@ -34,7 +33,8 @@ const CheckoutPage = () => {
   return (
     <div className="checkout-page">
       {showBillingForm ? (
-        <BillingForm subscriptionId={subscriptionId} />
+        // Removed inline BillingForm, now relying on navigation
+        <></>
       ) : (
         <>
           {subscription ? (
