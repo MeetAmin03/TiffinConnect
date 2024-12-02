@@ -72,8 +72,8 @@ const App = () => {
             path="/checkout/:subscriptionId"
             element={<ProtectedRoute component={CheckoutPage} role="customer" />}
           />
-          <Route
-            path="/billing"
+         <Route
+            path="/billing/:subscriptionId"
             element={<ProtectedRoute component={BillingForm} role="customer" />}
           />
 
