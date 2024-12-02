@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from '../api';
 import './ProviderOrders.css';
 
@@ -6,6 +7,7 @@ const ProviderOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -28,6 +30,9 @@ const ProviderOrders = () => {
 
   return (
     <div className="provider-orders">
+      <button className="back-button" onClick={() => navigate(-1)}>
+        ←
+      </button>
       <h1>Manage Orders</h1>
       <table className="orders-table">
         <thead>

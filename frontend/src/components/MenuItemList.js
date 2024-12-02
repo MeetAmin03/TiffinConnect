@@ -36,8 +36,6 @@ const MenuItemList = () => {
     e.target.src = '/placeholder-food.jpg'; // Replace with your default image path
   };
 
-
-
   const handleAddNewItemClick = () => {
     setIsAdding(true); // Show the add menu item form
     setEditingItem(null); // Reset editing
@@ -47,6 +45,15 @@ const MenuItemList = () => {
     const url = e.target.value;
     setNewItem({ ...newItem, imageURL: url });
     setImagePreview(url);
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const fileURL = URL.createObjectURL(file);
+      setNewItem({ ...newItem, imageURL: fileURL });
+      setImagePreview(fileURL);
+    }
   };
 
   const handleEditClick = (item) => {
@@ -83,7 +90,6 @@ const MenuItemList = () => {
     }
   };
 
-  // Cancel form submission and hide the form
   const handleCancelClick = () => {
     setNewItem({ mealName: '', description: '', price: '', imageURL: '', mealType: 'vegetarian' });
     setIsAdding(false); // Hide the form
@@ -91,7 +97,7 @@ const MenuItemList = () => {
   };
 
   const handleBackClick = () => {
-    history.back(); // Navigate back to the previous page
+    history.back(); // Navigate back to the previous page
   };
 
   return (
@@ -99,14 +105,12 @@ const MenuItemList = () => {
       <button className="back-button-Customer" onClick={handleBackClick}>&#11013;</button>
       <h2>Manage Menu Items</h2>
 
-      {/* Button to add new menu item */}
       {!isAdding && (
         <button onClick={handleAddNewItemClick} className="add-new-item-btn">
           Add New Menu Item
         </button>
       )}
 
-      {/* Form for adding or editing a menu item */}
       {isAdding && (
         <form onSubmit={handleSubmit}>
           <label>
@@ -139,15 +143,9 @@ const MenuItemList = () => {
             />
           </label>
           <label>
-            Image URL:
-            <input
-              type="text"
-              name="imageURL"
-              value={newItem.imageURL}
-              onChange={handleImageURLChange}
-            />
+            Add Menu Item Image
+            <input type="file" accept="image/*" onChange={handleFileChange} />
           </label>
-          {/* Image preview */}
           {newItem.imageURL && (
             <div className="image-preview">
               <img
@@ -158,7 +156,7 @@ const MenuItemList = () => {
             </div>
           )}
           <label>
-            Meal Type:
+            Meal Type: <br></br>
             <select name="mealType" value={newItem.mealType} onChange={handleChange}>
               <option value="vegetarian">Vegetarian</option>
               <option value="vegan">Vegan</option>
@@ -170,11 +168,10 @@ const MenuItemList = () => {
           </button>
           <button type="button" onClick={handleCancelClick} className="cancel-btn">
             Cancel
-          </button> {/* Cancel button */}
+          </button>
         </form>
       )}
 
-      {/* List of existing menu items */}
       <div className="menu-list">
         <h3>Existing Menu Items</h3>
         {menuItems.map((item) => (
