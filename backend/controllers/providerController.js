@@ -344,16 +344,14 @@ exports.getOrderHistoryForProvider = async (req, res) => {
       .populate('customerId', 'name') // Populate customer details
       .populate('subscriptionPlanId', 'planName'); // Populate subscription plan details
 
-    if (!orders.length) {
-      return res.status(404).json({ message: 'No orders found for this provider.' });
-    }
-
+    // If no orders found, return an empty array instead of an error
     res.status(200).json(orders);
   } catch (error) {
     console.error('Error fetching provider orders:', error);
     res.status(500).json({ message: 'Error fetching orders', error });
   }
 };
+
 
 
 
