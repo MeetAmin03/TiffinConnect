@@ -1,74 +1,226 @@
-/* AdminOrders.css */
+/* Base Responsive Typography and Layout */
+:root {
+  /* Font Sizes */
+  --font-size-small: 0.75rem;
+  --font-size-base: 0.9rem;
+  --font-size-medium: 1rem;
+  --font-size-large: 1.2rem;
+
+  /* Colors */
+  --color-primary: #007bff;
+  --color-secondary: #6c757d;
+  --color-success: #28a745;
+  --color-danger: #dc3545;
+  --color-light-gray: #f8f9fa;
+  --color-dark-gray: #343a40;
+}
 
 .admin-orders {
-    padding: 20px;
-    font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.admin-orders h1 {
+  text-align: center;
+  color: var(--color-dark-gray);
+  margin-bottom: 30px;
+  font-weight: 600;
+  font-size: var(--font-size-large);
+}
+
+/* Tablet View (Between 769px and 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .admin-orders {
+    padding: 15px;
   }
-  
-  .admin-orders h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
+
   .orders-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: var(--font-size-base);
   }
-  
+
   .orders-table th,
   .orders-table td {
-    padding: 10px 15px;
-    text-align: left;
-    border: 1px solid #ddd;
+    padding: 12px;
   }
-  
-  .orders-table th {
-    background-color: #007bff;
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 0.9rem;
+
+  select,
+  .action-button {
+    font-size: var(--font-size-base);
+    padding: 8px 10px;
   }
-  
-  .orders-table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+}
+
+/* Mobile View (Up to 768px) */
+@media screen and (max-width: 768px) {
+  .admin-orders {
+    padding: 10px;
   }
-  
-  .orders-table tbody tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .assign-button,
-  .unassign-button {
-    padding: 8px 12px;
-    background-color: #28a745;
-    color: white;
+
+  .orders-table {
+    width: 100%;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    box-shadow: none;
   }
-  
-  .assign-button:hover {
-    background-color: #218838;
+
+  .orders-table thead {
+    display: none;
   }
-  
-  .unassign-button {
-    background-color: #dc3545;
+
+  .orders-table tbody tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    background-color: white;
   }
-  
-  .unassign-button:hover {
-    background-color: #c82333;
+
+  .orders-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: var(--font-size-base);
   }
-  
-  .empty-state {
-    text-align: center;
-    color: #666;
-    padding: 20px 0;
+
+  .orders-table td:last-child {
+    border-bottom: none;
+    flex-direction: column;
+    align-items: stretch;
   }
-  
+
+  .orders-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--color-secondary);
+    margin-right: 10px;
+  }
+
+  /* Dropdown and Action Buttons in Mobile */
+  select,
+  .action-button {
+    width: 100%;
+    margin: 5px 0;
+    font-size: var(--font-size-base);
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .delete-button {
+    background-color: var(--color-danger);
+    color: white;
+  }
+}
+
+/* Small Mobile Devices (Up to 480px) */
+@media screen and (max-width: 480px) {
+  .admin-orders h1 {
+    font-size: var(--font-size-medium);
+  }
+
+  .orders-table td {
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: var(--font-size-small);
+  }
+
+  .orders-table td::before {
+    margin-bottom: 5px;
+    font-size: var(--font-size-small);
+  }
+
+  select,
+  .action-button {
+    font-size: var(--font-size-small);
+    padding: 8px;
+  }
+}
+
+/* Desktop Styles (Default) */
+.orders-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.orders-table thead {
+  background-color: var(--color-primary);
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.orders-table th {
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: var(--font-size-base);
+}
+
+.orders-table tbody tr:nth-child(even) {
+  background-color: var(--color-light-gray);
+}
+
+.orders-table tbody tr:hover {
+  background-color: #f1f1f1;
+  transition: background-color 0.3s ease;
+}
+
+/* Action Buttons */
+.action-button {
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: var(--font-size-base);
+  padding: 8px 12px;
+  margin: 5px;
+}
+
+.delete-button {
+  background-color: var(--color-danger);
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+/* Dropdown Styles */
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  font-size: var(--font-size-base);
+}
+
+/* Loading and Error States */
+.loader,
+.error-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: var(--color-secondary);
+  font-size: var(--font-size-base);
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--color-secondary);
+  padding: 20px;
+}
