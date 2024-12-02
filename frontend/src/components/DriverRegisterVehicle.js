@@ -49,7 +49,7 @@ const DriverRegisterVehicle = () => {
 
   return (
     <div className="form-container">
-      <button className="back-button" onClick={() => navigate('/driver-dashboard')}>&#11013; Back to Dashboard</button>
+      <button className="back-button" onClick={() => navigate('/driver-dashboard')}>&#11013; </button>
       <form onSubmit={handleFormSubmit}>
         <h2>Register/Update Vehicle</h2>
         <label>
