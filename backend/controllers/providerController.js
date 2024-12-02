@@ -49,20 +49,29 @@ exports.deleteProviderProfile = async (req, res) => {
   }
 };
 
-// Create a new menu item
+// Create a new menu item for a provider
 exports.createMenuItem = async (req, res) => {
   const { mealName, description, price, imageURL, mealType } = req.body;
   try {
+    // Find the provider based on userId
+    const provider = await Provider.findOne({ userId: req.user.userId });
+    if (!provider) {
+      return res.status(404).json({ message: 'Provider not found for this user' });
+    }
+
+    // Create the menu item using the correct providerId
     const menuItem = await MenuItem.create({
-      providerId: req.user.userId,
+      providerId: provider._id,
       mealName,
       description,
       price,
       imageURL,
-      mealType
+      mealType,
     });
+
     res.status(201).json(menuItem);
   } catch (error) {
+    console.error("Error creating menu item:", error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -70,12 +79,21 @@ exports.createMenuItem = async (req, res) => {
 // Get all menu items for a provider
 exports.getMenuItems = async (req, res) => {
   try {
-    const menuItems = await MenuItem.find({ providerId: req.user.userId }); // Query based on providerId
+    // Find the provider based on userId
+    const provider = await Provider.findOne({ userId: req.user.userId });
+    if (!provider) {
+      return res.status(404).json({ message: "Provider not found for this user" });
+    }
+
+    // Find menu items using the providerId
+    const menuItems = await MenuItem.find({ providerId: provider._id }); // Query based on providerId
     res.json(menuItems); // Return the list of menu items
   } catch (error) {
+    console.error("Error fetching menu items:", error);
     res.status(500).json({ message: 'Error fetching menu items' });
   }
 };
+
 
 // Update a menu item
 exports.updateMenuItem = async (req, res) => {
@@ -160,16 +178,31 @@ exports.updateSubscriptionPlan = async (req, res) => {
 // Get all subscription plans for a provider
 exports.getSubscriptionPlans = async (req, res) => {
   try {
-    const plans = await SubscriptionPlan.find({ providerId: req.user.userId })
+    console.log("getSubscriptionPlans API called for userId:", req.user.userId); // Debugging log for API call
+
+    // Find the provider based on userId
+    const provider = await Provider.findOne({ userId: req.user.userId });
+    if (!provider) {
+      return res.status(404).json({ message: "Provider not found for this user" });
+    }
+
+    // Use the providerId to find subscription plans
+    const plans = await SubscriptionPlan.find({ providerId: provider._id })
       .populate('meals', 'mealName'); // Populate meals with only the mealName field
 
-      console.log(plans);
+    if (!plans.length) {
+      console.log("No subscription plans found for providerId:", provider._id); // Debugging log for empty response
+    } else {
+      console.log("Subscription plans retrieved:", plans); // Debugging log for retrieved plans
+    }
 
     res.json(plans);
   } catch (error) {
+    console.error("Error fetching subscription plans:", error);
     res.status(500).json({ message: 'Error fetching subscription plans' });
   }
 };
+
 
 
 // Delete a subscription plan
