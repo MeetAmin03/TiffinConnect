@@ -71,22 +71,22 @@ const AdminOrders = () => {
     }
   };
 
-// handleDeleteOrder function
-const handleDeleteOrder = async (orderId) => {
-  console.log(`Deleting order: ${orderId}`);
-  const confirmation = window.confirm(`Are you sure you want to delete this order?`);
-  
-  if (confirmation) {
-    try {
-      await axios.delete(`/admin/orders/${orderId}`); // Ensure this matches the backend route
-      setOrders((prevOrders) => prevOrders.filter((order) => order._id !== orderId));
-      alert('Order successfully deleted.');
-    } catch (error) {
-      console.error('Error deleting order:', error);
-      alert('Failed to delete the order. Please try again.');
+  // handleDeleteOrder function
+  const handleDeleteOrder = async (orderId) => {
+    console.log(`Deleting order: ${orderId}`);
+    const confirmation = window.confirm(`Are you sure you want to delete this order?`);
+
+    if (confirmation) {
+      try {
+        await axios.delete(`/admin/orders/${orderId}`); // Ensure this matches the backend route
+        setOrders((prevOrders) => prevOrders.filter((order) => order._id !== orderId));
+        alert('Order successfully deleted.');
+      } catch (error) {
+        console.error('Error deleting order:', error);
+        alert('Failed to delete the order. Please try again.');
+      }
     }
-  }
-};
+  };
 
   if (loading) {
     console.log('Loading data...');
@@ -116,16 +116,16 @@ const handleDeleteOrder = async (orderId) => {
           {orders.length > 0 ? (
             orders.map((order) => (
               <tr key={order._id}>
-                <td>{order._id}</td>
-                <td>{order.customerId?.name || 'N/A'}</td>
-                <td>{order.providerId?.restaurantName || 'N/A'}</td>
-                <td>{order.status}</td>
-                <td>
+                <td data-label="Order ID">{order._id}</td>
+                <td data-label="Customer">{order.customerId?.name || 'N/A'}</td>
+                <td data-label="Provider">{order.providerId?.restaurantName || 'N/A'}</td>
+                <td data-label="Status">{order.status}</td>
+                <td data-label="Assigned Driver">
                   {order.driverId
                     ? drivers.find((driver) => driver._id === order.driverId)?.userId.name || 'N/A'
                     : 'Unassigned'}
                 </td>
-                <td>
+                <td data-label="Actions">
                   <select
                     onChange={(e) => handleAssignOrder(order._id, e.target.value)}
                     value={order.driverId || ''}

@@ -57,17 +57,23 @@
   margin-bottom: 3%;
   width: 20%;
 }
+
 .profile-container button:hover {
   background-color: #f0ad4e;
   transform: scale(1.05);
 }
+
 .success-message {
   margin-top: 15px;
   color: #f0ad4e;
   font-weight: bold;
 }
 
-
+@media (max-width: 767px) {
+  .profile-container {
+    margin-right: -70px;
+  }
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
