@@ -1,4 +1,4 @@
-// Updated JavaScript with added modal and animations
+// Updated JavaScript with added modal, animations, and debugging logs
 import React, { useState, useEffect } from 'react';
 import { getSubscriptionPlans, addSubscriptionPlan, updateSubscriptionPlan, deleteSubscriptionPlan, getMenuItems } from '../api'; // Import API functions
 import './SubscriptionPlanList.css'; // Custom CSS for subscription plan list
@@ -22,6 +22,7 @@ const SubscriptionPlanList = () => {
     const fetchPlans = async () => {
       try {
         const response = await getSubscriptionPlans();
+        console.log("Subscription plans data received:", response.data); // Log the response
         setPlans(response.data);
       } catch (error) {
         console.error('Error fetching subscription plans:', error);
@@ -31,6 +32,7 @@ const SubscriptionPlanList = () => {
     const fetchMenuItems = async () => {
       try {
         const response = await getMenuItems(); // Fetch the menu items
+        console.log("Menu items data received:", response.data); // Log the response
         setMenuItems(response.data); // Set the available menu items to the state
       } catch (error) {
         console.error('Error fetching menu items:', error);
@@ -98,6 +100,7 @@ const SubscriptionPlanList = () => {
       }
       // After adding or updating, refetch the plans from the backend
       const response = await getSubscriptionPlans();
+      console.log("Updated subscription plans data received:", response.data); // Log the updated response
       setPlans(response.data);
 
       // Reset the form and state
@@ -212,37 +215,41 @@ const SubscriptionPlanList = () => {
 
       <div className="subscription-list fade-in">
         <h3>Existing Subscription Plans</h3>
-        {plans.map((plan) => (
-          <div key={plan._id} className="subscription-item">
-            <h4>{plan.planName}</h4>
-            <p>{plan.description}</p>
-            <p>Price: ${plan.price}</p>
-            <p>Duration: {plan.duration}</p>
+        {plans.length > 0 ? (
+          plans.map((plan) => (
+            <div key={plan._id} className="subscription-item">
+              <h4>{plan.planName}</h4>
+              <p>{plan.description}</p>
+              <p>Price: ${plan.price}</p>
+              <p>Duration: {plan.duration}</p>
 
-            <div className="subscription-meals">
-              <h5>Included Meals:</h5>
-              <div className="meal-grid">
-                {plan.meals.map((meal) => (
-                  <div key={meal._id} className="meal-card">
-                    {meal.imageURL && (
-                      <img
-                        src={meal.imageURL}
-                        alt={meal.mealName}
-                        onError={handleImageError}
-                        className="meal-image"
-                      />
-                    )}
-                    <span className="meal-name">{meal.mealName}</span>
-                  </div>
-                ))}
+              <div className="subscription-meals">
+                <h5>Included Meals:</h5>
+                <div className="meal-grid">
+                  {plan.meals.map((meal) => (
+                    <div key={meal._id} className="meal-card">
+                      {meal.imageURL && (
+                        <img
+                          src={meal.imageURL}
+                          alt={meal.mealName}
+                          onError={handleImageError}
+                          className="meal-image"
+                        />
+                      )}
+                      <span className="meal-name">{meal.mealName}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="subscription-actions">
+                <button onClick={() => handleEditClick(plan)} className="edit-btn">Edit</button>
+                <button onClick={() => handleDeleteClick(plan._id)} className="delete-btn">Delete</button>
               </div>
             </div>
-            <div className="subscription-actions">
-              <button onClick={() => handleEditClick(plan)} className="edit-btn">Edit</button>
-              <button onClick={() => handleDeleteClick(plan._id)} className="delete-btn">Delete</button>
-            </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p>No subscription plans available.</p>
+        )}
       </div>
     </div>
   );
