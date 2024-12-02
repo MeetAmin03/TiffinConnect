@@ -1,9 +1,11 @@
+// Updated JavaScript with improved UI/UX functionality
 import React, { useState } from 'react';
 import axios from '../api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom'; // Updated to import useParams
 import './BillingForm.css';
 
-const BillingForm = ({ subscriptionId }) => {
+const BillingForm = () => {
+  const { subscriptionId } = useParams(); // Get subscriptionId from the URL
   const [formData, setFormData] = useState({
     address: '',
     city: '',
@@ -16,6 +18,7 @@ const BillingForm = ({ subscriptionId }) => {
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
+  const [loading, setLoading] = useState(false); // Loading state for pay button
   const navigate = useNavigate();
 
   // Validation rules
@@ -55,48 +58,50 @@ const BillingForm = ({ subscriptionId }) => {
       setFormData({ ...formData, [name]: value });
     }
   };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const formErrors = validateForm();
     setErrors(formErrors);
-  
+
     if (Object.keys(formErrors).length === 0) {
+      setLoading(true); // Set loading state to true
       try {
         console.log("Processing payment with form data:", formData);
-  
+
         // Process payment
         const paymentResponse = await axios.post('/customer/payment', { ...formData, subscriptionId });
         console.log("Payment processed successfully:", paymentResponse.data);
-  
+
         // Book the subscription
         console.log(`Booking subscription for subscription ID: ${subscriptionId}`);
         const bookingResponse = await axios.post('/provider/bookSubscription', { subscriptionId });
         console.log("Subscription booked successfully, response:", bookingResponse.data);
-  
+
         const { customer, subscription, order } = bookingResponse.data;
-  
+
         // Additional logs for debugging
         console.log("Customer from booking response:", customer);
         console.log("Subscription from booking response:", subscription);
         console.log("Order from booking response:", order);
-  
+
         // Ensure all required data is present
         if (!customer || !subscription || !order) {
           throw new Error("Invalid booking response: Missing customer, subscription, or order data");
         }
-  
 
         // Set success message
         setSuccessMessage("Payment successful! Your subscription has been booked.");
-        
+
         // Redirect to customer dashboard after a short delay
         setTimeout(() => navigate('/customer-dashboard'), 2000);
       } catch (error) {
         console.error("Error during payment, booking, or order creation:", error);
+      } finally {
+        setLoading(false); // Set loading state to false
       }
     }
   };
-  
 
   const handleBackToCheckout = () => {
     console.log('Navigating back to checkout with subscriptionId:', subscriptionId);
@@ -104,103 +109,105 @@ const BillingForm = ({ subscriptionId }) => {
   };
 
   return (
-<div className="billing-container">
-  <div className="billing-form">
-    <button className="back-button" onClick={handleBackToCheckout}>
-      ←
-    </button>
-    <h2>Billing Information</h2>
-    {successMessage && <p className="success-message">{successMessage}</p>}
-    <form onSubmit={handleFormSubmit} noValidate>
-      <div className="form-group">
-        <label>Billing Address</label>
-        <input
-          type="text"
-          name="address"
-          value={formData.address}
-          onChange={handleInputChange}
-        />
-        {errors.address && <small className="error">{errors.address}</small>}
+    <div className="billing-container">
+      <div className="billing-form">
+        <button className="back-button" onClick={handleBackToCheckout}>
+          ← Go Back to Checkout
+        </button>
+        <h2>Billing Information</h2>
+        {successMessage && <p className="success-message">{successMessage}</p>}
+        <form onSubmit={handleFormSubmit} noValidate>
+          <div className="form-group">
+            <label>Billing Address</label>
+            <input
+              type="text"
+              name="address"
+              value={formData.address}
+              onChange={handleInputChange}
+            />
+            {errors.address && <small className="error">{errors.address}</small>}
+          </div>
+          <div className="form-group-grid">
+            <div className="form-group">
+              <label>City</label>
+              <input
+                type="text"
+                name="city"
+                value={formData.city}
+                onChange={handleInputChange}
+              />
+              {errors.city && <small className="error">{errors.city}</small>}
+            </div>
+            <div className="form-group">
+              <label>Province</label>
+              <input
+                type="text"
+                name="state"
+                value={formData.state}
+                onChange={handleInputChange}
+              />
+              {errors.state && <small className="error">{errors.state}</small>}
+            </div>
+            <div className="form-group">
+              <label>Postal Code</label>
+              <input
+                type="text"
+                name="zipCode"
+                value={formData.zipCode}
+                onChange={handleInputChange}
+              />
+              {errors.zipCode && <small className="error">{errors.zipCode}</small>}
+            </div>
+          </div>
+          <div className="form-group">
+            <label>Card Number</label>
+            <input
+              type="text"
+              name="cardNumber"
+              value={formData.cardNumber}
+              onChange={handleInputChange}
+              maxLength="19"
+            />
+            {errors.cardNumber && <small className="error">{errors.cardNumber}</small>}
+          </div>
+          <div className="form-group">
+            <label>Expiry Date (MM/YY)</label>
+            <input
+              type="text"
+              name="expiryDate"
+              value={formData.expiryDate}
+              onChange={handleInputChange}
+            />
+            {errors.expiryDate && <small className="error">{errors.expiryDate}</small>}
+          </div>
+          <div className="form-group">
+            <label>CVV</label>
+            <input
+              type="text"
+              name="cvv"
+              value={formData.cvv}
+              onChange={handleInputChange}
+            />
+            {errors.cvv && <small className="error">{errors.cvv}</small>}
+          </div>
+          <div className="form-group">
+            <label>Cardholder Name</label>
+            <input
+              type="text"
+              name="cardHolderName"
+              value={formData.cardHolderName}
+              onChange={handleInputChange}
+            />
+            {errors.cardHolderName && <small className="error">{errors.cardHolderName}</small>}
+          </div>
+          <div className="form-actions">
+            <button type="submit" className={`pay-button ${loading ? 'loading' : ''}`} disabled={loading}>
+              {loading ? 'Processing...' : 'Pay Now'}
+            </button>
+          </div>
+        </form>
       </div>
-      <div className="form-group-grid">
-        <div className="form-group">
-          <label>City</label>
-          <input
-            type="text"
-            name="city"
-            value={formData.city}
-            onChange={handleInputChange}
-          />
-          {errors.city && <small className="error">{errors.city}</small>}
-        </div>
-        <div className="form-group">
-          <label>Province</label>
-          <input
-            type="text"
-            name="state"
-            value={formData.state}
-            onChange={handleInputChange}
-          />
-          {errors.state && <small className="error">{errors.state}</small>}
-        </div>
-        <div className="form-group">
-          <label>Postal Code</label>
-          <input
-            type="text"
-            name="zipCode"
-            value={formData.zipCode}
-            onChange={handleInputChange}
-          />
-          {errors.zipCode && <small className="error">{errors.zipCode}</small>}
-        </div>
-      </div>
-      <div className="form-group">
-        <label>Card Number</label>
-        <input
-          type="text"
-          name="cardNumber"
-          value={formData.cardNumber}
-          onChange={handleInputChange}
-          maxLength="19"
-        />
-        {errors.cardNumber && <small className="error">{errors.cardNumber}</small>}
-      </div>
-      <div className="form-group">
-        <label>Expiry Date (MM/YY)</label>
-        <input
-          type="text"
-          name="expiryDate"
-          value={formData.expiryDate}
-          onChange={handleInputChange}
-        />
-        {errors.expiryDate && <small className="error">{errors.expiryDate}</small>}
-      </div>
-      <div className="form-group">
-        <label>CVV</label>
-        <input
-          type="text"
-          name="cvv"
-          value={formData.cvv}
-          onChange={handleInputChange}
-        />
-        {errors.cvv && <small className="error">{errors.cvv}</small>}
-      </div>
-      <div className="form-group">
-        <label>Cardholder Name</label>
-        <input
-          type="text"
-          name="cardHolderName"
-          value={formData.cardHolderName}
-          onChange={handleInputChange}
-        />
-        {errors.cardHolderName && <small className="error">{errors.cardHolderName}</small>}
-      </div>
-      <div className="form-actions">
-        <button type="submit" className="pay-button">Pay Now</button>
-      </div>
-    </form>
-  </div>
-</div>
+    </div>
   );
 };
 
