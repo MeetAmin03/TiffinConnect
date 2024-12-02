@@ -1,57 +1,51 @@
-/* Subscription Plan List - CSS */
-
 /* Main container styles */
 .subscription-container {
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 1.5rem;
-  font-family: 'Roboto', sans-serif;
 }
 
 .subscription-container h2 {
-  color: #1e293b;
-  font-size: 2.5rem;
+  color: #1a2b3c;
+  font-size: 2rem;
   margin-bottom: 2rem;
-  border-bottom: 4px solid #0ea5e9;
+  border-bottom: 3px solid #f0ad4e;
   padding-bottom: 0.5rem;
   display: flex;
-  align-items: center;
 }
 
 /* Add new plan button */
 .add-new-plan-btn {
-  background-color: #0ea5e9;
+  background-color: #f0ad4e;
   color: white;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0.5rem;
-  font-size: 1.2rem;
-  font-weight: bold;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease;
   margin-bottom: 2rem;
 }
 
 .add-new-plan-btn:hover {
-  background-color: #38bdf8;
-  transform: translateY(-2px);
+  background-color: #f3b662;
 }
 
 /* Form styles */
 form {
-  background-color: #f1f5f9;
+  background-color: #f8fafc;
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
-  animation: fadeIn 0.5s ease-in-out;
 }
 
 form label {
   display: block;
   margin-bottom: 1.5rem;
-  font-weight: 600;
-  color: #1e293b;
+  font-weight: 500;
+  color: #374151;
 }
 
 form input,
@@ -59,7 +53,7 @@ form select {
   width: 100%;
   padding: 0.75rem;
   margin-top: 0.5rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #d1d5db;
   border-radius: 0.5rem;
   font-size: 1rem;
   transition: border-color 0.2s ease;
@@ -68,8 +62,8 @@ form select {
 form input:focus,
 form select:focus {
   outline: none;
-  border-color: #0ea5e9;
-  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.3);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 /* Multiple select styles */
@@ -78,21 +72,20 @@ form select[multiple] {
 }
 
 form button {
-  background-color: #0ea5e9;
+  background-color: #3b82f6;
   color: white;
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0.5rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease;
   margin-right: 1rem;
 }
 
 form button:hover {
-  background-color: #0284c7;
-  transform: translateY(-2px);
+  background-color: #2563eb;
 }
 
 form .cancel-btn {
@@ -101,36 +94,6 @@ form .cancel-btn {
 
 form .cancel-btn:hover {
   background-color: #dc2626;
-}
-
-/* Modal styles */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-  max-width: 500px;
-  width: 100%;
-}
-
-.confirm-btn {
-  background-color: #22c55e;
-}
-
-.confirm-btn:hover {
-  background-color: #16a34a;
 }
 
 /* Subscription list styles */
@@ -143,35 +106,34 @@ form .cancel-btn:hover {
 
 .subscription-list h3 {
   grid-column: 1 / -1;
-  color: #1e293b;
-  font-size: 1.8rem;
+  color: #1a2b3c;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 
 .subscription-item {
-  background-color: #ffffff;
+  background-color: white;
   padding: 1.5rem;
   border-radius: 1rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  animation: fadeIn 0.5s ease-in-out;
 }
 
 .subscription-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 20px -3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.1);
 }
 
 .subscription-item h4 {
-  color: #1e293b;
-  font-size: 1.5rem;
+  color: #1a2b3c;
+  font-size: 1.25rem;
   margin-bottom: 1rem;
-  border-bottom: 2px solid #cbd5e1;
+  border-bottom: 2px solid #e5e7eb;
   padding-bottom: 0.5rem;
 }
 
 .subscription-item p {
-  color: #475569;
+  color: #4b5563;
   margin-bottom: 0.75rem;
   line-height: 1.5;
 }
@@ -181,21 +143,20 @@ form .cancel-btn:hover {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 0.375rem;
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 0.875rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease;
   margin-right: 0.5rem;
 }
 
 .subscription-item .edit-btn {
-  background-color: #3b82f6;
+  background-color: #059669;
   color: white;
 }
 
 .subscription-item .edit-btn:hover {
-  background-color: #2563eb;
-  transform: translateY(-2px);
+  background-color: #047857;
 }
 
 .subscription-item .delete-btn {
@@ -205,7 +166,6 @@ form .cancel-btn:hover {
 
 .subscription-item .delete-btn:hover {
   background-color: #dc2626;
-  transform: translateY(-2px);
 }
 
 /* Existing styles remain the same */
@@ -216,14 +176,14 @@ form .cancel-btn:hover {
   background-color: white;
   padding: 1rem;
   border-radius: 0.5rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #d1d5db;
 }
 
 .meal-select {
   width: 100%;
   min-height: 150px;
   margin-bottom: 1rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #d1d5db;
   border-radius: 0.5rem;
   padding: 0.5rem;
 }
@@ -267,13 +227,13 @@ form .cancel-btn:hover {
 /* Subscription meals grid styles */
 .subscription-meals {
   margin-top: 1.5rem;
-  border-top: 2px solid #cbd5e1;
+  border-top: 2px solid #e5e7eb;
   padding-top: 1rem;
 }
 
 .subscription-meals h5 {
-  color: #1e293b;
-  font-size: 1.2rem;
+  color: #1a2b3c;
+  font-size: 1rem;
   margin-bottom: 1rem;
   font-weight: 600;
 }
@@ -314,7 +274,7 @@ form .cancel-btn:hover {
 .meal-name {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #1e293b;
+  color: #374151;
   line-height: 1.25;
 }
 
@@ -328,31 +288,27 @@ form .cancel-btn:hover {
   gap: 0.5rem;
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 2px solid #cbd5e1;
+  border-top: 2px solid #e5e7eb;
 }
 
 .back-button-Sub {
   margin-right: 90%;
   margin-bottom: 3%;
   width: 10%;
-  background-color: #0ea5e9;
+  background-color: #f0ad4e;
   color: white;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.75rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.back-button-Sub:hover {
-  background-color: #0284c7;
-  transform: translateY(-2px);
 }
 
 /* Responsive adjustments for meal grids */
 @media (max-width: 768px) {
+  nav {
+    width: 113vh;
+  }
+
+  footer {
+    width: 129vh;
+  }
+
   .selected-meals-preview,
   .meal-grid {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -362,6 +318,32 @@ form .cancel-btn:hover {
   .meal-image {
     width: 70px;
     height: 70px;
+  }
+}
+
+/* Image error state */
+.meal-preview-image.error,
+.meal-image.error {
+  border-color: #ef4444;
+  opacity: 0.7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .subscription-container {
+    padding: 0 1rem;
+  }
+
+  .subscription-list {
+    grid-template-columns: 1fr;
+  }
+
+  form {
+    padding: 1.5rem;
+  }
+
+  .subscription-item {
+    padding: 1rem;
   }
 }
 
@@ -383,20 +365,10 @@ form .cancel-btn:hover {
 
 /* Success states */
 .success-message {
-  color: #22c55e;
+  color: #059669;
   background-color: #d1fae5;
   padding: 1rem;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
   border: 1px solid #a7f3d0;
-}
-
-/* Fade-in animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
