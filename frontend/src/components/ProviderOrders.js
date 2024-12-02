@@ -13,7 +13,11 @@ const ProviderOrders = () => {
     const fetchOrders = async () => {
       try {
         const response = await axios.get('/provider/orders');
-        setOrders(response.data);
+        if (response.data.length === 0) {
+          setError('No Orders placed yet for you!');
+        } else {
+          setOrders(response.data);
+        }
       } catch (error) {
         console.error('Error fetching orders:', error);
         setError('Failed to fetch orders.');
@@ -31,7 +35,7 @@ const ProviderOrders = () => {
   return (
     <div className="provider-orders">
       <button className="back-button" onClick={() => navigate(-1)}>
-        ←
+        ← Go Back to Checkout
       </button>
       <h1>Manage Orders</h1>
       <table className="orders-table">
@@ -63,7 +67,7 @@ const ProviderOrders = () => {
             ))
           ) : (
             <tr>
-              <td colSpan="6" className="empty-state">No orders found.</td>
+              <td colSpan="6" className="empty-state">No Orders placed yet for you!</td>
             </tr>
           )}
         </tbody>
