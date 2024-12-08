@@ -13,7 +13,7 @@ const AdminUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/admin/users', {
+        const response = await axios.get('https://tiffinconnect.onrender.com/api/admin/users', {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem('token')}`,
           },
@@ -31,7 +31,7 @@ const AdminUsers = () => {
 
   const handleViewUser = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/admin/users/${userId}`, {
+      const response = await axios.get(`https://tiffinconnect.onrender.com/api/admin/users/${userId}`, {
         headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
       });
       setSelectedUser(response.data);
@@ -48,7 +48,7 @@ const AdminUsers = () => {
 
   const handleSaveUser = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/admin/users/${selectedUser._id}`, selectedUser, {
+      await axios.put(`https://tiffinconnect.onrender.com/api/admin/users/${selectedUser._id}`, selectedUser, {
         headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
       });
       setEditMode(false);
@@ -67,7 +67,7 @@ const AdminUsers = () => {
   const handleDeleteUser = async (userId) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/admin/users/${userId}`, {
+        await axios.delete(`https://tiffinconnect.onrender.com/api/admin/users/${userId}`, {
           headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` },
         });
         setUsers(users.filter((user) => user._id !== userId));
