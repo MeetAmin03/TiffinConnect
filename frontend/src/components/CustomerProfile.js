@@ -62,7 +62,7 @@ const CustomerProfile = () => {
     if (typeof profilePicture === 'string') {
       return profilePicture.startsWith('http')
         ? profilePicture
-        : `http://localhost:5000/${profilePicture}`;
+        : `https://tiffinconnect.onrender.com/${profilePicture}`;
     }
     return URL.createObjectURL(profilePicture);
   };

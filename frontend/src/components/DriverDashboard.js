@@ -63,7 +63,7 @@ const DriverDashboard = () => {
             <div className="profile-photo-container">
               {driverProfile?.profilePhoto ? (
                 <img
-                  src={`http://localhost:5000${driverProfile.profilePhoto}`}
+                  src={`https://tiffinconnect.onrender.com${driverProfile.profilePhoto}`}
                   alt="Profile"
                   className="profile-photo"
                 />
